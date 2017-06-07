@@ -7,9 +7,15 @@ module.exports = {
 	onload: function(){
 		var date = new Date();
 		this.tickerStrings.push(this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear()));
-		this.getWeather();
 		this.tick();
 		setInterval(this.tick.bind(this), 8000);
+		this.updateWeather();
+		chrome.storage.onChanged.addListener(function(changes,area){
+			if(area != "local") return;
+			if(changes.weather){
+				this.updateWeather();
+			}
+		}.bind(this));
 	},
 	tick: function(){
 		if(this.DOM[0][0].innerHTML != this.tickerStrings[this.currentTick]){
@@ -35,30 +41,15 @@ module.exports = {
 		} else if(d !== 1 || d !== 21 || d !== 31){
 			dateString += d+"th of ";
 		} 
-		
 		dateString += monthArray[m] + " " + y ;
-		
 		return dateString;	
-		
 	},
-	getWeather: function(){
-		fetch("http://ip-api.com/json")
-		.then(function(response){
-			if(response.ok)
-				return response.json();
-		})
-		.then(function(ipInfo){
-			var lat = ipInfo.lat + "";
-			var long = ipInfo.lon + "";
-			fetch("https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D%22("+lat+"%2C"+long+")%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys")
-			.then(function(response){
-				if(response.ok)
-					return response.json();	
-			})
-			.then(function(weather){
-				console.log(weather);
-				this.tickerStrings.push("It's " + Math.round((weather.query.results.channel.item.condition.temp-32)*5/9) + " &deg;C and "+weather.query.results.channel.item.condition.text+".")
-			}.bind(this));
+	updateWeather: function(){
+		chrome.storage.local.get({weather:null},function(weather){
+			if(weather.weather == null)
+				return;
+			this.tickerStrings[1] = "It's " + Math.round((weather.weather.results.channel.item.condition.temp-32)*5/9) + " &deg;C and "+weather.weather.results.channel.item.condition.text+".";
+
 		}.bind(this));
 	}
 };
