@@ -1,0 +1,22 @@
+{
+  "name": "Fruumo",
+  "manifest_version":2,
+  "version": "1.0.0",
+  "background": {
+    "scripts": ["./pages/background/onInstall.js", "./pages/background/wallpaperDownloader.js"],
+    "persistent": false
+  },
+  "options_page": "pages/settings/index.html",
+  "chrome_url_overrides": {
+      "newtab": "./pages/index/index.html"
+  },
+  "icons": {
+    "128": "./images/icon.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "128": "images/icon.png"
+    }
+  },
+  "permissions":["tabs","history", "<all_urls>", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
+}

@@ -1,0 +1,22 @@
+html,body{
+	width:100%;
+	height:100%;
+	font-family: sans-serif;
+}
+body{
+	background:black;
+    color:white;
+    overflow: hidden;
+    min-width:100%;
+    min-height:100%;
+    .container{
+    	width:100%;
+    	height:100%;
+    	z-index:1;
+    	background:transparent;
+    	display:flex;
+		flex-direction:column;
+		align-items:center;
+		justify-content:center;
+    }
+}
