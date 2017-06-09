@@ -10,7 +10,7 @@ module.exports = {
 			this.setWallpaper();
 		}.bind(this));
 		
-		document.addEventListener('mousemove', this.activeWallpaper.bind(this));
+		//document.addEventListener('mousemove', this.activeWallpaper.bind(this));
 	},
 	setWallpaper: function(){
 		chrome.storage.local.get({"wallpaper":{}, "wallpaperTimestamp":0},function(storage){
