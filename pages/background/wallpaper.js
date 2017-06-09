@@ -15,7 +15,7 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 	.then(function(data){
 		//Get new wallpaper data
 		//regular or full
-		fetch(data.urls.regular)
+		fetch(data.urls.full)
 		.then(function(response){
 			if(response.ok)
 				return response.blob();

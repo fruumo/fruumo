@@ -9,6 +9,7 @@
 	position:absolute;
 	top:0px;
 	left:0px;
+	-webkit-transform: translate3d(0, 0, 0);
 	animation: fadein 700ms;
 	display:none;
 	.wallpaper-meta{

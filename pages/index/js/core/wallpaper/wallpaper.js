@@ -1,6 +1,7 @@
 require('./wallpaper.scss');
 module.exports = {
 	name:'wallpaper',
+	resetWallpaper:false,
 	DOM:['.wallpaper', '.wallpaper > .wallpaper-meta > .location', '.wallpaper > .wallpaper-meta > .author','.container'],
 	onload: function(){
 		this.setWallpaper();
@@ -9,7 +10,8 @@ module.exports = {
 			if(!changes.wallpaper) return;
 			this.setWallpaper();
 		}.bind(this));
-		
+		//window.addEventListener('blur', this.notActive.bind(this));
+		//window.addEventListener('focus', this.active.bind(this));
 		//document.addEventListener('mousemove', this.activeWallpaper.bind(this));
 	},
 	setWallpaper: function(){
@@ -37,5 +39,16 @@ module.exports = {
 		var angleY = ((mouseX/window.innerWidth) * 14)-7;
 
 		this.DOM[0][0].style.transform = "rotateX("+ (-angleX).toFixed(2)+"deg) rotateY("+(angleY).toFixed(2)+"deg)"
+	},
+	notActive : function(){
+		this.DOM[0][0].style.backgroundImage = "none";
+		this.DOM[0][0].style.display="none";
+		this.resetWallpaper = true;
+	},
+	active: function(){
+		if(this.resetWallpaper){
+			this.resetWallpaper = false;
+			this.setWallpaper();
+		}
 	}
 };
