@@ -1,7 +1,7 @@
 require('./wallpaper.scss');
 module.exports = {
 	name:'wallpaper',
-	DOM:['.wallpaper', '.wallpaper > .wallpaper-meta > .location', '.wallpaper > .wallpaper-meta > .author'],
+	DOM:['.wallpaper', '.wallpaper > .wallpaper-meta > .location', '.wallpaper > .wallpaper-meta > .author','.container'],
 	onload: function(){
 		this.setWallpaper();
 		chrome.storage.onChanged.addListener(function(changes,area){
@@ -9,6 +9,8 @@ module.exports = {
 			if(!changes.wallpaper) return;
 			this.setWallpaper();
 		}.bind(this));
+		
+		document.addEventListener('mousemove', this.activeWallpaper.bind(this));
 	},
 	setWallpaper: function(){
 		chrome.storage.local.get({"wallpaper":{}, "wallpaperTimestamp":0},function(storage){
@@ -26,5 +28,14 @@ module.exports = {
 				this.DOM[2][0].appendChild(link);
 			}
 		}.bind(this));
+	},
+	activeWallpaper: function(mouseEvt){
+		//calculate required angle
+		var mouseX = mouseEvt.clientX;
+		var mouseY = mouseEvt.clientY;
+		var angleX = ((mouseY/window.innerHeight) * 14)-7;
+		var angleY = ((mouseX/window.innerWidth) * 14)-7;
+
+		this.DOM[0][0].style.transform = "rotateX("+ (-angleX).toFixed(2)+"deg) rotateY("+(angleY).toFixed(2)+"deg)"
 	}
 };
