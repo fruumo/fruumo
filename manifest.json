@@ -19,5 +19,5 @@
       "128": "images/icon.png"
     }
   },
-  "permissions":["tabs","history", "<all_urls>", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
+  "permissions":["tabs","history", "<all_urls>", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
 }
