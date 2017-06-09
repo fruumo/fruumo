@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "offline_enabled":true,
   "background": {
-    "scripts": ["./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js"],
+    "scripts": ["./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
     "persistent": false
   },
   "options_page": "pages/settings/index.html",
@@ -19,5 +19,5 @@
       "128": "images/icon.png"
     }
   },
-  "permissions":["tabs","history", "<all_urls>", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
+  "permissions":["tabs","webNavigation","history", "<all_urls>", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
 }

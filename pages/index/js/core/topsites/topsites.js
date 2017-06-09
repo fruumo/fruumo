@@ -6,17 +6,6 @@ module.exports = {
 	onload: function(){
 		chrome.topSites.getAsync()
 		.then(function(topsites){
-			/*
-				<div class = "topsite">
-					<div class = "background">
-					</div>
-					<div class = "title-container">
-						<div class = "favicon">
-						</div>
-						<div class = "title">
-						</div>
-					</div>
-				</div>*/
 			for(var i in topsites){
 				if(i >= 8) break;
 				var topsiteElement = dommy({
@@ -28,55 +17,72 @@ module.exports = {
 					{
 						tag:'div',
 						attributes:{
-							class:"topsite"
+							class:"topsite",
+							"data-url":topsites[i].url
+						},
+						events:{
+							click:function(e){
+								localStorage.screenshotUrl = this.getAttribute('data-url');
+								window.top.location = this.getAttribute('data-url');
+							}
 						},
 						children:[
-							{
-								tag:'div',
-								attributes:{
-									class:"image"
-								}
+						{
+							tag:'div',
+							attributes:{
+								class:"image",
+								"wallpaper-url":topsites[i].url
+							}
+						},
+						{
+							tag:'div',
+							attributes:{
+								class:"title-container"
 							},
+							children:[
 							{
 								tag:'div',
 								attributes:{
-									class:"title-container"
+									class:"favicon"
 								},
 								children:[
-									{
-										tag:'div',
-										attributes:{
-											class:"favicon"
-										},
-										children:[
-											{
-												tag:'img',
-												attributes:{
-													src:"chrome://favicon/"+topsites[i].url
-												}
-											}
-										]
-									},
-									{
-										tag:"div",
-										attributes:{
-											class:"title"
-										},
-										children:[
-											{
-												type:'text',
-												value:topsites[i].title
-											}
-										]
+								{
+									tag:'img',
+									attributes:{
+										src:"chrome://favicon/"+topsites[i].url
 									}
+								}
+								]
+							},
+							{
+								tag:"div",
+								attributes:{
+									class:"title"
+								},
+								children:[
+								{
+									type:'text',
+									value:topsites[i].title
+								}
 								]
 							}
+							]
+						}
 						]
 					}
 					]
 				});
 				this.DOM[0][0].appendChild(topsiteElement);
+
 			}
+			chrome.storage.local.get({screenshots:null}, function(storage){
+				if(storage.screenshots == null)
+					return;
+				for(var i in storage.screenshots){
+					var elems = document.querySelectorAll("[wallpaper-url='"+i+"']");
+					elems[0].style.backgroundImage = "url('"+storage.screenshots[i].image+"')";
+				}
+			});
 		}.bind(this));
 	}
 };
