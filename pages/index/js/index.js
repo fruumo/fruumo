@@ -3,7 +3,8 @@ var core = [
 	require('./core/wallpaper/wallpaper.js'),
 	require('./core/time/time.js'),
 	require('./core/ticker/ticker.js'),
-	require('./core/topsites/topsites.js')
+	require('./core/topsites/topsites.js'),
+	require('./core/search/search.js')
 ];
 var utils = require('./libs/utils.js');
 
