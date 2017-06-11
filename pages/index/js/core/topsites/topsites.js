@@ -7,7 +7,7 @@ module.exports = {
 		chrome.topSites.getAsync()
 		.then(function(topsites){
 			for(var i in topsites){
-				if(i >= 8) break;
+				if(i > 9) break;
 				var topsiteElement = dommy({
 					tag:'div',
 					attributes:{
@@ -75,14 +75,16 @@ module.exports = {
 				this.DOM[0][0].appendChild(topsiteElement);
 
 			}
-			chrome.storage.local.get({screenshots:null}, function(storage){
-				if(storage.screenshots == null)
-					return;
-				for(var i in storage.screenshots){
-					var elems = document.querySelectorAll("[wallpaper-url='"+i+"']");
-					elems[0].style.backgroundImage = "url('"+storage.screenshots[i].image+"')";
-				}
-			});
+			setTimeout(function(){
+				chrome.storage.local.get({screenshots:null}, function(storage){
+					if(storage.screenshots == null)
+						return;
+					for(var i in storage.screenshots){
+						var elems = document.querySelectorAll("[wallpaper-url='"+i+"']");
+						elems[0].style.backgroundImage = "url('"+storage.screenshots[i].image+"')";
+					}
+				});
+			},0);
 		}.bind(this));
 	}
 };
