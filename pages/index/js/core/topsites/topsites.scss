@@ -11,18 +11,18 @@
 		box-sizing:border-box;
 		overflow:hidden;
 		opacity:1;
-		transition: opacity 400ms;
+		transition: opacity 150ms;
 		&.hide{
-			opacity:0.3;
-			transition:opacity 400ms;
+			opacity:0;
+			transition:opacity 300ms;
 			pointer-events:none;
 		}
 		.topsite-container{
 			height:200px;
-		    flex-basis: 20%;
-		    display:flex;
-		    justify-content:center;
-		    align-items:center;
+			flex-basis: 20%;
+			display:flex;
+			justify-content:center;
+			align-items:center;
 			.topsite{
 				width:180px;
 				height:130px;

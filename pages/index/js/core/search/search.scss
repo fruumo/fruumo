@@ -5,6 +5,12 @@
 	flex-direction:column;
 	align-items: center;
 	padding: 30px;
+	min-height:50px;
+	transition: min-height 400ms;
+	&.searching{
+		min-height:350px;
+		transition: min-height 400ms;
+	}
 	.inner-container{
 		width:40%;
 		background:white;
@@ -28,35 +34,12 @@
 		.search-results{
 			width:100%;
 			background:white;
-			max-height:0px;
+			max-height:1px;
 			transition: max-height 400ms;
 			overflow:scroll;
 			&.show{
 				max-height:300px;
 				transition: max-height 400ms;
-			}
-			.results-container{
-				.result{
-					padding:10px;
-					color:black;
-					display:flex;
-					flex-direction:row;
-					cursor:pointer;
-					.icon-holder{
-						display:flex;
-						align-items:center;
-					}
-					.details-holder{
-						padding:10px;
-						.title{
-							font-size:14px;
-						}
-						.url{
-							font-size:8px;
-							color:#A3A3A3;
-						}
-					}
-				}
 			}
 		}
 	}

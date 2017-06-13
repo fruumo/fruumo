@@ -81,7 +81,8 @@ module.exports = {
 						return;
 					for(var i in storage.screenshots){
 						var elems = document.querySelectorAll("[wallpaper-url='"+i+"']");
-						elems[0].style.backgroundImage = "url('"+storage.screenshots[i].image+"')";
+						if(elems[0])
+							elems[0].style.backgroundImage = "url('"+storage.screenshots[i].image+"')";
 					}
 				});
 			},0);

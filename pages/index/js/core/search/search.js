@@ -1,103 +1,73 @@
 require('./search.scss');
-var dommy = require('dommy.js');
 
 module.exports = {
 	name:'search',
 	searchTimeout:undefined,
-	DOM:['.search-bar','.search-results','.topsites-container'],
+	DOM:['.search-bar','.search-results','.topsites-container','.search-container'],
 	searchEngines:[
-	require("./core/bookmarks.js")
+		require("./core/bookmarks.js")
 	],
+	searchFunctions:[
+	],
+	containers:[],
 	onload: function(){
 		//this.DOM[0][0].addEventListener('focus',this.toggleResults.bind(this));
 		//this.DOM[0][0].addEventListener('blur',this.toggleResults.bind(this));	
 		this.DOM[0][0].addEventListener('keyup', this.onKey.bind(this));
-	},
-	toggleResults:function(){
-		if(this.DOM[1][0].className.indexOf('show')!= -1){
-			this.DOM[1][0].className = "search-results";
-			this.DOM[2][0].className = "topsites-container";
-		} else {
-			this.DOM[1][0].className = "search-results show";
-			this.DOM[2][0].className = "topsites-container hide";
+		for(var i in this.searchEngines){
+			this.containers.push(this.searchEngines[i].containerClass);
 		}
 	},
 	cancelResults: function(){
+		this.DOM[3][0].className = "search-container";
 		this.DOM[1][0].className = "search-results";
 		this.DOM[2][0].className = "topsites-container";
+		setTimeout(function(){
+			while(this.DOM[1][0].lastChild)
+				this.DOM[1][0].removeChild(this.DOM[1][0].lastChild);
+		}.bind(this),300);
 	},
 	showResults: function(){
+		this.DOM[3][0].className = "search-container searching";
 		this.DOM[1][0].className = "search-results show";
 		this.DOM[2][0].className = "topsites-container hide";
 	},
 	onKey: function(e){
+		if(this.DOM[0][0].value.trim() == ""){	
+				this.cancelResults();
+				return;
+			}
 		if(this.searchTimeout){
 			clearTimeout(this.searchTimeout);
 		}
 		this.searchTimeout = setTimeout(function(){
-			while(this.DOM[1][0].lastChild){
-				this.DOM[1][0].removeChild(this.DOM[1][0].lastChild);
-			}
-			if(this.DOM[0][0].value.trim() == ""){
-				this.cancelResults();
-				return;
-			}
+			var query = this.DOM[0][0].value;
+			this.searchFunctions = [];
 			for(var i in this.searchEngines){
-				this.searchEngines[i].search(this.DOM[0][0].value)
-				.then(this.displayResults.bind(this));
+				this.searchFunctions.push(this.searchEngines[i].search(query));
 			}
-		}.bind(this, e), 400);
-	},
-	displayResults: function(results){
-		if(this.DOM[0][0].value != results.query)
-			return;
-		if(results.results.length == 0){
-			return;
-		} else {
-			this.showResults();
-		}
-		var resultsContainer = document.createElement('div');
-		resultsContainer.className = 'results-container';
-		for(var i in results.results){
-			var result = dommy({
-				tag:'div',
-				attributes:{class:'result','data-url':results.results[i].url},
-				events:{
-					click:function(){
-						window.top.location= this.getAttribute('data-url');
+			Promise.all(this.searchFunctions).then(function(results){
+				for(var i in results){
+					if(results[i].query != query)
+						return;
+					var oldContainer = document.getElementsByClassName(this.containers[i])[0];
+					if(results[i].div == false){
+						if(oldContainer)
+							this.DOM[1][0].removeChild(oldContainer);
+						continue;
 					}
-				},
-				children:[
-				{
-					tag:'div',
-					attributes:{class:'icon-holder'},
-					children:[
-						{
-							tag:'img',
-							attributes:{class:'icon', src:'https://s2.googleusercontent.com/s2/favicons?domain='+results.results[i].url}
-						}
-					]
-				},
-				{
-					tag:'div',
-					attributes:{class:'details-holder'},
-					children:[
-						{
-							tag:'div',
-							attributes:{class:'title'},
-							children:[{type:'text',value:results.results[i].title}]
-						},
-						{
-							tag:'div',
-							attributes:{class:'url'},
-							children:[{type:'text',value:results.results[i].url}]
-						}
-					]
+					if(!results[i].div.isEqualNode(oldContainer)){
+						if(oldContainer)
+							this.DOM[1][0].removeChild(oldContainer);
+						this.DOM[1][0].appendChild(results[i].div);
+					}
 				}
-				]
-			});
-			resultsContainer.appendChild(result);
-		}
-		this.DOM[1][0].appendChild(resultsContainer);
+				if(this.DOM[1][0].children.length > 0)
+					this.showResults();
+				else
+					this.cancelResults();
+			}.bind(this));
+
+		}.bind(this, e), 50);
 	}
 };
