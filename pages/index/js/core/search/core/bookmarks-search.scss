@@ -2,6 +2,13 @@
 	.inner-container{
 		.search-results{
 			.bookmark-results-container{
+				>.title{
+					font-size:18px;
+					color:black;
+					font-weight:400;
+					width:100%;
+					padding:10px;
+				}
 				.result{
 					padding:10px;
 					color:black;

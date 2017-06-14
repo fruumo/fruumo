@@ -23,6 +23,7 @@ module.exports = {
 
 				resolve({
 					query:$this.query,
+					containerClass:$this.containerClass,
 					div:$this.createElement(bookmarks)
 				});
 
@@ -34,6 +35,10 @@ module.exports = {
 			return false;
 		var d = document.createElement('div');
 		d.className = "bookmark-results-container";
+		var t = document.createElement('div');
+		t.className = "title";
+		t.innerText = "Bookmarks";
+		d.appendChild(t);
 		for(var i in results){
 			var result = dommy({
 				tag:'div',
@@ -50,7 +55,7 @@ module.exports = {
 					children:[
 					{
 						tag:'img',
-						attributes:{class:'icon', src:'https://s2.googleusercontent.com/s2/favicons?domain='+results[i].url}
+						attributes:{class:'icon', src:(results[i].url.indexOf("chrome://") != -1 || results[i].url.indexOf("chrome-extension://") !=-1) ?"":'https://s2.googleusercontent.com/s2/favicons?domain='+results[i].url}
 					}
 					]
 				},
