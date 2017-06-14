@@ -23,4 +23,10 @@ window.onload = function(){
 			core[i].onload();
 		}
 	}
+	//Log page load time
+	setTimeout(function(){
+		var loadTime = window.performance.timing.domInteractive- window.performance.timing.navigationStart;
+		document.getElementById('loadtime').innerText = "Loaded in " + loadTime+'ms';
+		console.log('%c Load Time -  ' + loadTime + 'ms', 'color: blue; font-size:16px;');
+	},5000);
 }
