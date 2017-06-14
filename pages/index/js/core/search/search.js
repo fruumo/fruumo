@@ -33,6 +33,11 @@ module.exports = {
 		this.DOM[2][0].className = "topsites-container hide";
 	},
 	onKey: function(e){
+		if(e.key == "Escape"){
+			this.DOM[0][0].value = "";
+			this.cancelResults();
+			return;
+		}
 		if(this.DOM[0][0].value.trim() == ""){	
 				this.cancelResults();
 				return;
@@ -44,30 +49,31 @@ module.exports = {
 			var query = this.DOM[0][0].value;
 			this.searchFunctions = [];
 			for(var i in this.searchEngines){
-				this.searchFunctions.push(this.searchEngines[i].search(query));
-			}
-			Promise.all(this.searchFunctions).then(function(results){
-				for(var i in results){
-					if(results[i].query != query)
+				this.searchEngines[i].search(query).then(function(results){
+					if(results.query != query)
 						return;
-					var oldContainer = document.getElementsByClassName(this.containers[i])[0];
-					if(results[i].div == false){
+					var oldContainer = document.getElementsByClassName(results.containerClass)[0];
+					if(results.div == false){
+						if(oldContainer){
+							this.DOM[1][0].removeChild(oldContainer);
+							this.hideEmptyResults();
+						}
+						return;
+					}
+					if(!results.div.isEqualNode(oldContainer)){
 						if(oldContainer)
 							this.DOM[1][0].removeChild(oldContainer);
-						continue;
+						this.DOM[1][0].appendChild(results.div);
 					}
-					if(!results[i].div.isEqualNode(oldContainer)){
-						if(oldContainer)
-							this.DOM[1][0].removeChild(oldContainer);
-						this.DOM[1][0].appendChild(results[i].div);
-					}
-				}
-				if(this.DOM[1][0].children.length > 0)
-					this.showResults();
-				else
-					this.cancelResults();
-			}.bind(this));
-
-		}.bind(this, e), 50);
+					this.hideEmptyResults();
+				}.bind(this));
+			}
+		}.bind(this), 50);
+	},
+	hideEmptyResults:function(){
+		if(this.DOM[1][0].children.length > 0)
+			this.showResults();
+		else
+			this.cancelResults();
 	}
 };
