@@ -16,3 +16,13 @@
 		}
 	}
 }
+
+
+@media (max-height:520px){
+	.container{
+		.time, .ticker{
+			z-index:inherit;
+			display:none;
+		}
+	}
+}
