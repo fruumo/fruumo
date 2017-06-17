@@ -28,6 +28,11 @@ module.exports = {
 				link.href = storage.wallpaper.author.links.html;
 				link.innerText =  storage.wallpaper.author.name;
 				this.DOM[2][0].appendChild(link);
+				this.DOM[2][0].innerHTML += " / ";
+				link = document.createElement('a');
+				link.href = "https://unsplash.com";
+				link.innerText =  "Unsplash";
+				this.DOM[2][0].appendChild(link);
 			}
 		}.bind(this));
 	},
