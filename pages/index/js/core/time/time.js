@@ -4,7 +4,7 @@ module.exports = {
 	DOM:['.time'],
 	onload: function(){
 		this.updateTime();
-		setInterval(this.updateTime.bind(this), 1000);
+		setInterval(this.updateTime.bind(this), 10000);
 		//var date = new Date();
 		//this.DOM[1][0].innerText = this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear());
 	},
