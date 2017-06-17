@@ -12,6 +12,7 @@
 	-webkit-transform: translate3d(0, 0, 0);
 	animation: fadein 700ms;
 	display:none;
+	transition:opacity 300ms;
 	.wallpaper-meta{
 	    font-size: 14px;
 	    opacity: 0.4;
