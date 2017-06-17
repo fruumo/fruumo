@@ -1,5 +1,5 @@
 const UNSPLASH_API_ID = "a7d6cc6f5ce74fcf56703608563d852c6f7b110a82b1e10cf58e0ead897cc223";
-var UNSPLASH_collection = 913637;
+var UNSPLASH_collection = 947821;
 //test is 922352;
 //UNSPLASH_collection = 922352;
 chrome.alarms.onAlarm.addListener(function(alarm){
@@ -15,7 +15,7 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 	.then(function(data){
 		//Get new wallpaper data
 		//regular or full
-		fetch(data.urls.full)
+		fetch("https://source.unsplash.com/"+data.id+"/"+screen.width+"x"+screen.height)
 		.then(function(response){
 			if(response.ok)
 				return response.blob();
@@ -27,10 +27,10 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 		    	var rgb = hexToRgb(data.color);
 		    	var luminance = 1 - (((0.299*rgb.r) + (0.587*rgb.g) + (0.114*rgb.b))/255);
 		    	var fontColor = "";
-		    	if(luminance < 0.5)
+		    	//if(luminance < 0.5)
 		    		fontColor = "#FFF";
-		    	else
-		    		fontColor = "#000";
+		    	//else
+		    		//fontColor = "#000";
 				chrome.storage.local.set({wallpaper:{image:dataUrl,author:data.user,location:data.location, color:data.color,fontColor:fontColor,luminance:luminance}});
 		    };
 	        reader.readAsDataURL(blob);
