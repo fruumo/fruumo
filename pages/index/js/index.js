@@ -9,7 +9,7 @@ var core = [
 var utils = require('./libs/utils.js');
 
 window.onload = function(){
-	utils.promisifyChrome(['tabs','topSites','history','bookmarks','downloads']);
+	utils.promisifyChrome(['tabs','topSites','history','bookmarks','downloads','management']);
 	//start loading core
 	for(var i in core){
 		if(Array.isArray(core[i].DOM)){
