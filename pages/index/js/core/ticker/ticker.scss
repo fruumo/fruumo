@@ -4,9 +4,9 @@
 	font-size:1.5em;
 	font-weight:200;
 	letter-spacing:1.5px;
-
+	margin-top:-21px;
 	min-height:21px;
 	.ticker{
-		animation: fadein 1000ms;
+		transition: opacity 300ms;
 	}
 }

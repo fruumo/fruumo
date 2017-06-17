@@ -19,13 +19,15 @@ module.exports = {
 	},
 	tick: function(){
 		if(this.DOM[0][0].innerHTML != this.tickerStrings[this.currentTick]){
-			this.DOM[0][0].style.display = "none";
-			this.DOM[0][0].innerHTML = this.tickerStrings[this.currentTick];
-			setTimeout(function(){this.DOM[0][0].style.display = "block";}.bind(this), 10);
-		}
-		this.currentTick++;
-		if(this.currentTick >= this.tickerStrings.length){
-			this.currentTick = 0;
+			this.DOM[0][0].style.opacity = 0;
+			setTimeout(function(){
+				this.DOM[0][0].innerHTML = this.tickerStrings[this.currentTick];
+				this.DOM[0][0].style.opacity = 1;
+				this.currentTick++;
+				if(this.currentTick >= this.tickerStrings.length){
+					this.currentTick = 0;
+				}
+			}.bind(this),400);
 		}
 	},
 	dateToString: function(day,d,m,y){
