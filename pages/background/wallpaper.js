@@ -30,10 +30,10 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 		    	var rgb = hexToRgb(data.color);
 		    	var luminance = 1 - (((0.299*rgb.r) + (0.587*rgb.g) + (0.114*rgb.b))/255);
 		    	var fontColor = "";
-		    	//if(luminance < 0.5)
+		    	if(luminance < 0.5)
+		    		fontColor = "#000";
+		    	else
 		    		fontColor = "#FFF";
-		    	//else
-		    		//fontColor = "#000";
 				chrome.storage.local.set({wallpaper:{image:dataUrl,author:data.user,location:data.location, color:data.color,fontColor:fontColor,luminance:luminance}});
 		    };
 	        reader.readAsDataURL(blob);
