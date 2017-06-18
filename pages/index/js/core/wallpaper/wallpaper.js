@@ -16,7 +16,8 @@ module.exports = {
 	},
 	setWallpaper: function(){
 		chrome.storage.local.get({"wallpaper":{}, "wallpaperTimestamp":0},function(storage){
-			document.body.style.color = storage.wallpaper.fontColor;
+			//document.body.style.color = storage.wallpaper.fontColor;
+			this.DOM[0][0].style.display = "none";
 			this.DOM[0][0].style.backgroundImage = "url('"+storage.wallpaper.image+"')";
 			setTimeout(function(){this.DOM[0][0].style.display="block";}.bind(this), 0);
 			if(storage.wallpaper.location){
