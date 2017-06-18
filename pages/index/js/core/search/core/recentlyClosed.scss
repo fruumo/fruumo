@@ -1,0 +1,37 @@
+.search-container{
+	.inner-container{
+		.search-results{
+			.rct-container{
+				>.title{
+					font-size:18px;
+					color:black;
+					font-weight:400;
+					width:100%;
+					padding:10px;
+				}
+				.result{
+					padding:10px;
+					color:black;
+					display:flex;
+					flex-direction:row;
+					cursor:pointer;
+					.icon-holder{
+						display:flex;
+						align-items:center;
+						.icon{height:32px;width:32px;}
+					}
+					.details-holder{
+						padding:10px;
+						.title{
+							font-size:14px;
+						}
+						.url{
+							font-size:8px;
+							color:#A3A3A3;
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,27 @@
+.statusbar{
+	min-width:200px;
+	height:40px;
+	z-index:1;
+	position:absolute;
+	top:0px;
+	right:40px;
+	box-sizing: border-box;
+	border-radius:0 0 5px 5px;
+	background: rgba(0,0,0,0.6);
+	.icon-list{
+		width:100%;
+		height:100%;
+		box-sizing:border-box;
+		padding:0 10px 0 0 ;
+		display:flex;
+		justify-content:flex-end;
+		align-items:center;
+		font-size:22px;
+		color:#FFF;
+		.item{
+			text-shadow:0 0 25px rgba(0,0,0,0.4);
+			cursor:pointer;
+			padding:5px;
+		}
+	}
+}

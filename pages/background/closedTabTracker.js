@@ -3,20 +3,24 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
 		localStorage.allTabs = "{}";
 	}
 	var tabs = JSON.parse(localStorage.allTabs);
-	if(!changeInfo.title || changeInfo.discarded || changeInfo.autoDiscardable)
+	if(changeInfo.discarded || changeInfo.autoDiscardable){
 		return;
+	}
 	if(tab.url.indexOf("chrome://") != -1 || tab.url.indexOf("chrome-extension://") != -1)
 		return;
 	if(tabs[tab.id]){
-		if(tabs[tab.id].url == tab.url || tabs[tab.id].title){
+		if(tabs[tab.id].url == tab.url && tabs[tab.id].title == tab.title && tabs[tab.id].faviconUrl == tab.favIconUrl){
 			return;
 		}
 	}
-	tabs[tab.id] = {
-		title:tab.title,
-		url:tab.url,
-		faviconUrl:tab.faviconUrl
-	}
+	tabs[tab.id] = {};
+	if(tab.title)
+		tabs[tab.id].title = tab.title;
+	if(tab.url)
+		tabs[tab.id].url = tab.url;
+	if(tab.favIconUrl)
+		tabs[tab.id].faviconUrl = tab.favIconUrl;
+
 	localStorage.allTabs = JSON.stringify(tabs);
 });
 
@@ -47,6 +51,7 @@ chrome.runtime.onStartup.addListener(function(){
 chrome.runtime.onInstalled.addListener(function(){
 	setTimeout(function(){
 		localStorage.allTabs = "{}";
+		localStorage.recentlyRemovedTabs = "[]";
 		var tabs = {};
 		chrome.tabs.query({},function(allTabs){
 			for(var i in allTabs){
@@ -56,14 +61,17 @@ chrome.runtime.onInstalled.addListener(function(){
 				if(tab.url.indexOf("chrome://") != -1 || tab.url.indexOf("chrome-extension://") != -1)
 					continue;;
 				if(tabs[tab.id]){
-					if(tabs[tab.id].url == tab.url || tabs[tab.id].title){
+					if(tabs[tab.id].url == tab.url || tabs[tab.id].title == tab.title){
 						continue;
 					}
 				}
-				tabs[tab.id] = {
-					title:tab.title,
-					url:tab.url
-				}
+				tabs[tab.id] = {};
+				if(tab.title)
+					tabs[tab.id].title = tab.title;
+				if(tab.url)
+					tabs[tab.id].url = tab.url;
+				if(tab.favIconUrl)
+					tabs[tab.id].faviconUrl = tab.favIconUrl;
 			}
 			localStorage.allTabs = JSON.stringify(tabs);
 		});

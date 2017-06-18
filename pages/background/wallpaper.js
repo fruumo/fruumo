@@ -7,7 +7,10 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 		return;
 	}
 	console.log('refreshing wallpaper...');
-	fetch("https://api.unsplash.com/photos/random?collections="+UNSPLASH_collection+"&orientation=landscape&client_id="+UNSPLASH_API_ID+"&r="+Math.random())
+	var max = 0;
+	var min = 24;
+	var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+	fetch("http://fruumo.com/wallpaper/"+randomNumber+".json?r="+Math.random())
 	.then(function(response){
 		if(response.ok)
 			return response.json();

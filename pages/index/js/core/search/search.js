@@ -6,7 +6,8 @@ module.exports = {
 	DOM:['.search-bar','.search-results','.topsites-container','.search-container','.cancel-search','.wallpaper'],
 	searchEngines:[
 		require("./core/apps.js"),
-		require("./core/bookmarks.js")
+		require("./core/bookmarks.js"),
+		require("./core/recentlyClosed.js")
 	],
 	searchFunctions:[
 	],
@@ -19,6 +20,14 @@ module.exports = {
 		for(var i in this.searchEngines){
 			this.containers.push(this.searchEngines[i].containerClass);
 		}
+
+		document.addEventListener("click", function(event){
+			for(var i in event.path){
+				if(event.path[i].className == "inner-container" || event.path[i].className == "statusbar")
+					return;
+			}
+			this.cancelSearch();
+		}.bind(this));
 	},
 	cancelSearch:function(){
 		this.DOM[0][0].value = "";

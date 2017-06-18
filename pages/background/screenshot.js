@@ -15,6 +15,7 @@ chrome.webNavigation.onCompleted.addListener(function(details){
 		}
 		chrome.storage.local.get({"screenshots":{}}, function(storage){
 			if(storage.screenshots[localStorage.screenshotUrl] && new Date().getTime() - storage.screenshots[localStorage.screenshotUrl].timestamp < 432000000){
+				localStorage.screenshotUrl="no-url";
 				return;
 			}
 			chrome.tabs.captureVisibleTab(tab.windowId, 

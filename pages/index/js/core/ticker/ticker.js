@@ -3,11 +3,17 @@ module.exports = {
 	name:'ticker',
 	DOM:['.ticker'],
 	tickerStrings:[],
+	greetings:['Bonjour', 'Namaste', 'Hello', 'Konnichiwa'],
 	currentTick:0,
 	onload: function(){
 		var date = new Date();
 		this.tickerStrings.push(this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear()));
-		this.tick();
+		this.DOM[0][0].style.opacity = 0;
+		this.DOM[0][0].innerHTML = this.greetings[Math.floor(Math.random() * this.greetings.length)];
+		this.DOM[0][0].style.opacity = 1;
+		setTimeout(function(){
+			this.tick();
+		}.bind(this), 2000);
 		setInterval(this.tick.bind(this), 8000);
 		this.updateWeather();
 		chrome.storage.onChanged.addListener(function(changes,area){
