@@ -3,12 +3,13 @@ require('./apps.scss');
 module.exports = {
 	message:"App Display",
 	containerClass:"apps-display-container",
+	priority:"100",
 	search: function(query){
 		var $this = this;
 		$this.query = query;
 
 		return new Promise(function(resolve, reject){
-			if($this.query.indexOf("apps:") != 0){
+			if($this.query.indexOf("@apps") != 0){
 				resolve({
 					query:$this.query,
 					containerClass:"apps-display-container",
@@ -32,6 +33,7 @@ module.exports = {
 			return false;
 		var d = document.createElement('div');
 		d.className = "apps-display-container";
+		d.setAttribute('data-priority',this.priority);
 		var t = document.createElement('div');
 		t.className = "title";
 		t.innerText = "Apps";

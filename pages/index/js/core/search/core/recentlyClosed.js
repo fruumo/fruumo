@@ -3,12 +3,13 @@ require('./recentlyClosed.scss');
 module.exports = {
 	message:"Recently closed tabs",
 	containerClass:"rct-container",
+	priority:"100",
 	search: function(query){
 		var $this = this;
 		$this.query = query;
 
 		return new Promise(function(resolve, reject){
-			if($this.query.indexOf("recently-closed-tabs:") != 0){
+			if($this.query.indexOf("@recently-closed-tabs") != 0){
 				resolve({
 					query:$this.query,
 					containerClass:"rct-container",
@@ -42,6 +43,7 @@ module.exports = {
 		}
 		var d = document.createElement('div');
 		d.className = "rct-container";
+		d.setAttribute('data-priority',this.priority);
 		var t = document.createElement('div');
 		t.className = "title";
 		t.innerText = "Recently Closed Tabs";

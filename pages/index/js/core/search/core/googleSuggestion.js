@@ -7,6 +7,13 @@ module.exports = {
 	search: function(query){
 		var $this = this;
 		$this.query = query;
+		if(query.indexOf('@') == 0 || query == ""){
+			return Promise.resolve({
+				query:query,
+				containerClass:this.containerClass,
+				div:false
+			});
+		}
 		return new Promise(function(resolve, reject){
 			fetch("http://suggestqueries.google.com/complete/search?client=firefox&q=" + encodeURIComponent($this.query))
 			.then(function(response){

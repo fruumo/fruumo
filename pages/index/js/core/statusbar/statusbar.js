@@ -29,10 +29,10 @@ module.exports = {
 		chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
 	},
 	recentlyClosed: function(){
-		this.triggerSearch("recently-closed-tabs:");
+		this.triggerSearch("@recently-closed-tabs");
 	},
 	allApps: function(){
-		this.triggerSearch("apps:");
+		this.triggerSearch("@apps");
 	},
 	triggerSearch: function(text){
 		if(this.DOM[2][0].value != text){
