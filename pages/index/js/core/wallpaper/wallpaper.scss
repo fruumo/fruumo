@@ -42,10 +42,8 @@
 @keyframes fadein {
     from { 
     	opacity: 0; 
-        filter: grayscale(100%);
 	}
     to   { 
     	opacity: 1; 
-	    filter: grayscale(0%);
     }
 }
