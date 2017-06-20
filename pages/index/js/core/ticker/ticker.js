@@ -18,7 +18,7 @@ module.exports = {
 		this.updateWeather();
 		chrome.storage.onChanged.addListener(function(changes,area){
 			if(area != "local") return;
-			if(changes.weather){
+			if(changes.weather || changes.location){
 				this.updateWeather();
 			}
 		}.bind(this));
@@ -53,10 +53,10 @@ module.exports = {
 		return dateString;	
 	},
 	updateWeather: function(){
-		chrome.storage.local.get({weather:null},function(weather){
-			if(weather.weather == null)
+		chrome.storage.local.get({weather:null,location:null},function(weather){
+			if(weather.weather == null || weather.location == null)
 				return;
-			this.tickerStrings[1] = "It's " + Math.round((weather.weather.results.channel.item.condition.temp-32)*5/9) + " &deg;C and "+weather.weather.results.channel.item.condition.text+".";
+			this.tickerStrings[1] = "It's " + Math.round((weather.weather.results.channel.item.condition.temp-32)*5/9) + " &deg;C and "+weather.weather.results.channel.item.condition.text+" in " + weather.location.city+".";
 
 		}.bind(this));
 	}

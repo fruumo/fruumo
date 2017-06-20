@@ -17,7 +17,7 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 				return response.json();	
 		})
 		.then(function(weather){
-			chrome.storage.local.set({weather:weather.query});
+			chrome.storage.local.set({weather:weather.query,location:ipInfo});
 			//this.tickerStrings.push("It's " + Math.round((weather.query.results.channel.item.condition.temp-32)*5/9) + " &deg;C and "+weather.query.results.channel.item.condition.text+".")
 		});
 	});
