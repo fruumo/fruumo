@@ -7,7 +7,7 @@ module.exports = {
 		chrome.topSites.getAsync()
 		.then(function(topsites){
 			for(var i in topsites){
-				if(i > 9) break;
+				if(i > 7) break;
 				var topsiteElement = dommy({
 					tag:'div',
 					attributes:{
