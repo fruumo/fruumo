@@ -29,6 +29,14 @@ module.exports = {
 			}
 			this.cancelSearch();
 		}.bind(this));
+
+		//bind for escape
+		document.addEventListener("keyup", function(e){
+			if(e.key == "Escape"){
+				this.cancelSearch();
+				return;
+			}
+		}.bind(this));
 	},
 	cancelSearch:function(){
 		this.DOM[0][0].value = "";
@@ -50,11 +58,6 @@ module.exports = {
 		this.DOM[5][0].style.opacity = "0.4";
 	},
 	onKey: function(e){
-		if(e.key == "Escape"){
-			this.DOM[0][0].value = "";
-			this.cancelResults();
-			return;
-		}
 		if(this.DOM[0][0].value.trim() == ""){	
 				this.cancelResults();
 				return;
