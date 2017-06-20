@@ -22,6 +22,16 @@
 					padding:10px 0 10px 0;
 					cursor:pointer;
 					.icon-holder{
+						position:relative;
+						.fa{
+							color:black;
+							position:absolute;
+							display:none;
+							cursor:pointer;
+							top:-10px;
+							right:-10px;
+							color:#b1b1b1;
+						}
 						.icon{
 							width:64px;
 						}
@@ -38,6 +48,41 @@
 							height: 18px;
 							max-width: 98%;
 						}
+					}
+				}
+				.result:hover{
+					.icon-holder{
+						.fa{
+							display:block;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+@media (max-width:1200px) {
+	.search-container{
+		.inner-container{
+			.search-results{
+				.apps-display-container{
+					.result{
+						flex-basis:25%;
+						width:25%;
+					}
+				}
+			}
+		}
+	}
+}
+@media (max-width:590px) {
+	.search-container{
+		.inner-container{
+			.search-results{
+				.apps-display-container{
+					.result{
+						flex-basis:33.33%;
+						width:33.33%;
 					}
 				}
 			}

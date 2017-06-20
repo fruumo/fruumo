@@ -55,6 +55,16 @@ module.exports = {
 						{
 							tag:'img',
 							attributes:{class:'icon', src:results[i].icons[results[i].icons.length-1].url}
+						},
+						{
+							tag:'i',
+							attributes:{class:"fa fa-times", 'aria-hidden':"true", 'data-id':results[i].id},
+							events:{
+								click:function(e){
+									chrome.management.uninstall(this.getAttribute('data-id'));
+									e.stopPropagation();
+								}
+							}
 						}
 					]
 				},
