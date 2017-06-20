@@ -62,7 +62,12 @@ module.exports = {
 						children:[
 						{
 							tag:'img',
-							attributes:{class:'icon', src:results[i].faviconUrl}
+							attributes:{class:'icon', src:results[i].faviconUrl},
+							events:{
+								error:function(){
+									this.style.opacity="0";
+								}
+							}
 						}
 						]
 				},
