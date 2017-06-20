@@ -80,7 +80,35 @@ module.exports = {
 						if(oldContainer){
 							this.DOM[1][0].removeChild(oldContainer);
 						}
-						this.DOM[1][0].appendChild(results.div);
+						var myPriority = results.div.getAttribute('data-priority')
+						if(!myPriority){
+							this.DOM[1][0].appendChild(results.div);	
+							return;
+						}
+
+						//Find next lowest priority and insertbefore
+						var lowerPriority;
+						myPriority = parseInt(myPriority);
+						var children = this.DOM[1][0].children;
+						for(var i in children){
+							if(children[i].nodeType != 1){
+								continue;
+							}
+							var otherPriority = children[i].getAttribute('data-priority');
+							if(otherPriority){
+								if(otherPriority > myPriority){
+									continue;
+								} else {
+									lowerPriority = children[i];
+									break;
+								}
+							}
+						}
+						if(lowerPriority){
+							this.DOM[1][0].insertBefore(results.div, lowerPriority);
+						} else {
+							this.DOM[1][0].appendChild(results.div,children[0]);
+						}
 					}
 					this.hideEmptyResults();
 				}.bind(this));
