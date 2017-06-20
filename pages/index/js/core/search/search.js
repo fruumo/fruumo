@@ -5,6 +5,7 @@ module.exports = {
 	searchTimeout:undefined,
 	DOM:['.search-bar','.search-results','.topsites-container','.search-container','.cancel-search','.wallpaper'],
 	searchEngines:[
+		require("./core/googleSuggestion.js"),
 		require("./core/apps.js"),
 		require("./core/bookmarks.js"),
 		require("./core/recentlyClosed.js")
