@@ -3,6 +3,7 @@ require('./bookmarks-search.scss');
 module.exports = {
 	message:"Bookmarks",
 	containerClass:"bookmark-results-container",
+	priority:"51",
 	search: function(query){
 		var $this = this;
 		$this.query = query;
@@ -35,6 +36,7 @@ module.exports = {
 			return false;
 		var d = document.createElement('div');
 		d.className = "bookmark-results-container";
+		d.setAttribute('data-priority',this.priority);
 		var t = document.createElement('div');
 		t.className = "title";
 		t.innerText = "Bookmarks";
