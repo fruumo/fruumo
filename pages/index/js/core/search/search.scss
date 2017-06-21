@@ -141,15 +141,15 @@
 		}
 	}
 }
-@media (max-height:730px){
+@media (max-height:719px){
 	.search-container{
 		&.searching{
-			min-height:250px;
+			min-height:350px;
 		}
 		.inner-container{
 			.search-results{
 				&.show{
-					max-height:200px;
+					max-height:300px;
 				}
 			}
 		}
