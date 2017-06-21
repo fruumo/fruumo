@@ -3,7 +3,42 @@ var dommy = require('dommy.js');
 module.exports = {
 	name:'topsites',
 	DOM:['.topsites-container'],
+	displayTopsites:true,
+	preload: function(){
+		return new Promise(function(resolve, reject){
+			chrome.storage.sync.get("settings", function(storage){
+
+				if(storage.settings.displayTopsites == undefined || storage.settings.displayTopsites == true){
+					this.displayTopsites = true;
+				} else {
+					this.displayTopsites = false;
+				}
+
+				//dynamic settings
+				chrome.storage.onChanged.addListener(function(changes, area){
+					if(area != "sync")
+						return;
+					if(!changes.settings)
+						return;
+					if(changes.settings.newValue.displayTopsites == undefined)
+						return;
+					if(changes.settings.newValue.displayTopsites){
+						this.displayTopsites = true;
+						this.DOM[0][0].innerHTML = "";
+						this.onload();
+					} else {
+						this.displayTopsites = false;
+						this.DOM[0][0].innerHTML = "";
+					}
+				}.bind(this));
+
+				resolve(true);
+			}.bind(this));
+		}.bind(this));
+	},
 	onload: function(){
+		if(!this.displayTopsites)
+			return;
 		chrome.topSites.getAsync()
 		.then(function(topsites){
 			for(var i in topsites){

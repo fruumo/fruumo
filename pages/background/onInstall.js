@@ -5,4 +5,14 @@ chrome.runtime.onInstalled.addListener(function(){
 
 	//Defaults
 	localStorage.searchDomain = "https://www.google.ca/search?q="
+
+	chrome.storage.sync.get("settings", function(s){
+		if(!s.settings){
+			chrome.storage.sync.set({
+				settings:{
+					displayTopsites:true
+				}
+			});
+		}
+	});
 });
