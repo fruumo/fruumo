@@ -53,9 +53,10 @@ module.exports = {
 		return;
 	},
 	cancelResults: function(){
-		this.DOM[3][0].className = "search-container";
-		this.DOM[1][0].className = "search-results";
-		this.DOM[2][0].className = "topsites-container";
+		this.DOM[3][0].className = this.DOM[3][0].className.replace(" searching","");
+		this.DOM[1][0].className = this.DOM[1][0].className.replace(" show","");
+		this.DOM[2][0].className = this.DOM[2][0].className.replace(" hide","");;
+
 		while(this.DOM[1][0].lastChild)
 			this.DOM[1][0].removeChild(this.DOM[1][0].lastChild);
 		this.DOM[5][0].style.opacity = "1";
@@ -63,9 +64,13 @@ module.exports = {
 		this.keyboardSelectedResult = -1;
 	},
 	showResults: function(){
-		this.DOM[3][0].className = "search-container searching";
-		this.DOM[1][0].className = "search-results show";
-		this.DOM[2][0].className = "topsites-container hide";
+		if(this.DOM[3][0].className.indexOf("searching") == -1)
+			this.DOM[3][0].className += " searching";
+		if(this.DOM[1][0].className.indexOf("show") == -1)
+			this.DOM[1][0].className += " show";
+		if(this.DOM[2][0].className.indexOf("hide") == -1)
+			this.DOM[2][0].className += " hide";
+
 		this.DOM[5][0].style.opacity = "0.4";
 		this.keyboardSelectedResult = -1;
 		this.resultElements = Array.prototype.slice.call(document.querySelectorAll('.search-results .result'));
