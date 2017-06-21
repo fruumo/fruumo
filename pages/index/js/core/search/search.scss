@@ -61,6 +61,15 @@
 				max-height:400px;
 				transition: max-height 400ms;
 			}
+			.result{
+				&.result-selected{
+					background:#4295eb;
+					border-radius:5px;
+					.title{
+						color:white;
+					}
+				}
+			}
 		}
 	}
 }

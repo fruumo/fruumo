@@ -1,4 +1,5 @@
 require('./search.scss');
+var mousetrap = require('mousetrap');
 
 module.exports = {
 	name:'search',
@@ -13,6 +14,8 @@ module.exports = {
 	searchFunctions:[
 	],
 	containers:[],
+	resultElements:[],
+	keyboardSelectedResult:-1,
 	onload: function(){
 		//this.DOM[0][0].addEventListener('focus',this.toggleResults.bind(this));
 		//this.DOM[0][0].addEventListener('blur',this.toggleResults.bind(this));	
@@ -37,6 +40,12 @@ module.exports = {
 				return;
 			}
 		}.bind(this));
+
+		//bind for down arrow
+		Mousetrap.bind('down', this.downArrow.bind(this), 'keydown');
+		Mousetrap.bind('up', this.upArrow.bind(this), 'keydown');
+		Mousetrap.bind('enter', this.launchResult.bind(this), 'keydown');
+
 	},
 	cancelSearch:function(){
 		this.DOM[0][0].value = "";
@@ -50,14 +59,37 @@ module.exports = {
 		while(this.DOM[1][0].lastChild)
 			this.DOM[1][0].removeChild(this.DOM[1][0].lastChild);
 		this.DOM[5][0].style.opacity = "1";
+		this.resultElements = [];
+		this.keyboardSelectedResult = -1;
 	},
 	showResults: function(){
 		this.DOM[3][0].className = "search-container searching";
 		this.DOM[1][0].className = "search-results show";
 		this.DOM[2][0].className = "topsites-container hide";
 		this.DOM[5][0].style.opacity = "0.4";
+		this.keyboardSelectedResult = -1;
+		this.resultElements = Array.prototype.slice.call(document.querySelectorAll('.search-results .result'));
+		for(var i in this.resultElements){
+			if(this.resultElements[i].className.indexOf('result-selected')!=0)
+				this.resultElements[i].className = this.resultElements[i].className.replace('result-selected','');
+		}
 	},
 	onKey: function(e){
+		if(e.key == "ArrowDown"){
+			this.DOM[0][0].select();
+			this.downArrow(e);
+			return;
+		}
+		if(e.key == "ArrowUp"){
+			this.DOM[0][0].select();
+			this.upArrow(e);
+			return;
+		}
+		if(e.key == "Enter"){
+			this.launchResult(e);
+			return;
+		}
+
 		if(this.DOM[0][0].value.trim() == ""){	
 				this.cancelResults();
 				return;
@@ -124,5 +156,49 @@ module.exports = {
 			this.showResults();
 		else
 			this.cancelResults();
+	},
+	downArrow: function(e){
+		if(this.DOM[1][0].children.length == 0)
+			return; 
+    	e.preventDefault();
+    	if(this.resultElements[this.keyboardSelectedResult]){
+    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+    	}
+    	this.keyboardSelectedResult++;
+    	if(this.keyboardSelectedResult >= this.resultElements.length){
+    		this.keyboardSelectedResult = 0;
+    	}
+    	if(this.resultElements[this.keyboardSelectedResult]){
+    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+    		this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+    	}
+	},
+	upArrow: function(e){
+		if(this.DOM[1][0].children.length == 0)
+			return; 
+    	e.preventDefault();
+    	if(this.resultElements[this.keyboardSelectedResult]){
+    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+    	}
+    	this.keyboardSelectedResult--;
+    	if(this.keyboardSelectedResult <= -1){
+    		this.keyboardSelectedResult = this.resultElements.length-1;
+    	}
+    	if(this.resultElements[this.keyboardSelectedResult]){
+    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+    		this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+    	}
+	},
+	launchResult: function(e){
+		if(this.DOM[1][0].children.length == 0)
+			return;
+		if(this.resultElements[this.keyboardSelectedResult]){
+		    this.resultElements[this.keyboardSelectedResult].click();
+		    return;
+		}
+		if(this.resultElements[0]){
+			this.resultElements[0].click();
+		}
+		return;
 	}
 };

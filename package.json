@@ -25,5 +25,8 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.1",
     "webpack": "^2.6.1"
+  },
+  "dependencies": {
+    "mousetrap": "^1.6.1"
   }
 }
