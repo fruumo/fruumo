@@ -16,7 +16,6 @@ module.exports = {
 
 				//dynamic settings
 				chrome.storage.onChanged.addListener(function(changes, area){
-					console.log(changes);
 					if(area != "sync")
 						return;
 					if(changes.settingDisplayTopsites == undefined)
