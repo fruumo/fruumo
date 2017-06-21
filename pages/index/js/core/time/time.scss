@@ -23,6 +23,15 @@
 	}
 }
 
+@media (max-width: 600px) {
+	.container{
+		.time{
+			&.focus{
+				display:none;
+			}
+		}
+	}
+}
 
 @media (max-height:520px){
 	.container{

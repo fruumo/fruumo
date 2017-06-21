@@ -16,3 +16,12 @@
 		font-size:1em;
 	}
 }
+
+
+@media (max-width: 600px) {
+	.ticker-container{
+		&.focus{
+			display:none;
+		}
+	}
+}

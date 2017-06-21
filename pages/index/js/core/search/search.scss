@@ -80,11 +80,16 @@
 			background:transparent;
 			box-shadow:none;
 			.search-bar{
-				background:transparent;
+				background: rgba(0,0,0,0.4);;
+				box-shadow: 0 0 25px rgba(0,0,0,0.4);
+				border-radius: 2px 2px 2px 2px;
 				color:white;
 				border-bottom:1.5px solid white;
 			}
 			.search-bar::placeholder{
+				color:white;
+			}
+			.cancel-search{
 				color:white;
 			}
 			.search-results{
