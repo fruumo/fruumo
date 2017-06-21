@@ -6,13 +6,10 @@ chrome.runtime.onInstalled.addListener(function(){
 	//Defaults
 	localStorage.searchDomain = "https://www.google.ca/search?q="
 
-	chrome.storage.sync.get("settings", function(s){
-		if(!s.settings){
-			chrome.storage.sync.set({
-				settings:{
-					displayTopsites:true
-				}
-			});
+	chrome.storage.sync.get("settingsReset", function(s){
+		if(s.settingsReset == undefined || s.settingsReset){
+			chrome.storage.sync.set({settingsReset:false});
+			chrome.storage.sync.set({settingDisplayTopsites:true});
 		}
 	});
 });

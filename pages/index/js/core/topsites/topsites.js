@@ -6,9 +6,9 @@ module.exports = {
 	displayTopsites:true,
 	preload: function(){
 		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get("settings", function(storage){
+			chrome.storage.sync.get("settingDisplayTopsites", function(storage){
 
-				if(storage.settings.displayTopsites == undefined || storage.settings.displayTopsites == true){
+				if(storage.settingDisplayTopsites == undefined || storage.settingDisplayTopsites == true){
 					this.displayTopsites = true;
 				} else {
 					this.displayTopsites = false;
@@ -16,13 +16,14 @@ module.exports = {
 
 				//dynamic settings
 				chrome.storage.onChanged.addListener(function(changes, area){
+					console.log(changes);
 					if(area != "sync")
 						return;
-					if(!changes.settings)
+					if(changes.settingDisplayTopsites == undefined)
 						return;
-					if(changes.settings.newValue.displayTopsites == undefined)
+					if(changes.settingDisplayTopsites.newValue == undefined)
 						return;
-					if(changes.settings.newValue.displayTopsites){
+					if(changes.settingDisplayTopsites.newValue){
 						this.displayTopsites = true;
 						this.DOM[0][0].innerHTML = "";
 						this.onload();
