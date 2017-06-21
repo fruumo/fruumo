@@ -9,4 +9,10 @@
 	.ticker{
 		transition: opacity 300ms;
 	}
+	&.focus{
+		position:absolute;
+		bottom:0px;
+		right:5px;
+		font-size:1em;
+	}
 }

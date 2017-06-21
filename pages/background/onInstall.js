@@ -8,8 +8,29 @@ chrome.runtime.onInstalled.addListener(function(){
 
 	chrome.storage.sync.get("settingsReset", function(s){
 		if(s.settingsReset == undefined || s.settingsReset){
-			chrome.storage.sync.set({settingsReset:false});
-			chrome.storage.sync.set({settingDisplayTopsites:true});
+			resetSettings();
 		}
 	});
+	chrome.storage.onChanged.addListener(function(changes, area){
+		if(area != "sync")
+			return;
+		if(!changes.settingsReset)
+			return;
+		if(changes.settingsReset.newValue == undefined)
+			return;
+		if(changes.settingsReset.newValue){
+			resetSettings();
+		} else {
+		}
+	}.bind(resetSettings));
+
 });
+
+function resetSettings(){
+	chrome.storage.sync.set({settingsReset:false});
+	chrome.storage.sync.set({settingDisplayTopsites:true});
+	chrome.storage.sync.set({settingFocus:false});
+	localStorage.searchDomain = "https://www.google.ca/search?q="
+
+	console.log("Resetting settings!");
+}

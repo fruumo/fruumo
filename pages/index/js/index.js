@@ -5,7 +5,8 @@ var core = [
 	require('./core/ticker/ticker.js'),
 	require('./core/topsites/topsites.js'),
 	require('./core/search/search.js'),
-	require('./core/statusbar/statusbar.js')
+	require('./core/statusbar/statusbar.js'),
+	require('./core/focus/focus.js')
 ];
 var utils = require('./libs/utils.js');
 

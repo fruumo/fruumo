@@ -68,6 +68,29 @@
 					.title{
 						color:white;
 					}
+					.url{
+						color:#e2dcdc !important;
+					}
+				}
+			}
+		}
+	}
+	&.focus{
+		.inner-container{
+			background:transparent;
+			box-shadow:none;
+			.search-bar{
+				background:transparent;
+				color:white;
+				border-bottom:1.5px solid white;
+			}
+			.search-bar::placeholder{
+				color:white;
+			}
+			.search-results{
+				&.show{
+					padding: 10px;
+					box-sizing: border-box;
 				}
 			}
 		}
