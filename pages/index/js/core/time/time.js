@@ -1,7 +1,37 @@
 require('./time.scss');
 module.exports = {
 	name:'time',
-	DOM:['.time'],
+	DOM:['.time','.aorp'],
+	is24h:true,
+	preload: function(){
+		return new Promise(function(resolve, reject){
+			chrome.storage.sync.get("settingIs24h", function(storage){
+
+				if(storage.settingIs24h == undefined || storage.settingIs24h == true){
+					this.is24h = true;
+				} else {
+					this.is24h = false;
+				}
+
+				//dynamic settings
+				chrome.storage.onChanged.addListener(function(changes, area){
+					if(area != "sync")
+						return;
+					if(changes.settingIs24h == undefined)
+						return;
+					if(changes.settingIs24h.newValue == undefined)
+						return;
+					if(changes.settingIs24h.newValue){
+						this.is24h = true;
+					} else {
+						this.is24h = false;
+					}
+				}.bind(this));
+
+				resolve(true);
+			}.bind(this));
+		}.bind(this));
+	},
 	onload: function(){
 		this.updateTime();
 		setInterval(this.updateTime.bind(this), 10000);
@@ -14,9 +44,14 @@ module.exports = {
 		var currentMinutes = currentTime.getMinutes();		
 
 		//12 hour format
-		//if(localStorage.timeFormat == "12h" && currentHours > 12){
-		//	currentHours = currentHours - 12;
-		//}
+		if(!this.is24h){
+			this.DOM[1][0].innerText = currentHours > 11 ? "PM" : "AM";
+		} else {
+			this.DOM[1][0].innerText = "";
+		}
+		if(this.is24h && currentHours > 12){
+			currentHours = currentHours - 12;
+		}
 
 		if(currentHours < 10){
 			currentHours = "0" + currentHours;

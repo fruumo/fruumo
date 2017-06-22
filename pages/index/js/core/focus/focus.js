@@ -1,6 +1,6 @@
 module.exports = {
 	name:'focus-mode',
-	DOM:['.topsites-container','.search-container', '.time','.ticker-container'],
+	DOM:['.topsites-container','.search-container', '.time-container','.ticker-container'],
 	preload: function(){
 		return new Promise(function(resolve, reject){
 			chrome.storage.sync.get("settingFocus", function(storage){
