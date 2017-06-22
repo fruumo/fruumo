@@ -1,12 +1,12 @@
 require('./index.scss');
 var core = [
+	require('./core/focus/focus.js'),
 	require('./core/wallpaper/wallpaper.js'),
 	require('./core/time/time.js'),
 	require('./core/ticker/ticker.js'),
 	require('./core/topsites/topsites.js'),
 	require('./core/search/search.js'),
-	require('./core/statusbar/statusbar.js'),
-	require('./core/focus/focus.js')
+	require('./core/statusbar/statusbar.js')
 ];
 var utils = require('./libs/utils.js');
 

@@ -8,14 +8,10 @@ module.exports = {
 			chrome.storage.sync.get("settingFocus", function(storage){
 
 				if(storage.settingFocus){
-					this.DOM[4][0].style.opacity = "0";
-					setTimeout(function(){
-						this.DOM[3][0].className += " focus";
-						this.DOM[2][0].className += " focus";
-						this.DOM[1][0].className += " focus";
-						this.DOM[0][0].className += " focus";
-						this.DOM[4][0].style.opacity = "1";
-					}.bind(this),300);
+					this.DOM[3][0].className += " focus";
+					this.DOM[2][0].className += " focus";
+					this.DOM[1][0].className += " focus";
+					this.DOM[0][0].className += " focus";
 				}
 
 				//dynamic settings

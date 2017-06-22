@@ -13,6 +13,7 @@
 		.aorp{
 			font-size:3em;
 			font-weight:100;
+			text-shadow:0 0 25px rgba(0,0,0,0.4);		
 		}
 		&.focus{
 			position:absolute;
@@ -32,10 +33,15 @@
 @media (max-width: 850px) {
 	.container{
 		.time-container{
+			min-height:150px;
 			.time{
 				z-index:inherit;
 				font-size:8em;
 				margin-top:0em;
+			}
+			.aorp{
+				font-size:2em;
+				font-weight:100;
 			}
 		}
 	}
@@ -44,10 +50,9 @@
 @media (max-width: 600px) {
 	.container{
 		.time-container{
-			.time{
-				&.focus{
-					display:none;
-				}
+			min-height:150px;
+			&.focus{
+				display:none;
 			}
 		}
 	}
@@ -56,10 +61,8 @@
 @media (max-height:520px){
 	.container{
 		.time-container{
-			.time{
-				z-index:inherit;
-				display:none;
-			}
+			z-index:inherit;
+			display:none;
 		}
 		 .ticker-container{
 		 	display:none;
