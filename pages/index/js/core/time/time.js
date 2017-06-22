@@ -49,7 +49,7 @@ module.exports = {
 		} else {
 			this.DOM[1][0].innerText = "";
 		}
-		if(this.is24h && currentHours > 12){
+		if(!this.is24h && currentHours > 12){
 			currentHours = currentHours - 12;
 		}
 
