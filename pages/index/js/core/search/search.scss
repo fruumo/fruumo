@@ -85,11 +85,13 @@
 				border-radius: 2px 2px 2px 2px;
 				color:white;
 				border-bottom:1.5px solid white;
+				padding:25px;
 			}
 			.search-bar::placeholder{
 				color:white;
 			}
 			.cancel-search{
+				top:22px;
 				color:white;
 			}
 			.search-results{
