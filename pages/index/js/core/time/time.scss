@@ -3,6 +3,7 @@
 		z-index:1;
 		display:flex;
 		align-items:baseline;
+		min-height:200px;
 		.time{
 			z-index:inherit;
 			font-size:12em;
@@ -17,6 +18,7 @@
 			position:absolute;
 			bottom:10px;
 			right:5px;
+			min-height:0px;
 			.time{
 				font-size:6em;
 			}

@@ -96,9 +96,10 @@ module.exports = {
 		}
 
 		if(this.DOM[0][0].value.trim() == ""){	
-				this.cancelResults();
-				return;
-			}
+			this.cancelResults();
+			return;
+		}
+		e.stopPropagation();		
 		if(this.searchTimeout){
 			clearTimeout(this.searchTimeout);
 		}

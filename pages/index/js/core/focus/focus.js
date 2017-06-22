@@ -1,3 +1,5 @@
+var mousetrap = require('mousetrap');
+
 module.exports = {
 	name:'focus-mode',
 	DOM:['.topsites-container','.search-container', '.time-container','.ticker-container'],
@@ -32,6 +34,17 @@ module.exports = {
 						this.DOM[0][0].className = this.DOM[0][0].className.replace(" focus", "");
 					}
 				}.bind(this));
+
+				mousetrap.bind('alt+f', function(e){
+					chrome.storage.sync.get("settingFocus", function(storage){
+						if(storage.settingFocus){
+							chrome.storage.sync.set({"settingFocus":false});
+						} else {
+							chrome.storage.sync.set({"settingFocus":true});
+						}
+					});
+				}, 'keydown');
+
 
 				resolve(true);
 			}.bind(this));
