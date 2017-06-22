@@ -196,15 +196,16 @@ module.exports = {
     	}
 	},
 	launchResult: function(e){
-		if(this.DOM[1][0].children.length == 0)
-			return;
+		if(this.DOM[1][0].children.length == 0 && this.DOM[0][0].value != "")
+			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
 		if(this.resultElements[this.keyboardSelectedResult]){
 		    this.resultElements[this.keyboardSelectedResult].click();
 		    return;
 		}
 		if(this.resultElements[0]){
 			this.resultElements[0].click();
+			return;
 		}
-		return;
+
 	}
 };
