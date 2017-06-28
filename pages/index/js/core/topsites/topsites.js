@@ -57,7 +57,15 @@ module.exports = {
 						},
 						events:{
 							click:function(e){
-								localStorage.screenshotUrl = this.getAttribute('data-url');
+								chrome.runtime.sendMessage(
+								{
+										type:"screenshot", 
+										data:{
+											url:this.getAttribute('data-url')
+										}
+								}, function(response) {
+										console.log(response);
+								});
 								window.top.location = this.getAttribute('data-url');
 							}
 						},
