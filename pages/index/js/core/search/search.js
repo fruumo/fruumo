@@ -44,6 +44,8 @@ module.exports = {
 		//bind for down arrow
 		Mousetrap.bind('down', this.downArrow.bind(this), 'keydown');
 		Mousetrap.bind('up', this.upArrow.bind(this), 'keydown');
+		Mousetrap.bind('right', this.downArrow.bind(this), 'keydown');
+		Mousetrap.bind('left', this.upArrow.bind(this), 'keydown');
 		Mousetrap.bind('enter', this.launchResult.bind(this), 'keydown');
 
 	},
@@ -80,12 +82,12 @@ module.exports = {
 		}
 	},
 	onKey: function(e){
-		if(e.key == "ArrowDown"){
+		if(e.key == "ArrowDown" || e.key == "ArrowRight"){
 			this.DOM[0][0].select();
 			this.downArrow(e);
 			return;
 		}
-		if(e.key == "ArrowUp"){
+		if(e.key == "ArrowUp" || e.key == "ArrowLeft"){
 			this.DOM[0][0].select();
 			this.upArrow(e);
 			return;
