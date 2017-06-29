@@ -31,7 +31,9 @@ function resetSettings(){
 	chrome.storage.sync.set({settingDisplayTopsites:true});
 	chrome.storage.sync.set({settingFocus:false});
 	chrome.storage.sync.set({settingIs24h:true});
-	localStorage.searchDomain = "https://www.google.ca/search?q="
+	localStorage.searchDomain = "https://www.google.ca/search?q=";
+	chrome.storage.sync.set({screenshots:{}})
+	chrome.storage.sync.set({bannedTopsites:[]});
 
 	console.log("Resetting settings!");
 }

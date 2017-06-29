@@ -4,10 +4,13 @@ module.exports = {
 	name:'topsites',
 	DOM:['.topsites-container'],
 	displayTopsites:true,
+	bannedTopsites:[],
 	preload: function(){
 		return new Promise(function(resolve, reject){
+			chrome.storage.sync.get({"bannedTopsites":[]}, function(storage){
+				this.bannedTopsites = storage.bannedTopsites;
+			}.bind(this));
 			chrome.storage.sync.get("settingDisplayTopsites", function(storage){
-
 				if(storage.settingDisplayTopsites == undefined || storage.settingDisplayTopsites == true){
 					this.displayTopsites = true;
 				} else {
@@ -42,7 +45,17 @@ module.exports = {
 		chrome.topSites.getAsync()
 		.then(function(topsites){
 			for(var i in topsites){
-				if(i > 7) break;
+				var banned = false;
+				for(var j in this.bannedTopsites){
+					if(topsites[i].url.indexOf(this.bannedTopsites[j]) != -1){
+						banned = true;
+						break;
+					}
+				}
+				if(banned){
+					continue;
+				}
+				if(i > 15) break;
 				var topsiteElement = dommy({
 					tag:'div',
 					attributes:{
@@ -50,10 +63,11 @@ module.exports = {
 					},
 					children:[
 					{
-						tag:'div',
+						tag:'a',
 						attributes:{
 							class:"topsite",
-							"data-url":topsites[i].url
+							"data-url":topsites[i].url,
+							"href":topsites[i].url
 						},
 						events:{
 							click:function(e){
@@ -67,10 +81,40 @@ module.exports = {
 										}
 									});
 								}.bind(this));
-								window.top.location = this.getAttribute('data-url');
 							}
 						},
 						children:[
+						{
+							tag:'div',
+							attributes:{
+								'class':'remove-topsite'
+							},
+							children:[
+							{
+								tag:'i',
+								attributes:{
+									class:"fa fa-times",
+									'aria-hidden':"true"
+								},
+								events:{
+									click:function(e){
+										e.stopPropagation();
+										e.preventDefault();
+										var topContainer = this.parentNode.parentNode;
+										var hostname = topContainer.hostname;
+										if (confirm('Are you sure you want to remove ' + hostname + ' from Fruumo?')) {
+											chrome.storage.sync.get({"bannedTopsites":[]}, function(storage){
+												storage.bannedTopsites.push(hostname);
+												chrome.storage.sync.set({"bannedTopsites":storage.bannedTopsites}, function(){
+													location.reload();
+												});
+											});
+										}
+									}
+								}
+							}
+							]
+						},
 						{
 							tag:'div',
 							attributes:{
