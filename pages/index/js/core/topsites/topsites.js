@@ -57,15 +57,16 @@ module.exports = {
 						},
 						events:{
 							click:function(e){
-								chrome.runtime.sendMessage(
-								{
+								chrome.tabs.getCurrent(function(tab){
+									chrome.runtime.sendMessage(
+									{
 										type:"screenshot", 
 										data:{
+											tabId:tab.id,
 											url:this.getAttribute('data-url')
 										}
-								}, function(response) {
-										console.log(response);
-								});
+									});
+								}.bind(this));
 								window.top.location = this.getAttribute('data-url');
 							}
 						},
