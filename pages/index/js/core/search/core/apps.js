@@ -1,4 +1,5 @@
 var dommy = require('dommy.js');
+var Fuse = require('fuse.js');
 require('./apps.scss');
 module.exports = {
 	message:"App Display",
@@ -9,23 +10,43 @@ module.exports = {
 		$this.query = query;
 
 		return new Promise(function(resolve, reject){
-			if($this.query.indexOf("@apps") != 0){
-				resolve({
-					query:$this.query,
-					containerClass:"apps-display-container",
-					div:false
-				});
-				return;
+			if($this.query.indexOf("@apps") == 0){
+				chrome.management.getAllAsync()
+				.then(function(apps){
+					resolve({
+						query:$this.query,
+						containerClass:$this.containerClass,
+						div:$this.createElement(apps)
+					});
+				}.bind($this));
+			} else {
+				chrome.management.getAllAsync()
+				.then(function(apps){
+					var options = {
+						shouldSort: true,
+						threshold: 0.3,
+						location: 0,
+						distance: 100,
+						maxPatternLength: 32,
+						minMatchCharLength: 10,
+						keys: [
+						"name",
+						"description"
+						]
+					};
+					var fuse = new Fuse(apps, options);
+					if($this.query.length > 2)
+						apps = fuse.search($this.query);
+					else
+						apps = [];
+					resolve({
+						query:$this.query,
+						containerClass:$this.containerClass,
+						div:$this.createElement(apps)
+					});
+				}.bind($this));
 			}
-
-			chrome.management.getAllAsync()
-			.then(function(apps){
-				resolve({
-					query:$this.query,
-					containerClass:$this.containerClass,
-					div:$this.createElement(apps)
-				});
-			}.bind($this));
+			
 		}.bind($this));
 	},
 	createElement: function(results){
@@ -54,31 +75,31 @@ module.exports = {
 					tag:'div',
 					attributes:{class:'icon-holder'},
 					children:[
-						{
-							tag:'img',
-							attributes:{class:'icon', src:results[i].icons[results[i].icons.length-1].url}
-						},
-						{
-							tag:'i',
-							attributes:{class:"fa fa-times", 'aria-hidden':"true", 'data-id':results[i].id},
-							events:{
-								click:function(e){
-									chrome.management.uninstall(this.getAttribute('data-id'));
-									e.stopPropagation();
-								}
+					{
+						tag:'img',
+						attributes:{class:'icon', src:results[i].icons[results[i].icons.length-1].url}
+					},
+					{
+						tag:'i',
+						attributes:{class:"fa fa-times", 'aria-hidden':"true", 'data-id':results[i].id},
+						events:{
+							click:function(e){
+								chrome.management.uninstall(this.getAttribute('data-id'));
+								e.stopPropagation();
 							}
 						}
+					}
 					]
 				},
 				{
 					tag:'div',
 					attributes:{class:'details-holder'},
 					children:[
-						{
-							tag:'div',
-							attributes:{class:'title'},
-							children:[{type:'text',value:results[i].shortName}]
-						}
+					{
+						tag:'div',
+						attributes:{class:'title'},
+						children:[{type:'text',value:results[i].shortName}]
+					}
 					]
 				}
 				]
