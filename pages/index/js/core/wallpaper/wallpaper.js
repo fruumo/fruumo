@@ -17,9 +17,17 @@ module.exports = {
 	setWallpaper: function(){
 		chrome.storage.local.get({"wallpaper":{}, "wallpaperTimestamp":0},function(storage){
 			//document.body.style.color = storage.wallpaper.fontColor;
-			this.DOM[0][0].style.display = "none";
-			this.DOM[0][0].style.backgroundImage = "url('"+storage.wallpaper.image+"')";
-			setTimeout(function(){this.DOM[0][0].style.display="block";}.bind(this), 0);
+			this.DOM[0][0].style.opacity = "0";
+			var timeout = 0;
+			if(this.DOM[0][0].style.filter.indexOf("blur")!=-1){
+				timeout = 700;
+			}
+			setTimeout(function(){
+				this.DOM[0][0].style.backgroundImage = "url('"+storage.wallpaper.image+"')";
+				this.DOM[0][0].style.opacity = "1";
+				this.DOM[0][0].style.filter = "blur(0px)";
+			}.bind(this), timeout);
+			
 			if(storage.wallpaper.location){
 				this.DOM[1][0].innerText = storage.wallpaper.location.title;
 			} else {

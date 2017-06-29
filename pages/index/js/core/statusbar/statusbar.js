@@ -25,7 +25,7 @@ module.exports = {
 		this.DOM[1][0].appendChild(allApps);
 	},
 	cWallpaper:function(){
-		document.getElementsByClassName('wallpaper')[0].style.display = "none";
+		document.getElementsByClassName('wallpaper')[0].style.filter = "blur(4px)";
 		chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
 	},
 	recentlyClosed: function(){

@@ -10,9 +10,8 @@
 	top:0px;
 	left:0px;
 	-webkit-transform: translate3d(0, 0, 0);
-	animation: fadein 700ms;
-	display:none;
-	transition:opacity 300ms;
+	opacity:0;
+	transition:opacity 700ms, filter 400ms;
 	.wallpaper-meta{
 	    font-size: 14px;
 	    font-weight: 200;
@@ -37,13 +36,4 @@
 			display:block;
 		}
 	}
-}
-
-@keyframes fadein {
-    from { 
-    	opacity: 0; 
-	}
-    to   { 
-    	opacity: 1; 
-    }
 }
