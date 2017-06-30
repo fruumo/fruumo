@@ -18,15 +18,6 @@ module.exports = {
 				});
 				return;
 			}
-
-			chrome.management.getAllAsync()
-			.then(function(apps){
-				resolve({
-					query:$this.query,
-					containerClass:$this.containerClass,
-					div:$this.createElement(JSON.parse(localStorage.recentlyRemovedTabs))
-				});
-			}.bind($this));
 		}.bind($this));
 	},
 	createElement: function(results){
