@@ -18,11 +18,37 @@ module.exports = {
 				});
 				return;
 			}
-
-			resolve({
-				query:$this.query,
-				containerClass:$this.containerClass,
-				div:$this.createElement(JSON.parse(localStorage.recentlyRemovedTabs))
+			chrome.sessions.getRecentlyClosed({maxResults:10}, function(sessions){
+				var recentlyClosed = [];
+				console.log(sessions);
+				function processTab(tab){
+					if(!tab.url || !tab.title)
+						return;
+					if(tab.url.indexOf("chrome://") != -1)
+						return;
+					var parser = document.createElement('a');
+						parser.href =tab.url;
+					recentlyClosed.push({
+						url:tab.url,
+						faviconUrl:"https://www.google.com/s2/favicons?domain="+parser.hostname,
+						title:tab.title
+					});
+				}
+				for(var i = sessions.length-1; i>=0; i--){
+					var session = sessions[i];
+					if(session.tab)
+						processTab(session.tab);
+					if(session.window){
+						for(var j=session.window.tabs.length-1; j>=0; j--){
+							processTab(session.window.tabs[j]);
+						}
+					}
+				}
+				resolve({
+					query:$this.query,
+					containerClass:$this.containerClass,
+					div:$this.createElement(recentlyClosed)
+				});
 			});
 		}.bind($this));
 	},
