@@ -5,6 +5,7 @@ module.exports = {
 	message:"App Display",
 	containerClass:"apps-display-container",
 	priority:"100",
+	icon:true,
 	search: function(query){
 		var $this = this;
 		$this.query = query;
@@ -19,7 +20,7 @@ module.exports = {
 						div:$this.createElement(apps)
 					});
 				}.bind($this));
-			} else {
+			}
 				chrome.management.getAllAsync()
 				.then(function(apps){
 					var options = {
@@ -34,6 +35,11 @@ module.exports = {
 						"description"
 						]
 					};
+					apps = apps.filter(function(item){
+						if(!item.icons || !item.isApp || !item.enabled)
+							return false;
+						return true;
+					});
 					var fuse = new Fuse(apps, options);
 					if($this.query.length > 2)
 						apps = fuse.search($this.query);
@@ -45,8 +51,6 @@ module.exports = {
 						div:$this.createElement(apps)
 					});
 				}.bind($this));
-			}
-			
 		}.bind($this));
 	},
 	createElement: function(results){

@@ -4,6 +4,7 @@ module.exports = {
 	message:"Recently closed tabs",
 	containerClass:"rct-container",
 	priority:"100",
+	icon:true,
 	search: function(query){
 		var $this = this;
 		$this.query = query;

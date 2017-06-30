@@ -107,8 +107,10 @@ module.exports = {
 		}
 		this.searchTimeout = setTimeout(function(){
 			var query = this.DOM[0][0].value+"";
-			this.searchFunctions = [];
 			for(var i in this.searchEngines){
+				if(query[0] == "@" && !this.searchEngines[i].icon){
+					continue;
+				}
 				this.searchEngines[i].search(query).then(function(results){
 					if(results.query != query)
 						return;
