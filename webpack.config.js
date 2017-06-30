@@ -14,11 +14,12 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin("./bundle.css"),
+		new ExtractTextPlugin("./[name].bundle.css"),
 	],
 	context: path.resolve(__dirname, './pages/'),
 	entry: {
 		index: './index/js/index.js',
+		settings:'./settings/index.js'
 	},
 	output: {
 		path: path.resolve(__dirname, './dist/'),

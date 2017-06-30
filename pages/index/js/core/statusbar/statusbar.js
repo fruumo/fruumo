@@ -3,6 +3,13 @@ module.exports = {
 	name:'statusbar',
 	DOM:['.statusbar','.statusbar>.icon-list','.search-bar'],
 	onload: function(){
+		var settings = document.createElement('div');
+		settings.className = "item";
+		settings.setAttribute("title","Get a new wallpaper");
+		settings.innerHTML = "<i class=\"fa fa-cog\" aria-hidden=\"true\"></i>";
+		settings.addEventListener("click", this.settings.bind(this));
+		this.DOM[1][0].appendChild(settings);
+
 		var cWallpaper = document.createElement('div');
 		cWallpaper.className = "item";
 		cWallpaper.setAttribute("title","Get a new wallpaper");
@@ -30,6 +37,13 @@ module.exports = {
 		allApps.innerHTML = "<i class=\"fa fa-th-large\" aria-hidden=\"true\"></i>";
 		allApps.addEventListener("click", this.allApps.bind(this));
 		this.DOM[1][0].appendChild(allApps);
+	},
+	settings:function(){
+		if (chrome.runtime.openOptionsPage) {
+			chrome.runtime.openOptionsPage();
+		} else {
+			window.open(chrome.runtime.getURL('../settings/index.html'));
+		}
 	},
 	cWallpaper:function(){
 		document.getElementsByClassName('wallpaper')[0].style.filter = "blur(4px)";
