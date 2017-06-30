@@ -1,5 +1,6 @@
 body{
-	height:400px;
+	width:600px;
+	height:600px;
 }
 
 .panel{
@@ -16,5 +17,17 @@ body{
 		    display: block;
 			margin-bottom: 15px;
 		}
+	}
+}
+
+.weather{
+	#location{
+		padding:5px;
+	}
+	.error{
+		color:red;
+	}
+	#edit-weather{
+		display:none;
 	}
 }

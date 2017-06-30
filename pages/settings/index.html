@@ -31,6 +31,24 @@
 				</label>
 			</div>
 		</div>
+		<div class = "weather panel">
+			<div class = "title">
+				<h2> Weather Settings </h2>
+			</div>
+			<div class = "content">
+				<label>
+				Weather Location: 
+					<span id ="no-edit-weather"><span id = "location">Toronto, CA</span><a href="#" id="edit-weather-trigger">Edit</a></span>
+					<span id = "edit-weather">
+						<input type = "text" id="location-search" placeholder="City, Country"></input>
+						<input type = "button" class = "button" value="Save" id = "save-location"></input>
+						<input type = "button" class = "button" value="Auto" alt="Automatically get current location" id = "auto-location"></input>
+					</span>
+					<div class = "error" id = "weather-error">
+					</div>
+				</label>
+			</div>
+		</div>
 		<div class = "panel">
 			<div class = "title">
 				<h2> Reset Settings </h2>

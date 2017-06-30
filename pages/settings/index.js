@@ -34,3 +34,5 @@ chrome.storage.sync.get(null, function(storage){
 		});
 	});
 });
+
+require('./weather.js');

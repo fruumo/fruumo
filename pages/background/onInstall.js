@@ -32,8 +32,12 @@ function resetSettings(){
 	chrome.storage.sync.set({settingFocus:false});
 	chrome.storage.sync.set({settingIs24h:true});
 	localStorage.searchDomain = "https://www.google.ca/search?q=";
-	chrome.storage.local.remove("screenshots")
 	chrome.storage.sync.set({bannedTopsites:[]});
 
+	chrome.storage.local.remove("screenshots");
+	chrome.storage.local.remove("customWeather");
+
+	chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
+	chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
 	console.log("Resetting settings!");
 }
