@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "offline_enabled":true,
   "background": {
-    "scripts": ["./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js","./pages/background/screenshot.js","./pages/background/closedTabTracker.js"],
+    "scripts": ["./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js","./pages/background/screenshot.js","./pages/background/closedTabTracker.js"],
     "persistent": false
   },
   "options_page": "pages/settings/index.html",
