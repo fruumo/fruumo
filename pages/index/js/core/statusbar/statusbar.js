@@ -10,6 +10,13 @@ module.exports = {
 		cWallpaper.addEventListener("click", this.cWallpaper.bind(this));
 		this.DOM[1][0].appendChild(cWallpaper);
 
+		var downloads = document.createElement('div');
+		downloads.className = "item";
+		downloads.setAttribute("title","Recently Completed Downloads");
+		downloads.innerHTML = "<i class=\"fa fa-download\" aria-hidden=\"true\"></i>";
+		downloads.addEventListener("click", this.downloads.bind(this));
+		this.DOM[1][0].appendChild(downloads);
+
 		var recentlyClosed = document.createElement('div');
 		recentlyClosed.className = "item";
 		recentlyClosed.setAttribute("title","Recently Closed Tabs");
@@ -33,6 +40,9 @@ module.exports = {
 	},
 	allApps: function(){
 		this.triggerSearch("@apps");
+	},
+	downloads:function(){
+		this.triggerSearch("@downloads");
 	},
 	triggerSearch: function(text){
 		if(this.DOM[2][0].value != text){

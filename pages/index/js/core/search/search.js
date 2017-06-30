@@ -9,9 +9,8 @@ module.exports = {
 		require("./core/googleSuggestion.js"),
 		require("./core/apps.js"),
 		require("./core/bookmarks.js"),
-		require("./core/recentlyClosed.js")
-	],
-	searchFunctions:[
+		require("./core/recentlyClosed.js"),
+		require("./core/downloads.js")
 	],
 	containers:[],
 	resultElements:[],
