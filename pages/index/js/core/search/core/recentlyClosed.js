@@ -18,6 +18,12 @@ module.exports = {
 				});
 				return;
 			}
+
+			resolve({
+				query:$this.query,
+				containerClass:$this.containerClass,
+				div:$this.createElement(JSON.parse(localStorage.recentlyRemovedTabs))
+			});
 		}.bind($this));
 	},
 	createElement: function(results){
