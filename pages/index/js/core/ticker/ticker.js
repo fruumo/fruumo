@@ -53,11 +53,18 @@ module.exports = {
 		return dateString;	
 	},
 	updateWeather: function(){
-		chrome.storage.local.get({weather:null,location:null},function(weather){
-			if(weather.weather == null || weather.location == null)
-				return;
-			this.tickerStrings[1] = "It's " + Math.round((weather.weather.results.channel.item.condition.temp-32)*5/9) + " &deg;C and "+weather.weather.results.channel.item.condition.text+" in " + weather.location.city+".";
+		chrome.storage.sync.get({settingMetric:true}, function(storage){
+			chrome.storage.local.get({weather:null,location:null},function(weather){
+				if(weather.weather == null || weather.location == null)
+					return;
+				var temp;
+				if(storage.settingMetric)
+					temp = Math.round((weather.weather.results.channel.item.condition.temp-32)*5/9) + " &deg;C";
+				else
+					temp = Math.round((weather.weather.results.channel.item.condition.temp))+ " &deg;F"
+				this.tickerStrings[1] = "It's " + temp + " and "+weather.weather.results.channel.item.condition.text+" in " + weather.location.city+".";
 
+			}.bind(this));
 		}.bind(this));
 	}
 };

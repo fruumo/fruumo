@@ -1,11 +1,12 @@
 require('./index.scss');
-
 chrome.storage.sync.get(null, function(storage){
 	console.log(storage);
 	var displayTopsites = document.getElementById("display-topsites");
 	var time = document.getElementById("24h");
 	var focusMode = document.getElementById("focus-mode");
 	var reset = document.getElementById("reset");
+	var metricWeather = document.getElementById("metric-weather");
+
 	if(storage.settingDisplayTopsites){
 		displayTopsites.checked = true;
 	}
@@ -15,7 +16,13 @@ chrome.storage.sync.get(null, function(storage){
 	if(storage.settingFocus){
 		focusMode.checked = true;
 	}
-	
+	if(storage.settingMetric || storage.settingMetric == undefined){
+		metricWeather.checked = true;
+	}
+	metricWeather.addEventListener("click", function(){
+		chrome.storage.sync.set({settingMetric:this.checked});
+	});
+
 	displayTopsites.addEventListener("click", function(){
 		chrome.storage.sync.set({settingDisplayTopsites:this.checked});
 	});
