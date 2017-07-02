@@ -11,6 +11,12 @@ chrome.storage.local.get(null, function(lstorage){
 		var customWallpaperBrowse = document.getElementById("custom-wallpaper-browse");
 		var customWallpaper = document.getElementById("custom-wallpaper");
 		var fruumoWallpaper = document.getElementById("fruumo-wallpaper");
+		var searchEngine = document.getElementById("search-engine");
+
+		if(localStorage.searchDomain){
+			searchEngine.value = localStorage.searchDomain;
+		}
+
 		if(storage.settingDisplayTopsites){
 			displayTopsites.checked = true;
 		}
@@ -29,6 +35,9 @@ chrome.storage.local.get(null, function(lstorage){
 			customWallpaper.checked = true;
 		}
 
+		searchEngine.addEventListener("change", function(e){
+			localStorage.searchDomain = this.value;
+		});
 		customWallpaperBrowse.addEventListener("change", function(e){
 			if(e.target.files.length == 0)
 				return;
