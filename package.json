@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --config mywebpack.config.js"
+    "webpack": "webpack --config webpack.config.js",
+    "build":"gulp --gulpfile \"build.chrome.js\""
   },
   "repository": {
     "type": "git",
