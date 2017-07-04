@@ -16,37 +16,35 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 			return;
 		chrome.storage.local.get({"screenshots":{}}, function(storage){
 			function captureTab(windowId, url){
-				setTimeout(function(){
-					chrome.tabs.captureVisibleTab(windowId, 
-						{format:"jpeg",quality:80}, function(image){
+				chrome.tabs.captureVisibleTab(windowId, 
+					{format:"jpeg",quality:80}, function(image){
 
-							function resizeImage(url, width, height, callback) {
-								var sourceImage = new Image();
-								sourceImage.onload = function() {
-								// Create a canvas with the desired dimensions
-								var canvas = document.createElement("canvas");
-								width = (sourceImage.width/sourceImage.height)*height;
+						function resizeImage(url, width, height, callback) {
+							var sourceImage = new Image();
+							sourceImage.onload = function() {
+							// Create a canvas with the desired dimensions
+							var canvas = document.createElement("canvas");
+							width = (sourceImage.width/sourceImage.height)*height;
 
-								canvas.width = width;
-								canvas.height =height;
-								// Scale and draw the source image to the canvas
-								canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
-								// Convert the canvas to a data URL in PNG format
-								callback(canvas.toDataURL());
-							}
-							sourceImage.src = url;
+							canvas.width = width;
+							canvas.height =height;
+							// Scale and draw the source image to the canvas
+							canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
+							// Convert the canvas to a data URL in PNG format
+							callback(canvas.toDataURL());
 						}
-						console.log("Capturing image for " + details.url);
-						resizeImage(image, 100,400, function(resized){
-							storage.screenshots[url] ={};
-							storage.screenshots[url].image = resized;
-							storage.screenshots[url].timestamp = new Date().getTime();
-							chrome.storage.local.set(storage);
-							chrome.webNavigation.onCompleted.removeListener(screenshot);
-							sendResponse();
-						});
+						sourceImage.src = url;
+					}
+					console.log("Capturing image for " + details.url);
+					resizeImage(image, 100,400, function(resized){
+						storage.screenshots[url] ={};
+						storage.screenshots[url].image = resized;
+						storage.screenshots[url].timestamp = new Date().getTime();
+						chrome.storage.local.set(storage);
+						chrome.webNavigation.onCompleted.removeListener(screenshot);
+						sendResponse();
 					});
-				}, 1000);
+				});
 			}
 			chrome.tabs.query({active:true, currentWindow:true},function(tab){
 				tab = tab[0];
