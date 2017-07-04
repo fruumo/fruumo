@@ -1,4 +1,11 @@
 require('./index.scss');
+
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-101959257-1', 'auto');
+
 chrome.storage.local.get(null, function(lstorage){
 
 	chrome.storage.sync.get(null, function(storage){
@@ -54,6 +61,8 @@ chrome.storage.local.get(null, function(lstorage){
 				chrome.storage.local.set({settingCustomWallpaper:true});
       		};
       		reader.readAsDataURL(file);
+		  	ga('send', 'event', 'setting', 'custom wallpaper');
+
 		});
 		customWallpaper.addEventListener("click", function(){
 			customWallpaperBrowse.click();
@@ -61,6 +70,7 @@ chrome.storage.local.get(null, function(lstorage){
 		fruumoWallpaper.addEventListener("click", function(){
 			chrome.storage.local.remove("settingCustomWallpaper");
 			chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
+			ga('send', 'event', 'setting', 'fruumo wallpaper');
 		});
 		metricWeather.addEventListener("click", function(){
 			chrome.storage.sync.set({settingMetric:this.checked});

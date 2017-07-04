@@ -9,7 +9,7 @@ require('./core/search/search.js'),
 require('./core/statusbar/statusbar.js')
 ];
 var utils = require('./libs/utils.js');
-
+window.appVersion = chrome.app.getDetails().version;
 window.onload = function(){
 	utils.promisifyChrome(['tabs','topSites','history','bookmarks','downloads','management']);
 	//start loading core
@@ -33,12 +33,17 @@ window.onload = function(){
 			}	
 		}	
 	});
+
+  	ga('send', 'event', 'Fruumo', 'load', appVersion);
 	//Log page load time
 	setTimeout(function(){
 		var loadTime = window.performance.timing.domInteractive- window.performance.timing.navigationStart;
 		document.getElementById('loadtime').innerText = "Loaded in " + loadTime+'ms';
 		console.log('%c Load Time -  ' + loadTime + 'ms', 'color: blue; font-size:16px;');
-	},5000);
+		ga('send', 'timing', "DOMInteractive", "Ready", loadTime, appVersion);
+	},1000);
+
+	//Setup tutorial
 	setTimeout(function(){
 		if(localStorage.intro == "true"){
 			return;
@@ -77,6 +82,5 @@ window.onload = function(){
 			localStorage.intro = "true";
 		});
 		intro.start();
-
 	},500);
 }

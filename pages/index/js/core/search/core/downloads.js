@@ -43,6 +43,7 @@ module.exports = {
 				attributes:{class:'result','data-id':results[i].id},
 				events:{
 					click:function(){
+					  	ga('send', 'event', 'search', 'launch download', appVersion);
 						chrome.downloads.show(parseInt(this.getAttribute("data-id")));
 					}
 				},

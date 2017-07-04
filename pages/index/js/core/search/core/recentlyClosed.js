@@ -78,6 +78,7 @@ module.exports = {
 				attributes:{class:'result','data-url':results[i].url},
 				events:{
 					click:function(){
+					  	ga('send', 'event', 'search', 'launch recently closed', appVersion);
 						window.top.location= this.getAttribute('data-url');
 					}
 				},

@@ -47,6 +47,7 @@ module.exports = {
 				attributes:{class:'result','data-url':results[i].url},
 				events:{
 					click:function(){
+					  	ga('send', 'event', 'search', 'launch bookmark', appVersion);
 						window.top.location= this.getAttribute('data-url');
 					}
 				},

@@ -46,6 +46,7 @@ module.exports = {
 				attributes:{class:'result','data-search-query':results[i]},
 				events:{
 					click:function(){
+					  	ga('send', 'event', 'search', 'search web', appVersion);
 						window.top.location = localStorage.searchDomain + this.getAttribute('data-search-query');
 					}
 				},

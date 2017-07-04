@@ -71,6 +71,7 @@ module.exports = {
 				attributes:{class:'result', 'data-id':results[i].id},
 				events:{
 					click:function(){
+					  	ga('send', 'event', 'search', 'launch app', appVersion);
 						chrome.management.launchApp(this.getAttribute('data-id'));
 					}
 				},

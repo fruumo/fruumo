@@ -80,6 +80,7 @@ module.exports = {
 											url:this.getAttribute('data-url')
 										}
 									});
+								  	ga('send', 'event', 'Most Visited', 'click', appVersion);
 								}.bind(this));
 							}
 						},
