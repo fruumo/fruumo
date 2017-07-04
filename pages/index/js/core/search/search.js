@@ -201,7 +201,6 @@ module.exports = {
 	launchResult: function(e){
 		if(this.DOM[1][0].children.length == 0 && this.DOM[0][0].value != "")
 			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
-		//console.log(this.keyboardSelectedResult);
 		if(this.keyboardSelectedResult == -1){
 			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
 			return;
