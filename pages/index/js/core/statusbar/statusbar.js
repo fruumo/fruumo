@@ -5,7 +5,7 @@ module.exports = {
 	onload: function(){
 		var settings = document.createElement('div');
 		settings.className = "item";
-		settings.setAttribute("title","Get a new wallpaper");
+		settings.setAttribute("title","Settings");
 		settings.innerHTML = "<i class=\"fa fa-cog\" aria-hidden=\"true\"></i>";
 		settings.addEventListener("click", this.settings.bind(this));
 		this.DOM[1][0].appendChild(settings);
