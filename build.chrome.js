@@ -87,7 +87,7 @@ gulp.task('build',['movefiles','minifyImages','minifyCss','minifyJs'], function(
 });
 
 gulp.task('compress',['build'], function(cb){
-	return gulp.src('../fruumo3-build/**/*')
+	return gulp.src('../fruumo3-build/build/**/*')
         .pipe(zip(version+'.chrome.zip'))
         .pipe(gulp.dest('../fruumo3-build/'));
 });
