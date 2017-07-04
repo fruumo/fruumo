@@ -21,4 +21,12 @@ body{
 		justify-content:center;
         transition:opacity 250ms;
     }
+    .introjs-tooltip{
+        .introjs-tooltiptext{
+            color:black;
+        }
+    }
+    .introjs-helperNumberLayer{
+        display:none;
+    }
 }
