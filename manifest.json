@@ -2,7 +2,7 @@
   "name": "Fruumo 2 - New Tab Page",
   "short_name":"Fruumo",
   "manifest_version":2,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "offline_enabled":true,
   "background": {
     "scripts": ["./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
@@ -24,5 +24,5 @@
       "128": "images/icon.png"
     }
   },
-  "permissions":["chrome://favicon/*", "https://ssl.google-analytics.com/", "https://www.google.com/s2/favicons","http://suggestqueries.google.com/complete/searcch","tabs","webNavigation","sessions","management","history", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
+  "permissions":["chrome://favicon/*", "<all_urls>", "https://ssl.google-analytics.com/", "https://www.google.com/s2/favicons","http://suggestqueries.google.com/complete/searcch","tabs","webNavigation","sessions","management","history", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
 }
