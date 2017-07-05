@@ -8,7 +8,7 @@
     "scripts": ["./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
     "persistent": false
   },
-  "content_security_policy": "script-src 'self' https://www.google-analytics.com 'sha256-uNoT5f6ltE5A6QtV34wLeuMl/FvnvG8SRKxDaDBKtuM='; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
   "options_ui": {
     "page": "pages/settings/index.html",
     "chrome_style": true
