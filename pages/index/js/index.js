@@ -11,6 +11,7 @@ require('./core/statusbar/statusbar.js')
 var utils = require('./libs/utils.js');
 window.appVersion = chrome.app.getDetails().version;
 window.onload = function(){
+
 	utils.promisifyChrome(['tabs','topSites','history','bookmarks','downloads','management']);
 	//start loading core
 	var preloads = [];

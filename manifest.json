@@ -8,7 +8,7 @@
     "scripts": ["./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
     "persistent": false
   },
-  "content_security_policy": "script-src 'self' https://ssl.google-analytics.com 'sha256-hlFrDEP6oHR9bqG8BbDuam6eZxvBUV8qhHdGISNsiLk='; object-src 'self'",
+  "content_security_policy": "script-src 'self' https://www.google-analytics.com 'sha256-uNoT5f6ltE5A6QtV34wLeuMl/FvnvG8SRKxDaDBKtuM='; object-src 'self'",
   "options_ui": {
     "page": "pages/settings/index.html",
     "chrome_style": true
@@ -24,5 +24,5 @@
       "128": "images/icon.png"
     }
   },
-  "permissions":["chrome://favicon/*", "<all_urls>", "https://ssl.google-analytics.com/", "https://www.google.com/s2/favicons","http://suggestqueries.google.com/complete/searcch","tabs","webNavigation","sessions","management","history", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
+  "permissions":["chrome://favicon/*", "<all_urls>", "https://www.google-analytics.com/", "https://www.google.com/s2/favicons","http://suggestqueries.google.com/complete/searcch","tabs","webNavigation","sessions","management","history", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
 }
