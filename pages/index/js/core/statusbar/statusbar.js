@@ -42,6 +42,7 @@ module.exports = {
 		if (chrome.runtime.openOptionsPage) {
 			chrome.runtime.openOptionsPage();
 		} else {
+		  	ga('send', 'event', 'settings', 'launch settings', appVersion);
 			window.open(chrome.runtime.getURL('../settings/index.html'));
 		}
 	},
