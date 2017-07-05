@@ -17,6 +17,7 @@ module.exports = {
 	setWallpaper: function(){
 		chrome.storage.local.get({"wallpaper":{}, "wallpaperTimestamp":0},function(storage){
 			//document.body.style.color = storage.wallpaper.fontColor;
+			document.body.style.backgroundColor = "#000";
 			this.DOM[0][0].style.opacity = "0";
 			var timeout = 0;
 			if(this.DOM[0][0].style.filter.indexOf("blur")!=-1){
@@ -26,6 +27,9 @@ module.exports = {
 				this.DOM[0][0].style.backgroundImage = "url('"+storage.wallpaper.image+"')";
 				this.DOM[0][0].style.opacity = "1";
 				this.DOM[0][0].style.filter = "blur(0px)";
+				setTimeout(function(){
+					document.body.style.backgroundColor = "#FFF";
+				}, 800);
 			}.bind(this), timeout);
 			
 			if(storage.wallpaper.location){
