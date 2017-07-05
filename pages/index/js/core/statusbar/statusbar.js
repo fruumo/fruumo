@@ -10,12 +10,12 @@ module.exports = {
 		settings.addEventListener("click", this.settings.bind(this));
 		this.DOM[1][0].appendChild(settings);
 
-		var cWallpaper = document.createElement('div');
+		/*var cWallpaper = document.createElement('div');
 		cWallpaper.className = "item";
 		cWallpaper.setAttribute("title","Get a new wallpaper");
 		cWallpaper.innerHTML = "<i class=\"fa fa-picture-o\" aria-hidden=\"true\"></i>";
 		cWallpaper.addEventListener("click", this.cWallpaper.bind(this));
-		this.DOM[1][0].appendChild(cWallpaper);
+		this.DOM[1][0].appendChild(cWallpaper);*/
 
 		var downloads = document.createElement('div');
 		downloads.className = "item";
