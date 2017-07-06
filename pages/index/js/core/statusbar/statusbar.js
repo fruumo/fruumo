@@ -15,8 +15,8 @@ module.exports = {
 		cWallpaper.setAttribute("title","Get a new wallpaper");
 		cWallpaper.innerHTML = "<i class=\"fa fa-picture-o\" aria-hidden=\"true\"></i>";
 		cWallpaper.addEventListener("click", this.cWallpaper.bind(this));
-		this.DOM[1][0].appendChild(cWallpaper);*/
-
+		this.DOM[1][0].appendChild(cWallpaper);
+		*/
 		var downloads = document.createElement('div');
 		downloads.className = "item";
 		downloads.setAttribute("title","Recently Completed Downloads");
@@ -48,7 +48,7 @@ module.exports = {
 	},
 	cWallpaper:function(){
 		document.getElementsByClassName('wallpaper')[0].style.filter = "blur(4px)";
-		chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
+		chrome.runtime.sendMessage({type:'refresh-wallpaper'});
 	},
 	recentlyClosed: function(){
 		this.triggerSearch("@recently-closed-tabs");

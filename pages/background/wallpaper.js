@@ -6,6 +6,17 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 	if(alarm.name != "refresh-wallpaper" ){
 		return;
 	}
+	refreshWallpaper();
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	if (request.type != "refresh-wallpaper"){
+		return;
+	}
+	refreshWallpaper();	
+});
+
+function refreshWallpaper(){
 	chrome.storage.local.get({settingCustomWallpaper:false}, function(storage){
 		if(storage.settingCustomWallpaper)
 			return;
@@ -33,23 +44,20 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 					var rgb = hexToRgb(data.color);
 					var luminance = 1 - (((0.299*rgb.r) + (0.587*rgb.g) + (0.114*rgb.b))/255);
 					var fontColor = "";
-					//if(luminance < 0.5)
-					//	fontColor = "#000";
-					//else
-						fontColor = "#FFF";
+					fontColor = "#FFF";
 					chrome.storage.local.set({wallpaper:{image:dataUrl,author:data.user,location:data.location, color:data.color,fontColor:fontColor,luminance:luminance}});
 				};
 				reader.readAsDataURL(blob);
 			});
 		});
 	});
-});
+}
 
 function hexToRgb(hex) {
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result ? {
-        r: parseInt(result[1], 16),
-        g: parseInt(result[2], 16),
-        b: parseInt(result[3], 16)
-    } : null;
+	var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+	return result ? {
+		r: parseInt(result[1], 16),
+		g: parseInt(result[2], 16),
+		b: parseInt(result[3], 16)
+	} : null;
 }

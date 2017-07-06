@@ -28,7 +28,7 @@ document.getElementById('edit-weather-trigger').addEventListener('click', functi
 });
 document.getElementById('auto-location').addEventListener('click', function(e){
 	chrome.storage.local.remove("customWeather", function(){
-		chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
+		chrome.runtime.sendMessage({type:'refresh-weather'});
 		noEditMode();
 	});
 });
@@ -63,7 +63,7 @@ document.getElementById('save-location').addEventListener('click', function(e){
 				lon:result.centroid.longitude
 			}
 		}, function(){
-			chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
+			chrome.runtime.sendMessage({type:'refresh-weather'});
 			this.disabled = false;
 			this.value = "Save";
 			noEditMode();

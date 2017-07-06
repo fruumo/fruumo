@@ -19,11 +19,7 @@ function getWeather(ipInfo){
 		chrome.storage.local.set({weather:weather.query,location:ipInfo});
 	});
 }
-
-chrome.alarms.onAlarm.addListener(function(alarm){
-	if(alarm.name != "refresh-weather" ){
-		return;
-	}
+function refreshWeather(){
 	chrome.storage.local.get({customWeather:null}, function(storage){
 		if(!storage.customWeather){
 			getIP().then(getWeather);
@@ -31,6 +27,19 @@ chrome.alarms.onAlarm.addListener(function(alarm){
 		} else {
 			getWeather(storage.customWeather);
 		}
-
 	});
+}
+
+chrome.alarms.onAlarm.addListener(function(alarm){
+	if(alarm.name != "refresh-weather" ){
+		return;
+	}
+	refreshWeather();
+});
+
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+	if (request.type != "refresh-weather"){
+		return;
+	}
+	refreshWeather();	
 });
