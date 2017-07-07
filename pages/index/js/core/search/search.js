@@ -10,7 +10,8 @@ module.exports = {
 		require("./core/apps.js"),
 		require("./core/bookmarks.js"),
 		require("./core/recentlyClosed.js"),
-		require("./core/downloads.js")
+		require("./core/downloads.js"),
+		require("./core/opentabsearch.js")
 	],
 	containers:[],
 	resultElements:[],

@@ -3,7 +3,7 @@ require('./recentlyClosed.scss');
 module.exports = {
 	message:"Recently closed tabs",
 	containerClass:"rct-container",
-	priority:"100",
+	priority:"99",
 	icon:true,
 	search: function(query){
 		var $this = this;

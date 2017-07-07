@@ -4,7 +4,7 @@ require('./apps.scss');
 module.exports = {
 	message:"App Display",
 	containerClass:"apps-display-container",
-	priority:"100",
+	priority:"99",
 	icon:true,
 	search: function(query){
 		var $this = this;

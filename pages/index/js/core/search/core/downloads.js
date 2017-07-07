@@ -3,7 +3,7 @@ require('./downloads.scss');
 module.exports = {
 	message:"Downloads",
 	containerClass:"downloads-results-container",
-	priority:"100",
+	priority:"99",
 	icon:true,
 	search: function(query){
 		var $this = this;
