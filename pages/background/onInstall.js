@@ -6,8 +6,10 @@ chrome.runtime.onInstalled.addListener(function(details){
 	window.appVersion = chrome.app.getDetails().version;
 	if(details.reason == "install")
   		ga('send', 'event', 'Fruumo', 'install', appVersion);
-  	if(details.reason == "update")
+  	if(details.reason == "update"){
   		ga('send', 'event', 'Fruumo', 'update', appVersion);
+  		ga('send', 'event', 'Fruumo', 'update-from-previous-version', details.previousVersion);
+  	}
 
 
 	//Refresh wallpaper and weather alarm (every hour)
