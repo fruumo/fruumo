@@ -6,19 +6,17 @@ module.exports = {
 	searchTimeout:undefined,
 	DOM:['.search-bar','.search-results','.topsites-container','.search-container','.cancel-search','.wallpaper'],
 	searchEngines:[
-		require("./core/googleSuggestion.js"),
-		require("./core/apps.js"),
-		require("./core/bookmarks.js"),
-		require("./core/recentlyClosed.js"),
-		require("./core/downloads.js"),
-		require("./core/opentabsearch.js")
+		require("./core/google/googleSuggestion.js"),
+		require("./core/apps/apps.js"),
+		require("./core/bookmarks/bookmarks.js"),
+		require("./core/recentlyClosed/recentlyClosed.js"),
+		require("./core/downloads/downloads.js"),
+		require("./core/opentabs/opentabsearch.js")
 	],
 	containers:[],
 	resultElements:[],
 	keyboardSelectedResult:-1,
 	onload: function(){
-		//this.DOM[0][0].addEventListener('focus',this.toggleResults.bind(this));
-		//this.DOM[0][0].addEventListener('blur',this.toggleResults.bind(this));	
 		this.DOM[0][0].addEventListener('keyup', this.onKey.bind(this));
 		this.DOM[4][0].addEventListener('click', this.cancelSearch.bind(this));
 		for(var i in this.searchEngines){

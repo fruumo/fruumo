@@ -1,5 +1,5 @@
 var dommy = require('dommy.js');
-require('./bookmarks-search.scss');
+var render = require('../../default-result-render/index.js');
 module.exports = {
 	message:"Bookmarks",
 	containerClass:"bookmark-results-container",
@@ -35,52 +35,30 @@ module.exports = {
 		if(results.length == 0)
 			return false;
 		var d = document.createElement('div');
-		d.className = "bookmark-results-container";
+		d.className = this.containerClass;
 		d.setAttribute('data-priority',this.priority);
 		var t = document.createElement('div');
 		t.className = "title";
 		t.innerText = "Bookmarks";
 		d.appendChild(t);
 		for(var i in results){
-			var result = dommy({
-				tag:'div',
-				attributes:{class:'result','data-url':results[i].url},
-				events:{
-					click:function(){
-					  	ga('send', 'event', 'search', 'launch bookmark', appVersion);
-						window.top.location= this.getAttribute('data-url');
+			var parser = document.createElement('a');
+			parser.href =results[i].url;
+			d.appendChild(
+				render({
+					title:results[i].title,
+					url:results[i].url,
+					launch:results[i].url,
+					imgSrc:(results[i].url.indexOf("chrome://") != -1 || results[i].url.indexOf("chrome-extension://") !=-1) ?"":'https://s2.googleusercontent.com/s2/favicons?domain='+parser.hostname,
+					imgError: function(){
+						this.style.opacity = "0";
+					}, 
+					click: function(){
+						ga('send', 'event', 'search', 'launch bookmark', appVersion);
+						window.top.location= this.getAttribute('data-launch');
 					}
-				},
-				children:[
-				{
-					tag:'div',
-					attributes:{class:'icon-holder'},
-					children:[
-					{
-						tag:'img',
-						attributes:{class:'icon', src:(results[i].url.indexOf("chrome://") != -1 || results[i].url.indexOf("chrome-extension://") !=-1) ?"":'https://s2.googleusercontent.com/s2/favicons?domain='+results[i].url}
-					}
-					]
-				},
-				{
-					tag:'div',
-					attributes:{class:'details-holder'},
-					children:[
-					{
-						tag:'div',
-						attributes:{class:'title'},
-						children:[{type:'text',value:results[i].title}]
-					},
-					{
-						tag:'div',
-						attributes:{class:'url'},
-						children:[{type:'text',value:results[i].url}]
-					}
-					]
-				}
-				]
-			});
-			d.appendChild(result);
+				})
+			);
 		}
 		return d;
 	}

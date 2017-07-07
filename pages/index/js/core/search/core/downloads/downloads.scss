@@ -1,0 +1,18 @@
+.search-container{
+	.inner-container{
+		.search-results{
+			.downloads-results-container{
+				.result{
+					.icon-holder{
+						display:flex;
+						align-items:center;
+						.icon{
+							width:32px;
+							height:32px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
