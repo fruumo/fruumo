@@ -1,10 +1,13 @@
-chrome.runtime.onInstalled.addListener(function(){
+chrome.runtime.onInstalled.addListener(function(details){
 	//Google Analytics
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 	ga('create', 'UA-101959257-1', 'auto');
 	ga('set', 'checkProtocolTask', function(){});
 	window.appVersion = chrome.app.getDetails().version;
-  	ga('send', 'event', 'Fruumo', 'install', appVersion);
+	if(details.reason == "install")
+  		ga('send', 'event', 'Fruumo', 'install', appVersion);
+  	if(details.reason == "update")
+  		ga('send', 'event', 'Fruumo', 'update', appVersion);
 
 
 	//Refresh wallpaper and weather alarm (every hour)
