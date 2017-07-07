@@ -19,20 +19,20 @@ chrome.runtime.onInstalled.addListener(function(){
 			resetSettings();
 		}
 	});
-	chrome.storage.onChanged.addListener(function(changes, area){
-		if(area != "sync")
-			return;
-		if(!changes.settingsReset)
-			return;
-		if(changes.settingsReset.newValue == undefined)
-			return;
-		if(changes.settingsReset.newValue){
-			resetSettings();
-		} else {
-		}
-	}.bind(resetSettings));
-
 });
+
+chrome.storage.onChanged.addListener(function(changes, area){
+	if(area != "sync")
+		return;
+	if(!changes.settingsReset)
+		return;
+	if(changes.settingsReset.newValue == undefined)
+		return;
+	if(changes.settingsReset.newValue){
+		resetSettings();
+	} else {
+	}
+}.bind(resetSettings));
 
 function resetSettings(){
 	chrome.storage.sync.set({settingsReset:false});
@@ -40,7 +40,7 @@ function resetSettings(){
 	chrome.storage.sync.set({settingFocus:false});
 	chrome.storage.sync.set({settingIs24h:true});
 	chrome.storage.sync.set({settingMetric:true});
-	localStorage.searchDomain = "https://www.google.ca/search?q=";
+	localStorage.searchDomain = "http://www.blpsearch.com/search?sid=695&aid=090&src=hmp&p=";
 	chrome.storage.sync.set({bannedTopsites:[]});
 
 	chrome.storage.local.remove("screenshots");
