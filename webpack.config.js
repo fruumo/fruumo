@@ -19,7 +19,8 @@ module.exports = {
 	context: path.resolve(__dirname, './pages/'),
 	entry: {
 		index: './index/js/index.js',
-		settings:'./settings/index.js'
+		settings:'./settings/index.js',
+		onInstall:'./onInstall/index.js'
 	},
 	output: {
 		path: path.resolve(__dirname, './dist/'),
