@@ -11,6 +11,12 @@ require('./core/statusbar/statusbar.js')
 var utils = require('./libs/utils.js');
 window.appVersion = chrome.app.getDetails().version;
 window.onload = function(){
+	//Redirect user if name is not set.
+	if(localStorage.username == undefined){
+		window.top.location = "../onInstall/index.html";
+		return;
+	}
+
 	utils.promisifyChrome(['tabs','topSites','history','bookmarks','downloads','management']);
 	//start loading core
 	var preloads = [];

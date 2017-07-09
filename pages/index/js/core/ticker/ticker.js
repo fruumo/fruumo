@@ -3,13 +3,13 @@ module.exports = {
 	name:'ticker',
 	DOM:['.ticker'],
 	tickerStrings:[],
-	greetings:['Bonjour', 'Namaste', 'Hello', 'Konnichiwa'],
+	greetings:['Bonjour', 'Namaste', 'Hi', 'Konnichiwa'],
 	currentTick:0,
 	onload: function(){
 		var date = new Date();
 		this.tickerStrings.push(this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear()));
 		this.DOM[0][0].style.opacity = 0;
-		this.DOM[0][0].innerHTML = this.greetings[Math.floor(Math.random() * this.greetings.length)];
+		this.DOM[0][0].innerHTML = this.greetings[Math.floor(Math.random() * this.greetings.length)] + (localStorage.username == ""?".":(" "+localStorage.username+"."));
 		this.DOM[0][0].style.opacity = 1;
 		setTimeout(function(){
 			this.tick();
