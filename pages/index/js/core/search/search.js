@@ -44,8 +44,6 @@ module.exports = {
 		Mousetrap.bind('up', this.upArrow.bind(this), 'keydown');
 		Mousetrap.bind('right', this.downArrow.bind(this), 'keydown');
 		Mousetrap.bind('left', this.upArrow.bind(this), 'keydown');
-		Mousetrap.bind('enter', this.launchResult.bind(this), 'keydown');
-
 	},
 	cancelSearch:function(){
 		this.DOM[0][0].value = "";
@@ -94,7 +92,10 @@ module.exports = {
 			this.launchResult(e);
 			return;
 		}
-
+		if(e.key == "Escape"){
+			this.cancelSearch();
+			return;
+		}
 		if(this.DOM[0][0].value.trim() == ""){	
 			this.cancelResults();
 			return;
