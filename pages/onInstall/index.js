@@ -1,5 +1,7 @@
 require('./index.scss');
-
+if(localStorage.username != undefined){
+	window.top.location = "../index/index.html";
+}
 function storeAndAnimate(no){
 	if(!no){
 		var name = document.getElementById("name").value;
