@@ -20,7 +20,8 @@ module.exports = {
 	entry: {
 		index: './index/js/index.js',
 		settings:'./settings/index.js',
-		onInstall:'./onInstall/index.js'
+		onInstall:'./onInstall/index.js',
+		updated:'./updated/index.js'
 	},
 	output: {
 		path: path.resolve(__dirname, './dist/'),

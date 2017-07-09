@@ -1,20 +1,18 @@
+window.appVersion = chrome.app.getDetails().version;
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-101959257-1', 'auto');
+ga('set', 'checkProtocolTask', function(){});
+
 chrome.runtime.onInstalled.addListener(function(details){
 	//Google Analytics
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-	ga('create', 'UA-101959257-1', 'auto');
-	ga('set', 'checkProtocolTask', function(){});
-	window.appVersion = chrome.app.getDetails().version;
 	if(details.reason == "install")
   		ga('send', 'event', 'Fruumo', 'install', appVersion);
-  	if(details.reason == "update"){
-  		ga('send', 'event', 'Fruumo', 'update', appVersion);
-  		ga('send', 'event', 'Fruumo', 'update-from-previous-version', details.previousVersion);
-  	}
-
 
 	//Refresh wallpaper and weather alarm (every hour)
 	chrome.alarms.create("refresh-wallpaper", {periodInMinutes:60});
 	chrome.alarms.create("refresh-weather", {periodInMinutes:10});
+	chrome.alarms.create("check-updates", {periodInMinutes:120});
+
 	refreshWallpaper();
 	refreshWeather();
 	
