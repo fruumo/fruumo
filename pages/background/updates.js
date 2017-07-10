@@ -19,6 +19,24 @@ chrome.runtime.onInstalled.addListener(function(details){
 	ga('send', 'event', 'Fruumo', 'update-from-previous-version', details.previousVersion);
 	localStorage.updateScreen = appVersion;
 	checkForUpdates(function(latestv, currentv, v){
+		console.log(v, appVersion);
+		if(v.resetSettings[appVersion]){
+			if(v.resetSettings[appVersion].sync){
+				for(var i in v.resetSettings[appVersion].sync){
+					chrome.storage.sync.remove(v.resetSettings[appVersion].sync[i]);
+				}
+			}
+			if(v.resetSettings[appVersion].local){
+				for(var i in v.resetSettings[appVersion].local){
+					chrome.storage.local.remove(v.resetSettings[appVersion].local[i]);
+				}
+			}
+			if(v.resetSettings[appVersion].localstorage){
+				for(var i in v.resetSettings[appVersion].localstorage){
+					delete localStorage[v.resetSettings[appVersion].localstorage[i]];
+				}
+			}
+		}
 		if(!v.updateStrings[appVersion]){console.log("No update features!"); return;}
 		localStorage.updateScreen = JSON.stringify(v.updateStrings[appVersion]);
 		chrome.windows.create({
