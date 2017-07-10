@@ -28,15 +28,40 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 
 							canvas.width = width;
 							canvas.height =height;
+							var ctx = canvas.getContext("2d")
 							// Scale and draw the source image to the canvas
-							canvas.getContext("2d").drawImage(sourceImage, 0, 0, width, height);
+							ctx.drawImage(sourceImage, 0, 0, width, height);
+							var imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
+							var data = imgData.data;
+							imgData = {};
+							total = 0;
+							for(var i=0; i<data.length; i+=4) {
+								total++;
+								var red = data[i];
+								var green = data[i+1];
+								var blue = data[i+2];
+								var alpha = data[i+3];
+								if(imgData["("+red+","+green+","+blue+")"]){
+									imgData["("+red+","+green+","+blue+")"]++;
+								} else {
+									imgData["("+red+","+green+","+blue+")"] = 1;
+								}
+							}
+							var isWhite = false;
+							for(var i in imgData){
+								if(imgData[i]/total > 0.9){
+									isWhite = true;
+								}
+							}
+							console.log(isWhite);
 							// Convert the canvas to a data URL in PNG format
-							callback(canvas.toDataURL());
+							callback(canvas.toDataURL(), isWhite);
 						}
 						sourceImage.src = url;
 					}
 					console.log("Capturing image for " + details.url);
-					resizeImage(image, 100,400, function(resized){
+					resizeImage(image, 100,400, function(resized, tf){
+						if(tf){sendResponse();return;}
 						storage.screenshots[url] ={};
 						storage.screenshots[url].image = resized;
 						storage.screenshots[url].timestamp = new Date().getTime();

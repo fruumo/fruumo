@@ -165,13 +165,41 @@ module.exports = {
 
 			}
 			setTimeout(function(){
-				chrome.storage.local.get({screenshots:null}, function(storage){
-					if(storage.screenshots == null)
-						return;
+				chrome.storage.local.get({screenshots:{}}, function(storage){
+					/*if(storage.screenshots == null)
+						return;*/
 					for(var i in storage.screenshots){
 						var elems = document.querySelectorAll("[wallpaper-url='"+i+"']");
-						if(elems[0])
+						if(elems[0] && storage.screenshots[i].image)
 							elems[0].style.backgroundImage = "url('"+storage.screenshots[i].image+"')";
+					}
+					var images = document.getElementsByClassName('image');
+					for(var i in images){
+						if(!images[i].style)
+							return;
+						if(images[i].style.backgroundImage == ""){
+							fetch('https://www.googleapis.com/pagespeedonline/v1/runPagespeed?screenshot=true&strategy=desktop&url='+images[i].getAttribute('wallpaper-url'))
+							.then(function(response){
+								if(response.ok)
+									return response.json();
+							})
+							.then(function(data){
+								if(!data){
+									return;
+								}
+								this.data = data;
+								this.style.backgroundImage = "url('data:image/jpeg;base64," + data.screenshot.data.replace(/\_/g,'/').replace(/\-/g,'+') +"')";
+								chrome.storage.local.get({"screenshots":{}}, function(storage){
+									storage.screenshots[this.getAttribute('wallpaper-url')] ={};
+									storage.screenshots[this.getAttribute('wallpaper-url')].image = "data:image/jpeg;base64,"+this.data.screenshot.data.replace(/\_/g,'/').replace(/\-/g,'+');
+									storage.screenshots[this.getAttribute('wallpaper-url')].timestamp = 0;
+									chrome.storage.local.set(storage);
+								}.bind(this));
+							}.bind(images[i]))
+							.catch(function(){
+								return;
+							});
+						}
 					}
 				});
 			},0);
