@@ -1,22 +1,30 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+		<link href="../index/css/opensans.css" rel="stylesheet">
 		<link rel="stylesheet" href="../../dist/onInstall.bundle.css">
+		<link href="../index/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	</head>
 	<body>
 		<div class = "container">
-			<div class = "welcome-text">
-				<h1>They call me <b>fruumo</b>. What should I call you?</h1>
-			</div>
-			<div class = "name-input">
-				<input type = "text" placeholder = "" id = "name" autocomplete="off"></input>
-			</div>
-			<div class = "submit">
-				<input type = "button" value = "That's me, let's get started!" id = "submit-name"></input>
-			</div>
-			<div class = "no">
-				<a href = "#" id = "no-thanks">That's none of your business.</a>
+			<div class = "content">
+				<div class = "welcome-text">
+					<h1>They call me fruumo. <b>What should I call you?</b></h1>
+				</div>
+				<div class = "name-input">
+					<input type = "text" placeholder = "" id = "name" autocomplete="off"></input>
+				</div>
+				<div class = "submit">
+					<span class = "button" id = "submit-name">
+						Ok <i class="fa fa-check" aria-hidden="true"></i>
+					</span>
+					<span class = "enter">
+						Press Enter
+					</span>
+				</div>
+				<div class = "no">
+					<a href = "#" id = "no-thanks">That's none of your business.</a>
+				</div>
 			</div>
 		</div>
 		<img src = "../../images/icon512.png" class = "corner-icon"/>
