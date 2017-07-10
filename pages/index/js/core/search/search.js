@@ -200,6 +200,14 @@ module.exports = {
     	}
 	},
 	launchResult: function(e){
+		if(this.DOM[0][0].value.match(/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g) != null){
+			if(this.DOM[0][0].value.indexOf('http')!= -1){
+				window.top.location = this.DOM[0][0].value;
+			} else {
+				window.top.location = "http://"+this.DOM[0][0].value;
+			}
+			return;
+		}
 		if(this.DOM[1][0].children.length == 0 && this.DOM[0][0].value != ""){
 			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
 			return;
