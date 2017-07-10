@@ -1,6 +1,6 @@
 chrome.browserAction.onClicked.addListener(function(t){
 	chrome.tabs.create({
-		url:"chrome://newtab",
+		url:"./pages/index/index.html",
 		selected:true
 	})
 });
