@@ -53,7 +53,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 									isWhite = true;
 								}
 							}
-							console.log(isWhite);
 							// Convert the canvas to a data URL in PNG format
 							callback(canvas.toDataURL(), isWhite);
 						}
