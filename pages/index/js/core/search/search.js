@@ -11,7 +11,8 @@ module.exports = {
 		require("./core/bookmarks/bookmarks.js"),
 		require("./core/recentlyClosed/recentlyClosed.js"),
 		require("./core/downloads/downloads.js"),
-		require("./core/opentabs/opentabsearch.js")
+		require("./core/opentabs/opentabsearch.js"),
+		require("./core/history/history.js")
 	],
 	containers:[],
 	resultElements:[],
@@ -111,7 +112,7 @@ module.exports = {
 					continue;
 				}
 				this.searchEngines[i].search(query).then(function(results){
-					if(results.query != query)
+					if(results.query != this.DOM[0][0].value || results.query != query)
 						return;
 					var oldContainer = document.getElementsByClassName(results.containerClass)[0];
 					if(results.div == false){
