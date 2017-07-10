@@ -16,6 +16,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 	refreshWallpaper();
 	refreshWeather();
 	
+	chrome.runtime.setUninstallURL("http://fruumo.com/uninstall", function(){});
 	//Defaults
 	chrome.storage.sync.get("settingsReset", function(s){
 		if(s.settingsReset == undefined || s.settingsReset){
@@ -23,6 +24,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 		}
 	});
 });
+
 
 chrome.storage.onChanged.addListener(function(changes, area){
 	if(area != "sync")
