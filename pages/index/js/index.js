@@ -22,7 +22,7 @@ window.onload = function(){
 		}
 		delete localStorage.r;
 	}
-	document.body.style.display = "block";
+	document.getElementsByClassName("search-container")[0].style.display = "flex";
 	//Redirect user if name is not set.
 	if(localStorage.username == undefined){
 		window.top.location = "../onInstall/index.html";
