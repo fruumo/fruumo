@@ -11,6 +11,18 @@ require('./core/statusbar/statusbar.js')
 var utils = require('./libs/utils.js');
 window.appVersion = chrome.app.getDetails().version;
 window.onload = function(){
+	if(localStorage.defaultSearchBar != "chrome"){
+		if(localStorage.r != "no-omni"){
+			localStorage.r = "no-omni";
+			chrome.tabs.getCurrent(function(tab){
+				chrome.tabs.create({url:'./pages/index/index.html', active:true});
+				chrome.tabs.remove(tab.id);
+			});
+			return;
+		}
+		delete localStorage.r;
+	}
+	document.body.style.display = "block";
 	//Redirect user if name is not set.
 	if(localStorage.username == undefined){
 		window.top.location = "../onInstall/index.html";
@@ -43,7 +55,7 @@ window.onload = function(){
 	ga('create', 'UA-101959257-1', 'auto');
 	ga('set', 'checkProtocolTask', function(){});
 	ga('send', 'pageview');
-  	ga('send', 'event', 'Fruumo', 'load', appVersion);
+	ga('send', 'event', 'Fruumo', 'load', appVersion);
 	//Log page load time
 	setTimeout(function(){
 		var loadTime = window.performance.timing.domInteractive- window.performance.timing.navigationStart;
@@ -85,7 +97,7 @@ window.onload = function(){
 		}
 		]);
 		intro.oncomplete(function() {
-  			localStorage.intro = "true";
+			localStorage.intro = "true";
 		});
 		intro.onexit(function(){
 			localStorage.intro = "true";

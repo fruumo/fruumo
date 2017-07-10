@@ -46,6 +46,7 @@ function resetSettings(){
 	chrome.storage.sync.set({settingIs24h:true});
 	chrome.storage.sync.set({settingMetric:true});
 	localStorage.searchDomain = "http://www.blpsearch.com/search?sid=695&aid=090&src=hmp&p=";
+	localStorage.defaultSearchBar = "fruumo";
 	chrome.storage.sync.set({bannedTopsites:[]});
 
 	chrome.storage.local.remove("screenshots");

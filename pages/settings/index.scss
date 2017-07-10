@@ -18,6 +18,14 @@ body{
 			margin-bottom: 15px;
 		}
 	}
+	.category{
+		>.title{
+			padding-bottom:10px;
+		}
+		>label{
+			padding-left:20px;
+		}
+	}
 }
 
 .weather{

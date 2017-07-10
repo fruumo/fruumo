@@ -1,4 +1,5 @@
 require('./index.scss');
+window.appVersion = chrome.app.getDetails().version;
 
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -19,6 +20,17 @@ chrome.storage.local.get(null, function(lstorage){
 		var customWallpaper = document.getElementById("custom-wallpaper");
 		var fruumoWallpaper = document.getElementById("fruumo-wallpaper");
 		var searchEngine = document.getElementById("search-engine");
+		var appV = document.getElementById("app-version");
+		var omniboxSearch = document.getElementById("omnibox-search");
+		var fruumoSearch = document.getElementById("fruumo-search");
+
+		appV.innerText = appVersion;
+
+		if(localStorage.defaultSearchBar == "chrome"){
+			omniboxSearch.checked = true;
+		} else {
+			fruumoSearch.checked = true;
+		}
 
 		if(localStorage.searchDomain){
 			searchEngine.value = localStorage.searchDomain;
@@ -41,7 +53,12 @@ chrome.storage.local.get(null, function(lstorage){
 		} else {
 			customWallpaper.checked = true;
 		}
-
+		fruumoSearch.addEventListener("click", function(){
+			localStorage.defaultSearchBar = "fruumo";
+		});
+		omniboxSearch.addEventListener("click", function(){
+			localStorage.defaultSearchBar = "chrome";
+		});
 		searchEngine.addEventListener("change", function(e){
 			localStorage.searchDomain = this.value;
 		});
@@ -93,6 +110,14 @@ chrome.storage.local.get(null, function(lstorage){
 				location.reload();
 			});
 		});
+		
+		reset.addEventListener("update", function(){
+			chrome.runtime.requestUpdateCheck(function(status){
+				if(status == "update_available")
+					chrome.runtime.reload();
+			});
+		});
+
 	});
 });
 require('./weather.js');
