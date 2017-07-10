@@ -67,7 +67,8 @@ module.exports = {
 						attributes:{
 							class:"topsite",
 							"data-url":topsites[i].url,
-							"href":topsites[i].url
+							"href":topsites[i].url,
+							tabIndex:-1
 						},
 						events:{
 							click:function(e){
@@ -120,7 +121,8 @@ module.exports = {
 							tag:'div',
 							attributes:{
 								class:"image",
-								"wallpaper-url":topsites[i].url
+								"wallpaper-url":topsites[i].url,
+								tabIndex:-1
 							}
 						},
 						{

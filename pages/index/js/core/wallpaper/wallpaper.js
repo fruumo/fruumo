@@ -38,11 +38,13 @@ module.exports = {
 				var link = document.createElement('a');
 				link.href = storage.wallpaper.author.links.html;
 				link.innerText =  storage.wallpaper.author.name;
+				link.setAttribute("tabIndex", -1);
 				this.DOM[2][0].appendChild(link);
 				this.DOM[2][0].innerHTML += " / ";
 				link = document.createElement('a');
 				link.href = "https://unsplash.com";
 				link.innerText =  "Unsplash";
+				link.setAttribute("tabIndex", -1);
 				this.DOM[2][0].appendChild(link);
 			}
 		}.bind(this));

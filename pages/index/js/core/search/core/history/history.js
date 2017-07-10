@@ -26,6 +26,8 @@ module.exports = {
 		d.className = this.containerClass;
 		d.setAttribute('data-priority',this.priority);
 		for(var i in results){
+			if(!results[i].title || !results[i].url)
+				continue;
 			var parser = document.createElement('a');
 			parser.href =results[i].url;
 			d.appendChild(
