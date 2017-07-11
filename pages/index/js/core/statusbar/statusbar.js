@@ -5,7 +5,7 @@ module.exports = {
 	onload: function(){
 		var settings = document.createElement('div');
 		settings.className = "item";
-		settings.setAttribute("title","Settings");
+		settings.setAttribute("title",chrome.i18n.getMessage("settings"));
 		settings.innerHTML = "<i class=\"fa fa-cog\" aria-hidden=\"true\"></i>";
 		settings.addEventListener("click", this.settings.bind(this));
 		this.DOM[1][0].appendChild(settings);
@@ -19,21 +19,21 @@ module.exports = {
 		*/
 		var downloads = document.createElement('div');
 		downloads.className = "item";
-		downloads.setAttribute("title","Recently Completed Downloads");
+		downloads.setAttribute("title",chrome.i18n.getMessage("downloads"));
 		downloads.innerHTML = "<i class=\"fa fa-download\" aria-hidden=\"true\"></i>";
 		downloads.addEventListener("click", this.downloads.bind(this));
 		this.DOM[1][0].appendChild(downloads);
 
 		var recentlyClosed = document.createElement('div');
 		recentlyClosed.className = "item";
-		recentlyClosed.setAttribute("title","Recently Closed Tabs");
+		recentlyClosed.setAttribute("title",chrome.i18n.getMessage("recentlyClosedTabs"));
 		recentlyClosed.innerHTML = "<i class=\"fa fa-history\" aria-hidden=\"true\"></i>";
 		recentlyClosed.addEventListener("click", this.recentlyClosed.bind(this));
 		this.DOM[1][0].appendChild(recentlyClosed);
 
 		var allApps = document.createElement('div');
 		allApps.className = "item";
-		allApps.setAttribute("title","All chrome applications")
+		allApps.setAttribute("title",chrome.i18n.getMessage("allApplications"))
 		allApps.innerHTML = "<i class=\"fa fa-th-large\" aria-hidden=\"true\"></i>";
 		allApps.addEventListener("click", this.allApps.bind(this));
 		this.DOM[1][0].appendChild(allApps);

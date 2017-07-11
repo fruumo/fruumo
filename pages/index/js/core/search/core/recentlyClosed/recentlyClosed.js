@@ -58,9 +58,9 @@ module.exports = {
 		d.setAttribute('data-priority',this.priority);
 		var t = document.createElement('div');
 		t.className = "title";
-		t.innerText = "Recently Closed Tabs";
+		t.innerText = chrome.i18n.getMessage("recentlyClosedTabs");
 		if(results.length == 0){
-			t.innerText = "No recently closed tabs";
+			t.innerText = chrome.i18n.getMessage("noRecentlyClosedTabs");
 			d.appendChild(t);
 			return d;
 		}

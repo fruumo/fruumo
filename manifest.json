@@ -1,5 +1,5 @@
 {
-  "name": "Fruumo - New Tab Page",
+  "name": "__MSG_extName__",
   "short_name":"Fruumo",
   "manifest_version":2,
   "version": "2.0.3",
@@ -24,5 +24,6 @@
       "128": "images/icon.png"
     }
   },
-  "permissions":["chrome://favicon/*", "<all_urls>", "https://www.google-analytics.com/", "https://www.google.com/s2/favicons","http://suggestqueries.google.com/complete/searcch","tabs","webNavigation","sessions","management","history", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"]
+  "permissions":["chrome://favicon/*", "<all_urls>", "https://www.google-analytics.com/", "https://www.google.com/s2/favicons","http://suggestqueries.google.com/complete/searcch","tabs","webNavigation","sessions","management","history", "topSites", "bookmarks", "downloads","storage","unlimitedStorage","background","alarms"],
+  "default_locale":"en"
 }

@@ -61,7 +61,7 @@ module.exports = {
 		d.setAttribute('data-priority',this.priority);
 		var t = document.createElement('div');
 		t.className = "title";
-		t.innerText = "Apps";
+		t.innerText = chrome.i18n.getMessage("allApplications");
 		d.appendChild(t);
 		for(var i in results){
 			if(!results[i].icons || !results[i].isApp || !results[i].enabled)

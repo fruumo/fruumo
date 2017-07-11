@@ -39,18 +39,20 @@ module.exports = {
 	dateToString: function(day,d,m,y){
 		var monthArray = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 		var DayArray = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-		var dateString = DayArray[day]+", ";
+		var day = DayArray[day];
+		var month =  monthArray[m];
+		var suffix = "";
 		if(d === 3 || d === 23){
-			dateString += d+"rd of ";
+			suffix = "rd";
 		}else if(d === 1 || d === 21 || d === 31){
-			dateString += d+"st of ";
+			suffix = "st";
 		}else if(d == 2 || d == 22){
-			dateString += d+"nd of ";
+			suffix = "nd";
 		} else if(d !== 1 || d !== 21 || d !== 31){
-			dateString += d+"th of ";
+			suffix = "th";
 		} 
-		dateString += monthArray[m] + " " + y ;
-		return dateString;	
+
+		return chrome.i18n.getMessage("dateFormat", [chrome.i18n.getMessage(day),d+"", chrome.i18n.getMessage(suffix),chrome.i18n.getMessage(month), y+""]);	
 	},
 	updateWeather: function(){
 		chrome.storage.sync.get({settingMetric:true}, function(storage){

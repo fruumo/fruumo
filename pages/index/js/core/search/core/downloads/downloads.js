@@ -37,7 +37,7 @@ module.exports = {
 		d.setAttribute('data-priority',this.priority);
 		var t = document.createElement('div');
 		t.className = "title";
-		t.innerText = "Downloads";
+		t.innerText = chrome.i18n.getMessage("downloads");
 		d.appendChild(t);
 		for(var i in results){
 			d.appendChild(

@@ -1,0 +1,148 @@
+{
+	"extName": {
+		"message":"Fruumo - New Tab Page",
+		"description": "What should fruumo be called in chrome?"
+	},
+	"settings": {
+		"message":"Settings",
+		"description": "Title for settings page"
+	},
+	"downloads":{
+		"message":"Recently completed downloads",
+		"description":"Title for downloads page"
+	},
+	"search":{
+		"message":"Search",
+		"description":"Search bar place holder"
+	},
+	"recentlyClosedTabs":{
+		"message":"Recently closed tabs",
+		"description":"Title for recently closed tabs page"
+	},
+	"noRecentlyClosedTabs":{
+		"message":"No recently closed tabs",
+		"description":"When no recently closed tabs are available"
+	},
+	"allApplications":{
+		"message":"All applications",
+		"description":"All Applications"
+	},
+	"dateFormat":{
+		"message": "$day$, $date$$datesuffix$ of $month$ $year$",
+		"description":"Format for the date",
+		"placeholders":{
+			"day":{
+				"content":"$1",
+				"example":"Monday, Tuesday, Wednesday"
+			},
+			"date":{
+				"content":"$2",
+				"example":"10,11,12"
+			},
+			"datesuffix":{
+				"content":"$3",
+				"example":"th,st"
+			},
+			"month":{
+				"content":"$4",
+				"example":"January, Febuary, March"
+			},
+			"year":{
+				"content":"$5",
+				"example":"2012, 2013"
+			}
+		}
+	},
+	"Monday":{
+		"message":"Monday",
+		"description":"Monday"
+	},
+	"Tuesday":{
+		"message":"Tuesday",
+		"description":"Tuesday"
+	},
+	"Wednesday":{
+		"message":"Wednesday",
+		"description":"Wednesday"
+	},
+	"Thursday":{
+		"message":"Thursday",
+		"description":"Thursday"
+	},
+	"Friday":{
+		"message":"Friday",
+		"description":"Friday"
+	},
+	"Saturday":{
+		"message":"Saturday",
+		"description":"Saturday"
+	},
+	"Sunday":{
+		"message":"Sunday",
+		"description":"Sunday"
+	},
+	"th":{
+		"message":"th",
+		"description":"20 *th* of january"
+	},
+	"st":{
+		"message":"st",
+		"description":"1 *st* of may"
+	},
+	"rd":{
+		"message":"rd",
+		"description":"23 *rd* of July"
+	},
+	"nd":{
+		"message":"nd",
+		"description":"2 *nd* of July"
+	},
+	"January":{
+		"message":"January",
+		"description":"Month"
+	},
+	"February":{
+		"message":"February",
+		"description":"Month"
+	},
+	"March":{
+		"message":"March",
+		"description":"Month"
+	},
+	"April":{
+		"message":"April",
+		"description":"Month"
+	},
+	"May":{
+		"message":"May",
+		"description":"Month"
+	},
+	"June":{
+		"message":"June",
+		"description":"Month"
+	},
+	"July":{
+		"message":"July",
+		"description":"Month"
+	},
+	"August":{
+		"message":"August",
+		"description":"Month"
+	},
+	"September":{
+		"message":"September",
+		"description":"Month"
+	},
+	"October":{
+		"message":"October",
+		"description":"Month"
+	},
+	"November":{
+		"message":"November",
+		"description":"Month"
+	},
+	"December":{
+		"message":"December",
+		"description":"Month"
+	}
+}
