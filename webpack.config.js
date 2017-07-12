@@ -21,7 +21,8 @@ module.exports = {
 		index: './index/js/index.js',
 		settings:'./settings/index.js',
 		onInstall:'./onInstall/index.js',
-		updated:'./updated/index.js'
+		updated:'./updated/index.js',
+		backgroundSearch:'./background/search/search.js'
 	},
 	output: {
 		path: path.resolve(__dirname, './dist/'),

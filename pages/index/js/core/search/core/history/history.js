@@ -3,20 +3,18 @@ var render = require('../../default-result-render/index.js');
 module.exports = {
 	message:"History",
 	containerClass:"history-results-container",
-	priority:"97",
+	priority:"102",
 	search: function(query){
 		var $this = this;
 		$this.query = query;
 		return new Promise(function(resolve, reject){
-			chrome.history.searchAsync({text:$this.query, maxResults:5})
-			.then(function(history){
-				resolve({
-					query:$this.query,
-					containerClass:$this.containerClass,
-					div:$this.createElement(history)
+			chrome.runtime.sendMessage({type:"history-search", data:{query:this.query}}, function(history) {
+  				resolve({
+					query:this.query,
+					containerClass:this.containerClass,
+					div:this.createElement(history)
 				});
-
-			}.bind($this));
+			}.bind(this));
 		}.bind($this));
 	},
 	createElement: function(results){

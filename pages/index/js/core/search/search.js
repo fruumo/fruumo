@@ -77,6 +77,10 @@ module.exports = {
 			if(this.resultElements[i].className.indexOf('result-selected')!=0)
 				this.resultElements[i].className = this.resultElements[i].className.replace('result-selected','');
 		}
+		if(document.getElementsByClassName("history-results-container")[0]){
+			this.keyboardSelectedResult = 0;
+			this.resultElements[0].className += " result-selected"
+		}
 	},
 	onKey: function(e){
 		if(e.key == "ArrowDown" || e.key == "ArrowRight"){
