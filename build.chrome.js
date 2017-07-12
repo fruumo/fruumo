@@ -59,7 +59,7 @@ gulp.task('webpack', function (cb) {
 });
 
 gulp.task('movefiles', ['clean-scripts', 'webpack'], function(cb){
-	return gulp.src(['manifest.json', 'pages/index/*.html','pages/index/css/**', 'pages/index/js/libs/*', 'pages/settings/index.html', 'pages/onInstall/index.html', 'pages/updated/index.html'] ,{base: './'})
+	return gulp.src(['manifest.json','_locales/**', 'dist/backgroundSearch.bundle.js','pages/index/*.html','pages/index/css/**', 'pages/index/js/libs/*', 'pages/settings/index.html', 'pages/onInstall/index.html', 'pages/updated/index.html'] ,{base: './'})
 	.pipe(gulpCopy('../fruumo3-build/build', {}));
 });
 
@@ -76,7 +76,7 @@ gulp.task('minifyCss', ['clean-scripts', 'webpack'], function(cb){
 });
 
 gulp.task('minifyJs', ['clean-scripts', 'webpack'], function(cb){
-	return gulp.src(['pages/background/*.js','dist/*.js'], {base: './'})
+	return gulp.src(['pages/background/*.js','dist/*.js', '!dist/backgroundSearch.bundle.js'], {base: './'})
 	.pipe(jsmin())
 	.pipe(gulp.dest('../fruumo3-build/build'));
 });
