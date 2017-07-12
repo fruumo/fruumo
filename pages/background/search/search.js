@@ -80,6 +80,5 @@ chrome.history.onVisited.addListener(function(historyItem){
 		return;
 	updateDb(historyItem);
 	chrome.storage.local.set({searchDb:Array.from(db.export())}, function(){
-		cb();
 	});
 });
