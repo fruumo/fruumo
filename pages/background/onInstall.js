@@ -52,6 +52,7 @@ function resetSettings(){
 	chrome.storage.local.remove("screenshots");
 	chrome.storage.local.remove("customWeather");
 	chrome.storage.local.remove("settingCustomWallpaper");
+	chrome.storage.local.remove("searchDb");
 	localStorage.intro = "false";
 	delete localStorage.username;
 
