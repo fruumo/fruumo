@@ -11,8 +11,7 @@ module.exports = {
 		require("./core/bookmarks/bookmarks.js"),
 		require("./core/recentlyClosed/recentlyClosed.js"),
 		require("./core/downloads/downloads.js"),
-		require("./core/opentabs/opentabsearch.js"),
-		require("./core/history/history.js")
+		require("./core/opentabs/opentabsearch.js")
 	],
 	containers:[],
 	resultElements:[],
