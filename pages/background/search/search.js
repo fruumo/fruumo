@@ -1,9 +1,16 @@
 var SQL = require('./sql.js');
 window.db = null;
 loadDb(function(){});
+window.lastSearch = null;
 chrome.runtime.onMessage.addListener(function(request,sender, respond){
 	if(request.type != "history-search"){
 		return;
+	}
+	if(window.lastSearch!= null){
+		if(request.data.query.indexOf(window.lastSearch.query) != -1 && lastSearch.results.length == 0){
+			respond([]);
+			return;
+		}
 	}
 	var query = request.data.query;
 	loadDb(function(){
@@ -13,6 +20,10 @@ chrome.runtime.onMessage.addListener(function(request,sender, respond){
 			results.push(stmt.getAsObject());
 		}
 		stmt.free();
+		window.lastSearch = {
+			query:query,
+			results:results
+		};
 		respond(results);
 	});
 });
