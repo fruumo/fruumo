@@ -76,7 +76,7 @@ gulp.task('minifyCss', ['clean-scripts', 'webpack'], function(cb){
 });
 
 gulp.task('minifyJs', ['clean-scripts', 'webpack'], function(cb){
-	return gulp.src(['pages/background/*.js','dist/*.js'], {base: './'})
+	return gulp.src(['pages/background/**','dist/*.js'], {base: './'})
 	.pipe(jsmin())
 	.pipe(gulp.dest('../fruumo3-build/build'));
 });
