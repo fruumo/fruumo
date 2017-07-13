@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "webpack": "webpack --config webpack.config.js",
-    "build":"gulp --gulpfile \"build.chrome.js\""
+    "build": "gulp --gulpfile \"build.chrome.js\""
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,8 @@
   },
   "dependencies": {
     "fuse.js": "^3.0.5",
+    "fuzzyjs": "^2.1.2",
+    "lodash.groupby": "^4.6.0",
     "mousetrap": "^1.6.1"
   }
 }

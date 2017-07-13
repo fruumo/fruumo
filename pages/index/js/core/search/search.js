@@ -12,7 +12,8 @@ module.exports = {
 		require("./core/recentlyClosed/recentlyClosed.js"),
 		require("./core/downloads/downloads.js"),
 		require("./core/opentabs/opentabsearch.js"),
-		require('./core/autocomplete/autocomplete.js')
+		require('./core/autocomplete/autocomplete.js'),
+		require("./core/command-sort-tabs/command.js")
 	],
 	containers:[],
 	resultElements:[],
@@ -77,7 +78,7 @@ module.exports = {
 			if(this.resultElements[i].className.indexOf('result-selected')!=0)
 				this.resultElements[i].className = this.resultElements[i].className.replace('result-selected','');
 		}
-		if(document.getElementsByClassName("autocomplete-results-container")[0]){
+		if(document.getElementsByClassName("autocomplete-results-container")[0] || document.getElementsByClassName("command-container")[0]){
 			this.keyboardSelectedResult = 0;
 			this.resultElements[0].className += " result-selected"
 		}
