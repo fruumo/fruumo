@@ -11,7 +11,7 @@ module.exports = {
 		var $this = this;
 		$this.query = query;
 		return new Promise(function(resolve, reject){
-			if($this.query.indexOf("@downloads") != 0){
+			if($this.query.indexOf("@dw") != 0){
 				resolve({
 					query:$this.query,
 					containerClass:"downloads-container",

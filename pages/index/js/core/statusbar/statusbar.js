@@ -51,13 +51,13 @@ module.exports = {
 		chrome.runtime.sendMessage({type:'refresh-wallpaper'});
 	},
 	recentlyClosed: function(){
-		this.triggerSearch("@recently-closed-tabs");
+		this.triggerSearch("@rct");
 	},
 	allApps: function(){
 		this.triggerSearch("@apps");
 	},
 	downloads:function(){
-		this.triggerSearch("@downloads");
+		this.triggerSearch("@dw");
 	},
 	triggerSearch: function(text){
 		if(this.DOM[2][0].value != text){

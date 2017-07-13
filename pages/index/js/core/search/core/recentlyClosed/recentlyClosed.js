@@ -10,7 +10,7 @@ module.exports = {
 		$this.query = query;
 
 		return new Promise(function(resolve, reject){
-			if($this.query.indexOf("@recently-closed-tabs") != 0){
+			if($this.query.indexOf("@rct") != 0){
 				resolve({
 					query:$this.query,
 					containerClass:"rct-container",
