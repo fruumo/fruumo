@@ -13,7 +13,8 @@ module.exports = {
 		require("./core/downloads/downloads.js"),
 		require("./core/opentabs/opentabsearch.js"),
 		require('./core/autocomplete/autocomplete.js'),
-		require("./core/command-sort-tabs/command.js")
+		require("./core/command-sort-tabs/command.js"),
+		require("./core/command-refresh-all/command.js")
 	],
 	containers:[],
 	resultElements:[],
