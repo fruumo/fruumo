@@ -10,6 +10,13 @@ module.exports = {
 		settings.addEventListener("click", this.settings.bind(this));
 		this.DOM[1][0].appendChild(settings);
 
+		var sessions = document.createElement('div');
+		sessions.className = "item";
+		sessions.setAttribute("title",chrome.i18n.getMessage("sessions"));
+		sessions.innerHTML = "<i class=\"fa fa-window-restore\" aria-hidden=\"true\"></i>";
+		sessions.addEventListener("click", this.sessions.bind(this));
+		this.DOM[1][0].appendChild(sessions);
+
 		/*var cWallpaper = document.createElement('div');
 		cWallpaper.className = "item";
 		cWallpaper.setAttribute("title","Get a new wallpaper");
@@ -58,6 +65,9 @@ module.exports = {
 	},
 	downloads:function(){
 		this.triggerSearch("@dw");
+	},
+	sessions: function(){
+		this.triggerSearch("@sessions");
 	},
 	triggerSearch: function(text){
 		if(this.DOM[2][0].value != text){

@@ -23,6 +23,14 @@
 		"message":"No recently closed tabs",
 		"description":"When no recently closed tabs are available"
 	},
+	"sessions":{
+		"message":"Tabs open on other devices",
+		"description":"Title for other chrome devices"
+	},
+	"noSessions":{
+		"message":"Oops, looks like you have no other chrome devices.",
+		"description":"When no other chrome devices are available."
+	},
 	"allApplications":{
 		"message":"All applications",
 		"description":"All Applications"

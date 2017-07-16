@@ -11,6 +11,7 @@ module.exports = {
 		require("./core/bookmarks/bookmarks.js"),
 		require("./core/recentlyClosed/recentlyClosed.js"),
 		require("./core/downloads/downloads.js"),
+		require("./core/sessions/sessions.js"),
 		require("./core/opentabs/opentabsearch.js"),
 		require('./core/autocomplete/autocomplete.js'),
 		require("./core/command-sort-tabs/command.js"),
