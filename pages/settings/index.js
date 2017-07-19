@@ -12,6 +12,7 @@ chrome.storage.local.get(null, function(lstorage){
 	chrome.storage.sync.get(null, function(storage){
 		console.log(storage);
 		var displayTopsites = document.getElementById("display-topsites");
+		var largeTopsites = document.getElementById("largeTopsites");
 		var time = document.getElementById("24h");
 		var focusMode = document.getElementById("focus-mode");
 		var reset = document.getElementById("reset");
@@ -41,6 +42,9 @@ chrome.storage.local.get(null, function(lstorage){
 		}
 		if(storage.settingIs24h){
 			time.checked = true;
+		}
+		if(storage.largeTopsites){
+			largeTopsites.checked = true;
 		}
 		if(storage.settingFocus){
 			focusMode.checked = true;
@@ -92,7 +96,9 @@ chrome.storage.local.get(null, function(lstorage){
 		metricWeather.addEventListener("click", function(){
 			chrome.storage.sync.set({settingMetric:this.checked});
 		});
-
+		largeTopsites.addEventListener("click", function(){
+			chrome.storage.sync.set({largeTopsites:this.checked});
+		});
 		displayTopsites.addEventListener("click", function(){
 			chrome.storage.sync.set({settingDisplayTopsites:this.checked});
 		});

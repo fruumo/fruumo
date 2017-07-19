@@ -7,7 +7,10 @@ module.exports = {
 	bannedTopsites:[],
 	preload: function(){
 		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get({"bannedTopsites":[]}, function(storage){
+			chrome.storage.sync.get({"bannedTopsites":[], "largeTopsites":false}, function(storage){
+				if(storage.largeTopsites){
+					this.DOM[0][0].className += " large";
+				}
 				this.bannedTopsites = storage.bannedTopsites;
 			}.bind(this));
 			chrome.storage.sync.get("settingDisplayTopsites", function(storage){
@@ -21,6 +24,13 @@ module.exports = {
 				chrome.storage.onChanged.addListener(function(changes, area){
 					if(area != "sync")
 						return;
+					if(changes.largeTopsites != undefined){
+						if(changes.largeTopsites.newValue){
+							this.DOM[0][0].className += " large";
+						} else {
+							this.DOM[0][0].className = this.DOM[0][0].className.replace(' large', '');
+						}
+					}
 					if(changes.settingDisplayTopsites == undefined)
 						return;
 					if(changes.settingDisplayTopsites.newValue == undefined)
