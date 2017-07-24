@@ -59,7 +59,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 						sourceImage.src = url;
 					}
 					console.log("Capturing image for " + details.url);
-					resizeImage(image, 100,400, function(resized, tf){
+					resizeImage(image, 100,240, function(resized, tf){
 						if(tf){sendResponse();return;}
 						storage.screenshots[url] ={};
 						storage.screenshots[url].image = resized;
