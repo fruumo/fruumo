@@ -39,6 +39,9 @@
 			border:none;
 			border-radius: 2px;
 		}
+		.search-bar::placeholder{
+			font-family:"FontAwesome";
+		}
 		.search-bar:focus{
 			outline:none;
 		}

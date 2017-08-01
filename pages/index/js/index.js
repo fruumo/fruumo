@@ -106,5 +106,5 @@ window.onload = function(){
 	},500);
 
 	//Setup localization
-	document.getElementsByClassName('search-bar')[0].placeholder = chrome.i18n.getMessage("search");
+	//document.getElementsByClassName('search-bar')[0].placeholder = chrome.i18n.getMessage("search");
 }
