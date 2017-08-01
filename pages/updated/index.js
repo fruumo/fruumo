@@ -9,3 +9,9 @@ for(var i in updates){
 	li.innerText = updates[i];
 	updateList.appendChild(li);
 }
+
+
+document.getElementById("display-changes").addEventListener("click", function(e){
+	this.style.display = "none";
+	document.getElementById("update-list").style.display = "block";
+});

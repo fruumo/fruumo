@@ -41,25 +41,14 @@ html,body{
 			text-align:center;
 		}
 	}
-	.submit{
-		padding-top:20px;
-		input[type = "button"]{
-			border:none;
-			outline:none;
-			border:1px solid black;
-			border-radius:5px;
-			padding:10px;
-			font-size:18px;
-			background:none;
-		}
-		input[type = "button"]:active{
-			border:1px solid #e16b6b;
-			border-radius:5px;
-			padding:10px;
-			font-size:18px;
-			background:#e16b6b;
-			color:white;
-		}
+	#update-list{
+		display:none;
+	}
+	#display-changes{
+		cursor:pointer;
+	}
+	.thanks{
+		padding-top:50px;
 	}
 }
 .corner-icon{
