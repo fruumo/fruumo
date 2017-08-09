@@ -180,6 +180,9 @@ module.exports = {
     	e.preventDefault();
     	if(this.resultElements[this.keyboardSelectedResult]){
     		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
+				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
+			}
     	}
     	this.keyboardSelectedResult++;
     	if(this.keyboardSelectedResult >= this.resultElements.length){
@@ -188,6 +191,9 @@ module.exports = {
     	if(this.resultElements[this.keyboardSelectedResult]){
     		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
     		this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
+    			this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+    		}
     	}
 	},
 	upArrow: function(e){
@@ -196,6 +202,9 @@ module.exports = {
     	e.preventDefault();
     	if(this.resultElements[this.keyboardSelectedResult]){
     		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
+				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
+			}
     	}
     	this.keyboardSelectedResult--;
     	if(this.keyboardSelectedResult <= -1){
@@ -204,6 +213,9 @@ module.exports = {
     	if(this.resultElements[this.keyboardSelectedResult]){
     		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
     		this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
+    			this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+    		}
     	}
 	},
 	launchResult: function(e){

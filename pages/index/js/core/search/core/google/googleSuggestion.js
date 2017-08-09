@@ -32,7 +32,7 @@ module.exports = {
 
 		}.bind($this));
 	},
-	createElement: function(results){
+	createElement: function(results,query){
 		if(results.length == 0)
 			return false;
 		var d = document.createElement('div');
@@ -43,7 +43,7 @@ module.exports = {
 				break;
 			var result = dommy({
 				tag:'div',
-				attributes:{class:'result','data-search-query':results[i]},
+				attributes:{class:'result','data-search-query':results[i], 'data-orig-query':this.query},
 				events:{
 					click:function(){
 					  	ga('send', 'event', 'search', 'search web', appVersion);
