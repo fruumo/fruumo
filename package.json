@@ -39,6 +39,7 @@
     "fuse.js": "^3.0.5",
     "fuzzyjs": "^2.1.2",
     "lodash.groupby": "^4.6.0",
+    "moment": "^2.18.1",
     "mousetrap": "^1.6.1"
   }
 }

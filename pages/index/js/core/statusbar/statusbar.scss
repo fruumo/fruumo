@@ -8,6 +8,15 @@
 	box-sizing: border-box;
 	border-radius:0 0 5px 5px;
 	background: rgba(0,0,0,0.6);
+	&.autohide{
+		opacity:0;
+		transition:opacity 400ms;
+		transition-delay:400ms
+	}
+	&.autohide:hover{
+		opacity:1;
+		transition:opacity 400ms;
+	}
 	.icon-list{
 		width:100%;
 		height:100%;

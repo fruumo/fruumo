@@ -15,8 +15,11 @@ module.exports = {
 		require("./core/opentabs/opentabsearch.js"),
 		require('./core/autocomplete/autocomplete.js'),
 		require("./core/command-sort-tabs/command.js"),
-		require("./core/command-refresh-all/command.js")
+		require("./core/command-refresh-all/command.js"),
+		require("./core/command-weather/weather.js")
+
 	],
+	lastQuery:"",
 	containers:[],
 	resultElements:[],
 	keyboardSelectedResult:-1,
@@ -29,7 +32,7 @@ module.exports = {
 
 		document.addEventListener("click", function(event){
 			for(var i in event.path){
-				if(event.path[i].className == "inner-container" || event.path[i].className == "statusbar")
+				if(event.path[i].className == "inner-container" || event.path[i].className.indexOf("statusbar")!=-1)
 					return;
 			}
 			this.cancelSearch();
@@ -86,6 +89,9 @@ module.exports = {
 		}
 	},
 	onKey: function(e){
+		if(this.lastQuery == this.DOM[0][0].value)
+				return;
+			this.lastQuery = this.DOM[0][0].value;
 		if(e.key == "ArrowDown" || e.key == "ArrowRight"){
 			this.DOM[0][0].select();
 			this.downArrow(e);

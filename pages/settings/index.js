@@ -24,6 +24,7 @@ chrome.storage.local.get(null, function(lstorage){
 		var appV = document.getElementById("app-version");
 		var omniboxSearch = document.getElementById("omnibox-search");
 		var fruumoSearch = document.getElementById("fruumo-search");
+		var autohideMenu = document.getElementById("autohide-menu");
 
 		appV.innerText = appVersion;
 
@@ -45,6 +46,11 @@ chrome.storage.local.get(null, function(lstorage){
 		}
 		if(storage.largeTopsites){
 			largeTopsites.checked = true;
+		}
+		if(storage.settingAutohideStatusbar == true){
+			autohideMenu.checked = true;
+		} else {
+			autohideMenu.checked = false;
 		}
 		if(storage.settingFocus){
 			focusMode.checked = true;
@@ -105,6 +111,10 @@ chrome.storage.local.get(null, function(lstorage){
 
 		time.addEventListener("click", function(){
 			chrome.storage.sync.set({settingIs24h:this.checked});
+		});
+
+		autohideMenu.addEventListener("click", function(){
+				chrome.storage.sync.set({settingAutohideStatusbar:this.checked});
 		});
 
 		focusMode.addEventListener("click", function(){

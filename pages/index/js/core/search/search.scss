@@ -20,9 +20,14 @@
 	&.searching{
 		min-height:400px;
 		transition: min-height 400ms;
+		.inner-container{
+			width:50%;
+			transition:width 400ms;
+		}
 	}
 	.inner-container{
 		width:40%;
+		transition:width 400ms;
 		background:white;
 		box-shadow: 0 0 25px rgba(0,0,0,0.4);
 		border-radius: 0px 0px 2px 2px;
@@ -113,14 +118,24 @@
 
 @media (max-width: 1400px) {
 	.search-container{
+		&.searching{
+			.inner-container{
+				width:60%;
+			}
+		}
 		.inner-container{
 			width:50%;
 		}
 	}
 }
 
-@media (max-width:990px) {
+@media (max-width:1050px) {
 	.search-container{
+		&.searching{
+			.inner-container{
+				width:70%;
+			}
+		}
 		.inner-container{
 			width:60%;
 		}
@@ -129,6 +144,11 @@
 
 @media (max-width:790px) {
 	.search-container{
+		&.searching{
+			.inner-container{
+				width:95%;
+			}
+		}
 		.inner-container{
 			width:80%;
 		}

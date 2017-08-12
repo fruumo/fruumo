@@ -1,0 +1,29 @@
+.weather-forecast-container{
+	color:black;
+	.now-weather-container{
+	    display: flex;
+		justify-content: center;
+		.temperature{
+			font-size: 85px;
+		}
+		.summary{
+		    display: flex;
+    		padding-top: 15px;
+    		flex-direction: column;
+    		.country{
+    			font-size: 20px;
+    		}
+		}
+	}
+	.hourly-forecast-container{
+		display:flex;
+		flex-wrap:wrap;
+		justify-content:center;
+		height:150px;
+		overflow:hidden;
+		.weather-holder{
+			text-align:center;
+			padding:10px;
+		}
+	}
+}

@@ -2,6 +2,29 @@ require('./statusbar.scss');
 module.exports = {
 	name:'statusbar',
 	DOM:['.statusbar','.statusbar>.icon-list','.search-bar'],
+	preload: function(){
+		return new Promise(function(resolve, reject){
+			chrome.storage.sync.get({"settingAutohideStatusbar":false}, function(storage){
+				if(storage.settingAutohideStatusbar){
+					this.DOM[0][0].className = "statusbar autohide";
+				}
+			}.bind(this));
+				//dynamic settings
+			chrome.storage.onChanged.addListener(function(changes, area){
+				if(area != "sync")
+					return;
+				if(changes.settingAutohideStatusbar != undefined){
+					if(changes.settingAutohideStatusbar.newValue){
+						this.DOM[0][0].className = "statusbar autohide";
+					} else {
+						this.DOM[0][0].className = "statusbar";
+					}
+				}
+			}.bind(this));
+
+			resolve(true);
+		}.bind(this));
+	},
 	onload: function(){
 		var settings = document.createElement('div');
 		settings.className = "item";
