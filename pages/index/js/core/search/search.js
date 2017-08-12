@@ -89,9 +89,6 @@ module.exports = {
 		}
 	},
 	onKey: function(e){
-		if(this.lastQuery == this.DOM[0][0].value)
-				return;
-			this.lastQuery = this.DOM[0][0].value;
 		if(e.key == "ArrowDown" || e.key == "ArrowRight"){
 			this.DOM[0][0].select();
 			this.downArrow(e);
