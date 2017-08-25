@@ -36,13 +36,13 @@ module.exports = {
 			if(storage.wallpaper.author){
 				this.DOM[2][0].innerHTML = "";
 				var link = document.createElement('a');
-				link.href = storage.wallpaper.author.links.html;
+				link.href = storage.wallpaper.author.links.html+"?utm_source=fruumo&utm_medium=referral&utm_campaign=api-credit";
 				link.innerText =  storage.wallpaper.author.name;
 				link.setAttribute("tabIndex", -1);
 				this.DOM[2][0].appendChild(link);
 				this.DOM[2][0].innerHTML += " / ";
 				link = document.createElement('a');
-				link.href = "https://unsplash.com";
+				link.href = "https://unsplash.com?utm_source=fruumo&utm_medium=referral&utm_campaign=api-credit";
 				link.innerText =  "Unsplash";
 				link.setAttribute("tabIndex", -1);
 				this.DOM[2][0].appendChild(link);
