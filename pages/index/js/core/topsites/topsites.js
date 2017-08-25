@@ -5,7 +5,9 @@ module.exports = {
 	DOM:['.topsites-container'],
 	displayTopsites:true,
 	bannedTopsites:[],
+	origHeight:"",
 	preload: function(){
+		this.origHeight = this.DOM[0][0].style.height;
 		return new Promise(function(resolve, reject){
 			chrome.storage.sync.get({"bannedTopsites":[], "largeTopsites":false}, function(storage){
 				if(storage.largeTopsites){
@@ -42,6 +44,7 @@ module.exports = {
 					} else {
 						this.displayTopsites = false;
 						this.DOM[0][0].innerHTML = "";
+						this.onload();
 					}
 				}.bind(this));
 
@@ -50,8 +53,12 @@ module.exports = {
 		}.bind(this));
 	},
 	onload: function(){
-		if(!this.displayTopsites)
+		if(!this.displayTopsites){
+			this.DOM[0][0].style.height = "100px";
 			return;
+		} else {
+			this.DOM[0][0].style.height = this.origHeight;
+		}
 		chrome.topSites.getAsync()
 		.then(function(topsites){
 			for(var i in topsites){
