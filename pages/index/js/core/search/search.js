@@ -32,6 +32,8 @@ module.exports = {
 
 		document.addEventListener("click", function(event){
 			for(var i in event.path){
+				if(!event.path[i].className)
+					continue;
 				if(event.path[i].className == "inner-container" || event.path[i].className.indexOf("statusbar")!=-1)
 					return;
 			}
