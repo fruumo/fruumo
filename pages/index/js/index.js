@@ -7,24 +7,26 @@ require('./core/time/time.js'),
 require('./core/ticker/ticker.js'),
 require('./core/topsites/topsites.js'),
 require('./core/search/search.js'),
-require('./core/statusbar/statusbar.js')
+require('./core/statusbar/statusbar.js'),
+require('./core/search-placeholder/placeholder.js')
 ];
 var utils = require('./libs/utils.js');
 window.appVersion = chrome.app.getDetails().version;
 var oldPlaceholder = "";
-var fruumoSearchStrings = ["Why not use fruumo search?", "Show me some love...", "I'm better than the chrome search bar...", "I can do everything the chrome omnibar can do and more..."];
 
 window.onblur = function(){
 	if(localStorage.defaultSearchBar != "chrome"){
-		document.getElementsByClassName('search-bar')[0].placeholder = fruumoSearchStrings[Math.floor(Math.random() * fruumoSearchStrings.length)];
-		document.getElementsByClassName('inner-container')[0].className = "inner-container animated shake";
+		document.getElementsByClassName('search-bar')[0].placeholder="";
+		searchBarTyper.start();
+		/*document.getElementsByClassName('inner-container')[0].className = "inner-container animated shake";
 		setTimeout(function(){
 			document.getElementsByClassName('inner-container')[0].className = "inner-container";
-		},900);
+		},900);*/
 	}
 };
 window.onfocus = function(){
 	if(localStorage.defaultSearchBar != "chrome"){
+		searchBarTyper.stop();
 		document.getElementsByClassName('search-bar')[0].placeholder = oldPlaceholder;
 	}
 }
