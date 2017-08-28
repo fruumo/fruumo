@@ -15,13 +15,6 @@ module.exports = {
 			this.tick();
 		}.bind(this), 2000);
 		setInterval(this.tick.bind(this), 8000);
-		this.updateWeather();
-		chrome.storage.onChanged.addListener(function(changes,area){
-			if(area != "local") return;
-			if(changes.weather || changes.location){
-				this.updateWeather();
-			}
-		}.bind(this));
 	},
 	tick: function(){
 		if(this.DOM[0][0].innerHTML != this.tickerStrings[this.currentTick]){
@@ -53,20 +46,5 @@ module.exports = {
 		} 
 
 		return chrome.i18n.getMessage("dateFormat", [chrome.i18n.getMessage(day),d+"", chrome.i18n.getMessage(suffix),chrome.i18n.getMessage(month), y+""]);	
-	},
-	updateWeather: function(){
-		chrome.storage.sync.get({settingMetric:true}, function(storage){
-			chrome.storage.local.get({weather:null,location:null},function(weather){
-				if(weather.weather == null || weather.location == null)
-					return;
-				var temp;
-				if(storage.settingMetric)
-					temp = Math.round((weather.weather.results.channel.item.condition.temp-32)*5/9) + " &deg;C";
-				else
-					temp = Math.round((weather.weather.results.channel.item.condition.temp))+ " &deg;F"
-				this.tickerStrings[1] = "It's " + temp + " and "+weather.weather.results.channel.item.condition.text+" in " + weather.location.city+".";
-
-			}.bind(this));
-		}.bind(this));
 	}
 };

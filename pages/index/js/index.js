@@ -8,7 +8,8 @@ require('./core/ticker/ticker.js'),
 require('./core/topsites/topsites.js'),
 require('./core/search/search.js'),
 require('./core/statusbar/statusbar.js'),
-require('./core/search-placeholder/placeholder.js')
+require('./core/search-placeholder/placeholder.js'),
+require('./core/weather-display/index.js')
 ];
 var utils = require('./libs/utils.js');
 window.appVersion = chrome.app.getDetails().version;

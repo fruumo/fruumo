@@ -1,0 +1,39 @@
+.search-container{
+	&.searching{
+		.weather-container{
+			display:none;
+		}
+	}
+	&.focus{
+		.weather-container{
+			color:white;
+			right:20px;
+		}
+	}
+	.weather-container{
+		.icon-container{
+			height: 100%;
+		    display: flex;
+		    align-items: center;
+		    padding: 10px;
+		    font-size: 30px;
+		}
+		.condition-container{
+		    height: 100%;
+		    align-items: center;
+		    justify-content: center;
+		    display: flex;
+		    flex-direction: column;
+		}
+		color:black;
+		cursor:pointer;
+		display:flex;
+		flex-direction:row;
+		justify-content:center;
+		align-items:center;
+		position:absolute;
+		height:100%;
+		top:0px;
+		right:10px;
+	}
+}
