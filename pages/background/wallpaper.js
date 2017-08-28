@@ -32,7 +32,7 @@ function refreshWallpaper(){
 		.then(function(data){
 			//Get new wallpaper data
 			//regular or full
-			fetch("https://source.unsplash.com/"+data.id+"/"+screen.width+"x"+screen.height)
+			fetch("https://source.unsplash.com/"+data.id+"/"+(screen.width+4)+"x"+(screen.height+4))
 			.then(function(response){
 				if(response.ok)
 					return response.blob();
