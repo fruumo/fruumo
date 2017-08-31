@@ -54,7 +54,7 @@ function loadDb(cb){
 
 function firstDbSetup(cb){
 	db = new TernarySearchTree();
-	chrome.history.search({text:"", startTime:new Date().getTime()-604800000, maxResults:10000}, function(history){
+	chrome.history.search({text:"", startTime:new Date().getTime()-604800000, maxResults:50000}, function(history){
 		console.log("Adding to Autocomplete Database:" + history.length);
 		for(var i in history){
 			addToDb(history[i]);
