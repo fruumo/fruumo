@@ -1,4 +1,4 @@
-[![fruumo logo](https://fruumo.com/images/logo.png =250x)](https://www.fruumo.com)
+[![fruumo logo](https://fruumo.com/images/logo.png)](https://www.fruumo.com)
 
 ____________
 
