@@ -16,8 +16,8 @@ module.exports = {
 		require('./core/autocomplete/autocomplete.js'),
 		require("./core/command-sort-tabs/command.js"),
 		require("./core/command-refresh-all/command.js"),
-		require("./core/command-weather/weather.js")
-
+		require("./core/command-weather/weather.js"),
+		require("./core/command-wallpaper/command.js")
 	],
 	lastQuery:"",
 	containers:[],
