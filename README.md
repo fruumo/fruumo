@@ -19,13 +19,13 @@ To build the latest version of fruumo you'll need npm and webpack.
 2. Run npm install inside the repository folder `npm install`
 3. Run webpack to build all the files `webpack`
 
-### _Installation_###  
+### _Installation_
 1. Go to `chrome://extensions`
 2. Turn on developer mode
 3. `Load unpacked extension` and select the repository folder
 4. You should be good to go.
 
-### _Updates_###  
+### _Updates_
 1. Run `git pull` in the repository
 2. visit `chrome://extensions` and refresh the fruumo extension.
 
