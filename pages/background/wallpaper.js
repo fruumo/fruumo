@@ -24,7 +24,15 @@ function refreshWallpaper(){
 		var max = 0;
 		var min = 24;
 		var randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-		fetch("http://fruumo.com/wallpaper/"+randomNumber+".json?r="+Math.random())
+		var date = new Date();
+		var tod = "";
+		if(date.getHours() <= 5){tod = "night"}
+		else if(date.getHours() <= 11){tod = "morning"}
+		else if(date.getHours() <= 18){tod = "afternoon"}
+		else if(date.getHours() <= 20){tod = "evening"}
+		else {tod = "night"}
+
+		fetch("http://api.fruumo.com/wallpaper/"+tod+"?r="+Math.random())
 		.then(function(response){
 			if(response.ok)
 				return response.json();
@@ -32,7 +40,7 @@ function refreshWallpaper(){
 		.then(function(data){
 			//Get new wallpaper data
 			//regular or full
-			fetch("https://source.unsplash.com/"+data.id+"/"+(screen.width+4)+"x"+(screen.height+4))
+			fetch(""+data.imageLink+"&w="+(screen.width)+"&h="+(screen.height))
 			.then(function(response){
 				if(response.ok)
 					return response.blob();
