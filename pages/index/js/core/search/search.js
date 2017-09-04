@@ -23,7 +23,31 @@ module.exports = {
 	containers:[],
 	resultElements:[],
 	keyboardSelectedResult:-1,
+	searchVisible:true,
+	preload:function(){
+		return new Promise(function(resolve, reject){
+			chrome.storage.sync.get({"searchVisible":true}, function(storage){
+				if(!storage.searchVisible){
+					this.searchVisible = false;
+				}
+				//dynamic settings
+				chrome.storage.onChanged.addListener(function(changes, area){
+					if(area != "sync")
+						return;
+					if(changes.searchVisible){
+							location.reload();
+					}
+				}.bind(this));
+
+				resolve(true);
+			}.bind(this));
+		}.bind(this));
+	},
 	onload: function(){
+		if(!this.searchVisible){
+			this.DOM[3][0].style.display = "none";
+			return;
+		}
 		this.DOM[0][0].addEventListener('keyup', this.onKey.bind(this));
 		this.DOM[4][0].addEventListener('click', this.cancelSearch.bind(this));
 		for(var i in this.searchEngines){

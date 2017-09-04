@@ -1,22 +1,28 @@
 require('./time.scss');
 module.exports = {
 	name:'time',
-	DOM:['.time','.aorp'],
+	DOM:['.time','.aorp', '.time-container'],
 	is24h:true,
+	timeVisible:true,
 	preload: function(){
 		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get("settingIs24h", function(storage){
+			chrome.storage.sync.get({"settingIs24h":undefined, "timeVisible":true}, function(storage){
 
 				if(storage.settingIs24h == undefined || storage.settingIs24h == true){
 					this.is24h = true;
 				} else {
 					this.is24h = false;
 				}
-
+				if(!storage.timeVisible){
+					this.timeVisible = false;
+				}
 				//dynamic settings
 				chrome.storage.onChanged.addListener(function(changes, area){
 					if(area != "sync")
 						return;
+					if(changes.timeVisible){
+							location.reload();
+					}
 					if(changes.settingIs24h == undefined)
 						return;
 					if(changes.settingIs24h.newValue == undefined)
@@ -33,6 +39,10 @@ module.exports = {
 		}.bind(this));
 	},
 	onload: function(){
+		if(!this.timeVisible){
+			this.DOM[2][0].style.display = "none";
+			return;
+		}
 		this.updateTime();
 		setInterval(this.updateTime.bind(this), 10000);
 		//var date = new Date();

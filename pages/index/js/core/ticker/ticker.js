@@ -5,7 +5,20 @@ module.exports = {
 	tickerStrings:[],
 	greetings:['Bonjour', 'Namaste', 'Hi', 'Konnichiwa'],
 	currentTick:0,
+	timeVisible:true,
+	preload:function(){
+		return new Promise(function(resolve, reject){
+			chrome.storage.sync.get({"timeVisible":true}, function(storage){
+				if(!storage.timeVisible){
+					this.timeVisible = false;
+				}
+				resolve(true);
+			}.bind(this));
+		}.bind(this));
+	},
 	onload: function(){
+		if(!this.timeVisible)
+			return;
 		var date = new Date();
 		this.tickerStrings.push(this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear()));
 		this.DOM[0][0].style.opacity = 0;

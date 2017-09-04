@@ -25,6 +25,8 @@ chrome.storage.local.get(null, function(lstorage){
 		var omniboxSearch = document.getElementById("omnibox-search");
 		var fruumoSearch = document.getElementById("fruumo-search");
 		var autohideMenu = document.getElementById("autohide-menu");
+		//var showFruumoSearch = document.getElementById("show-fruumo-search");
+		//var showTime = document.getElementById("show-time");
 
 		appV.innerText = appVersion;
 
@@ -33,7 +35,6 @@ chrome.storage.local.get(null, function(lstorage){
 		} else {
 			fruumoSearch.checked = true;
 		}
-
 		if(localStorage.searchDomain){
 			searchEngine.value = localStorage.searchDomain;
 		}
@@ -41,6 +42,13 @@ chrome.storage.local.get(null, function(lstorage){
 		if(storage.settingDisplayTopsites){
 			displayTopsites.checked = true;
 		}
+
+		/*if(storage.timeVisible == true || storage.timeVisible == undefined){
+			showTime.checked = true;
+		}
+		if(storage.searchVisible == true || storage.searchVisible == undefined){
+			showFruumoSearch.checked = true;
+		}*/
 		if(storage.settingIs24h){
 			time.checked = true;
 		}
@@ -108,7 +116,17 @@ chrome.storage.local.get(null, function(lstorage){
 		displayTopsites.addEventListener("click", function(){
 			chrome.storage.sync.set({settingDisplayTopsites:this.checked});
 		});
-
+		/*showTime.addEventListener("click", function(){
+			chrome.storage.sync.set({timeVisible:this.checked});
+		});
+		showFruumoSearch.addEventListener("click", function(){
+			chrome.storage.sync.set({searchVisible:this.checked});
+			if(this.checked == false){
+				localStorage.defaultSearchBar = "chrome";
+			} else {
+				localStorage.defaultSearchBar = "fruumo";
+			}
+		});*/
 		time.addEventListener("click", function(){
 			chrome.storage.sync.set({settingIs24h:this.checked});
 		});

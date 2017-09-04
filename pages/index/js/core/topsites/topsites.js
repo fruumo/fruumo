@@ -6,10 +6,12 @@ module.exports = {
 	displayTopsites:true,
 	bannedTopsites:[],
 	origHeight:"",
+	searchVisible:true,
 	preload: function(){
 		this.origHeight = this.DOM[0][0].style.height;
 		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get({"bannedTopsites":[], "largeTopsites":false}, function(storage){
+			chrome.storage.sync.get({"bannedTopsites":[], "largeTopsites":false, "searchVisible":true}, function(storage){
+				this.searchVisible = storage.searchVisible;
 				if(storage.largeTopsites){
 					this.DOM[0][0].className += " large";
 				}
