@@ -46,11 +46,16 @@ chrome.runtime.onInstalled.addListener(function(details){
 			console.log("fixing broken google search");
 		}
 
-		chrome.windows.create({
+		/*chrome.windows.create({
 			url:'../pages/updated/index.html',
 			focused:true,
 			state:'maximized'
+		});*/
+
+		chrome.browserAction.setBadgeText({
+			text:'NEW'
 		});
+
 	});
 });
 
