@@ -6,8 +6,8 @@ module.exports = {
 	timeVisible:true,
 	preload: function(){
 		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get({"settingIs24h":undefined, "timeVisible":true}, function(storage){
-
+			chrome.storage.sync.get({"settingIs24h":true, "timeVisible":true}, function(storage){
+				console.log(storage);
 				if(storage.settingIs24h == undefined || storage.settingIs24h == true){
 					this.is24h = true;
 				} else {
@@ -29,8 +29,10 @@ module.exports = {
 						return;
 					if(changes.settingIs24h.newValue){
 						this.is24h = true;
+						this.updateTime();
 					} else {
 						this.is24h = false;
+						this.updateTime();
 					}
 				}.bind(this));
 
