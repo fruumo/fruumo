@@ -46,6 +46,18 @@ module.exports = {
 				link.innerText =  "Unsplash";
 				link.setAttribute("tabIndex", -1);
 				this.DOM[2][0].appendChild(link);
+
+				var i = document.createElement('i');
+				i.className = "fa fa-download";
+				i.setAttribute('aria-hidden','true');
+				i.addEventListener('click', function(){
+					chrome.downloads.download({
+						url:this.toString(),
+						saveAs:true,
+						filename:'wallpaper.jpeg'
+					});
+				}.bind(storage.wallpaper.image));
+				this.DOM[2][0].appendChild(i);
 			}
 		}.bind(this));
 	},
