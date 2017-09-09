@@ -51,10 +51,20 @@ function loadDb(cb){
 	});
 }
 
+chrome.storage.onChanged.addListener(function(changes, area){
+	if(area != "local") return;
+	if(changes.searchDb){
+		if(!changes.searchDb.newValue){
+			window.db = null;
+			loadDb(function(){});
+		}
+	}
+});
+
 
 function firstDbSetup(cb){
 	db = new TernarySearchTree();
-	chrome.history.search({text:"", startTime:new Date().getTime()-604800000, maxResults:50000}, function(history){
+	chrome.history.search({text:"", startTime:new Date().getTime()-1209600000, maxResults:50000}, function(history){
 		console.log("Adding to Autocomplete Database:" + history.length);
 		for(var i in history){
 			addToDb(history[i]);
