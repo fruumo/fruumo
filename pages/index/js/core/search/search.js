@@ -258,10 +258,14 @@ module.exports = {
 		}
 		if(this.DOM[1][0].children.length == 0 && this.DOM[0][0].value != ""){
 			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
+		  	ga('send', 'event', 'search', 'search web', appVersion);
+		  	ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
 			return;
 		}
 		if(this.keyboardSelectedResult == -1){
 			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
+		  	ga('send', 'event', 'search', 'search web', appVersion);
+		  	ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
 			return;
 		}
 		if(this.resultElements[this.keyboardSelectedResult]){

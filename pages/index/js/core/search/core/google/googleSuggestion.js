@@ -47,6 +47,7 @@ module.exports = {
 				events:{
 					click:function(){
 					  	ga('send', 'event', 'search', 'search web', appVersion);
+					  	ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
 						window.top.location = localStorage.searchDomain + this.getAttribute('data-search-query');
 					}
 				},
