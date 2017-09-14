@@ -41,7 +41,7 @@ chrome.storage.onChanged.addListener(function(changes, area){
 
 function resetSettings(){
 	chrome.storage.sync.set({settingsReset:false});
-	chrome.storage.sync.set({settingDisplayTopsites:true});
+	chrome.storage.sync.set({settingDisplayTopsites:false});
 	chrome.storage.sync.set({settingFocus:false});
 	chrome.storage.sync.set({settingIs24h:true});
 	chrome.storage.sync.set({settingMetric:true});
