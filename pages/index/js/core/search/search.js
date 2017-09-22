@@ -4,7 +4,7 @@ var mousetrap = require('mousetrap');
 module.exports = {
 	name:'search',
 	searchTimeout:undefined,
-	DOM:['.search-bar','.search-results','.topsites-container','.search-container','.cancel-search','.wallpaper'],
+	DOM:['.search-bar','.search-results','.topsites-container','.search-container','.cancel-search','.wallpaper','.time-container','.ticker-container'],
 	searchEngines:[
 		require("./core/google/googleSuggestion.js"),
 		require("./core/apps/apps.js"),
@@ -91,6 +91,8 @@ module.exports = {
 		while(this.DOM[1][0].lastChild)
 			this.DOM[1][0].removeChild(this.DOM[1][0].lastChild);
 		this.DOM[5][0].style.opacity = "1";
+		this.DOM[6][0].style.opacity = "1";
+		this.DOM[7][0].style.opacity = "1";
 		this.resultElements = [];
 		this.keyboardSelectedResult = -1;
 	},
@@ -103,6 +105,9 @@ module.exports = {
 			this.DOM[2][0].className += " hide";
 
 		this.DOM[5][0].style.opacity = "0.4";
+		this.DOM[6][0].style.opacity = "0";
+		this.DOM[7][0].style.opacity = "0";
+
 		this.keyboardSelectedResult = -1;
 		this.resultElements = Array.prototype.slice.call(document.querySelectorAll('.search-results .result'));
 		for(var i in this.resultElements){

@@ -4,6 +4,7 @@
 		display:flex;
 		align-items:baseline;
 		min-height:200px;
+		transition:opacity 300ms;
 		.time{
 			z-index:inherit;
 			font-size:12em;
