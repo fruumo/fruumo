@@ -24,6 +24,13 @@
 		.weather-holder{
 			text-align:center;
 			padding:10px;
+			.temp-high{
+				padding:5px;
+			}
+			.temp-low{
+				padding:5px;
+				color:#b1b1b1;
+			}
 		}
 	}
 }
