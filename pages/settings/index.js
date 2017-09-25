@@ -25,6 +25,7 @@ chrome.storage.local.get(null, function(lstorage){
 		var omniboxSearch = document.getElementById("omnibox-search");
 		var fruumoSearch = document.getElementById("fruumo-search");
 		var autohideMenu = document.getElementById("autohide-menu");
+		var smartDomain = document.getElementById("smartDomain");
 		//var showFruumoSearch = document.getElementById("show-fruumo-search");
 		//var showTime = document.getElementById("show-time");
 
@@ -34,6 +35,11 @@ chrome.storage.local.get(null, function(lstorage){
 			omniboxSearch.checked = true;
 		} else {
 			fruumoSearch.checked = true;
+		}
+		if(!localStorage.smartDomain || localStorage.smartDomain == "true"){
+			smartDomain.checked = true;
+		} else {
+			smartDomain.checked = false;
 		}
 		if(localStorage.searchDomain){
 			searchEngine.value = localStorage.searchDomain;
@@ -73,6 +79,13 @@ chrome.storage.local.get(null, function(lstorage){
 		}
 		fruumoSearch.addEventListener("click", function(){
 			localStorage.defaultSearchBar = "fruumo";
+		});
+		smartDomain.addEventListener("click", function(){
+			if(localStorage.smartDomain == "true"){
+				localStorage.smartDomain = "false";
+			} else {
+				localStorage.smartDomain = "true";
+			}
 		});
 		omniboxSearch.addEventListener("click", function(){
 			localStorage.defaultSearchBar = "chrome";

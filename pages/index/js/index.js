@@ -103,11 +103,11 @@ window.onload = function(){
 			intro: "This is the all powerful fruumo search bar. You can search the web, your bookmarks, your applications, your downloads and more!",
 			position: 'bottom'
 		},
-		{
+		/*{
 			element: document.getElementsByClassName('topsite')[0],
 			intro: "These are all your most visited websites, this list will change the more you browse the web! The images may look like white boxes right now, but they will eventually be AUTOMATICALLY replaced with images of those websites!",
 			position: 'top'
-		},
+		},*/
 		{
 			element: document.getElementsByClassName('ticker')[0],
 			intro: "This is the fruumo ticker, it shows you the date and the current weather condition of your location. The location can be changed in the settings.",

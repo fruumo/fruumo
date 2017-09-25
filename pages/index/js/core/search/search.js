@@ -6,18 +6,18 @@ module.exports = {
 	searchTimeout:undefined,
 	DOM:['.search-bar','.search-results','.topsites-container','.search-container','.cancel-search','.wallpaper','.time-container','.ticker-container'],
 	searchEngines:[
-		require("./core/google/googleSuggestion.js"),
-		require("./core/apps/apps.js"),
-		require("./core/bookmarks/bookmarks.js"),
-		require("./core/recentlyClosed/recentlyClosed.js"),
-		require("./core/downloads/downloads.js"),
-		require("./core/sessions/sessions.js"),
-		require("./core/opentabs/opentabsearch.js"),
-		require('./core/autocomplete/autocomplete.js'),
-		require("./core/command-sort-tabs/command.js"),
-		require("./core/command-refresh-all/command.js"),
-		require("./core/command-weather/weather.js"),
-		require("./core/command-wallpaper/command.js")
+	require("./core/google/googleSuggestion.js"),
+	require("./core/apps/apps.js"),
+	require("./core/bookmarks/bookmarks.js"),
+	require("./core/recentlyClosed/recentlyClosed.js"),
+	require("./core/downloads/downloads.js"),
+	require("./core/sessions/sessions.js"),
+	require("./core/opentabs/opentabsearch.js"),
+	require('./core/autocomplete/autocomplete.js'),
+	require("./core/command-sort-tabs/command.js"),
+	require("./core/command-refresh-all/command.js"),
+	require("./core/command-weather/weather.js"),
+	require("./core/command-wallpaper/command.js")
 	],
 	lastQuery:"",
 	containers:[],
@@ -35,7 +35,7 @@ module.exports = {
 					if(area != "sync")
 						return;
 					if(changes.searchVisible){
-							location.reload();
+						location.reload();
 					}
 				}.bind(this));
 
@@ -211,71 +211,101 @@ module.exports = {
 	downArrow: function(e){
 		if(this.DOM[1][0].children.length == 0)
 			return; 
-    	e.preventDefault();
-    	if(this.resultElements[this.keyboardSelectedResult]){
-    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
-    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
+		e.preventDefault();
+		if(this.resultElements[this.keyboardSelectedResult]){
+			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
 				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
 			}
-    	}
-    	this.keyboardSelectedResult++;
-    	if(this.keyboardSelectedResult >= this.resultElements.length){
-    		this.keyboardSelectedResult = 0;
-    	}
-    	if(this.resultElements[this.keyboardSelectedResult]){
-    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
-    		this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
-    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
-    			this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
-    		}
-    	}
+		}
+		this.keyboardSelectedResult++;
+		if(this.keyboardSelectedResult >= this.resultElements.length){
+			this.keyboardSelectedResult = 0;
+		}
+		if(this.resultElements[this.keyboardSelectedResult]){
+			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+			this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
+				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+			}
+		}
 	},
 	upArrow: function(e){
 		if(this.DOM[1][0].children.length == 0)
 			return; 
-    	e.preventDefault();
-    	if(this.resultElements[this.keyboardSelectedResult]){
-    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
-    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
+		e.preventDefault();
+		if(this.resultElements[this.keyboardSelectedResult]){
+			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
 				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
 			}
-    	}
-    	this.keyboardSelectedResult--;
-    	if(this.keyboardSelectedResult <= -1){
-    		this.keyboardSelectedResult = this.resultElements.length-1;
-    	}
-    	if(this.resultElements[this.keyboardSelectedResult]){
-    		this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
-    		this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
-    		if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
-    			this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
-    		}
-    	}
+		}
+		this.keyboardSelectedResult--;
+		if(this.keyboardSelectedResult <= -1){
+			this.keyboardSelectedResult = this.resultElements.length-1;
+		}
+		if(this.resultElements[this.keyboardSelectedResult]){
+			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+			this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
+				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+			}
+		}
+	},
+	headRequest: function(url, callback){
+		var http = new XMLHttpRequest();
+		http.open('HEAD', url);
+		http.onreadystatechange = function() {
+			if (this.readyState == this.DONE) {
+				callback(this.status);
+			}
+		};
+		http.send();
 	},
 	launchResult: function(e){
 		if(this.DOM[0][0].value.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
 			if(this.DOM[0][0].value.indexOf('http')!= -1){
 				window.top.location = this.DOM[0][0].value;
 			} else {
-				window.top.location = "http://"+this.DOM[0][0].value;
+				if(!localStorage.smartDomain || localStorage.smartDomain == "true"){
+					var i = document.createElement('iframe');
+					i.src = "http://"+this.DOM[0][0].value;
+					i.style.opacity = "0";
+					document.body.appendChild(i);
+					this.headRequest("http://"+this.DOM[0][0].value, function(status){
+						if(status == 0){
+							ga('send', 'event', 'search', 'search web', appVersion);
+							ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
+							ga('send', 'event', 'fruumo', 'broken-domain-avoided', localStorage.searchDomain);
+							window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
+						} else {
+							window.top.location = "http://"+this.DOM[0][0].value;	
+						}
+					}.bind(this));
+					setTimeout(function(){
+						window.top.location = "http://"+this.DOM[0][0].value;
+					}.bind(this),1000);
+				} else {
+					window.top.location = "http://"+this.DOM[0][0].value;
+				}	
 			}
 			return;
 		}
 		if(this.DOM[1][0].children.length == 0 && this.DOM[0][0].value != ""){
 			ga('send', 'event', 'search', 'search web', appVersion);
-		  	ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
+			ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
 			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
 			return;
 		}
 		if(this.keyboardSelectedResult == -1){
 			ga('send', 'event', 'search', 'search web', appVersion);
-		  	ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
+			ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
 			window.top.location = localStorage.searchDomain + this.DOM[0][0].value;
 			return;
 		}
 		if(this.resultElements[this.keyboardSelectedResult]){
-		    this.resultElements[this.keyboardSelectedResult].click();
-		    return;
+			this.resultElements[this.keyboardSelectedResult].click();
+			return;
 		}
 		if(this.resultElements[0]){
 			this.resultElements[0].click();
