@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener(function(request,sender, respond){
 				return 1;
 			}
 		});
-		respond(returnResults.splice(0,2));
+		respond(returnResults.splice(0,4));
 	});
 });
 
