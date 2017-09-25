@@ -27,7 +27,7 @@ module.exports = {
 		setTimeout(function(){
 			this.tick();
 		}.bind(this), 2000);
-		setInterval(this.tick.bind(this), 8000);
+		//setInterval(this.tick.bind(this), 8000);
 	},
 	tick: function(){
 		if(this.DOM[0][0].innerHTML != this.tickerStrings[this.currentTick]){
