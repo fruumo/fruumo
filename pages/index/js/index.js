@@ -37,7 +37,8 @@ window.onload = function(){
 		if(localStorage.r != "no-omni"){
 			localStorage.r = "no-omni";
 			chrome.tabs.getCurrent(function(tab){
-				chrome.tabs.create({url:'./pages/index/index.html', active:true});
+
+				chrome.tabs.create({url:'./pages/index/index.html', active:true,index:tab.index});
 				chrome.tabs.remove(tab.id);
 			});
 			return;
