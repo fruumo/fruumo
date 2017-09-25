@@ -1,6 +1,6 @@
 require('./index.scss');
 module.exports = {
-	name:'statusbar',
+	name:'search-weather',
 	DOM:['.weather-container .temperature', '.weather-container .condition','.weather-container','.search-bar','.weather-container .icon-container'],
 	preload:function(){
 		chrome.storage.onChanged.addListener(function(changes,area){

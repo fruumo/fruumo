@@ -67,7 +67,7 @@ Typer.prototype.doTyping = function() {
 };
 
 module.exports = {
-	name:'statusbar',
+	name:'moving-placeholder',
 	DOM:['.search-bar'],
 	strings:["www.gmail.com", "www.fruumo.com", "How tall is Donald trump?", "Your chrome apps", "Any URL", "www.yahoo.com", "@rct", "@weather", "3+4", "www.twitter.com", "www.facebook.com" ,"@downloads", "@sort", "Something from your bookmarks", "www.instagram.com", "www.youtube.com/subscriptions"],
 	onload: function(){
