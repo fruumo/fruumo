@@ -268,10 +268,10 @@ module.exports = {
 				window.top.location = this.DOM[0][0].value;
 			} else {
 				if(!localStorage.smartDomain || localStorage.smartDomain == "true"){
-					var i = document.createElement('iframe');
+					/*var i = document.createElement('iframe');
 					i.src = "http://"+this.DOM[0][0].value;
 					i.style.opacity = "0";
-					document.body.appendChild(i);
+					document.body.appendChild(i);*/
 					this.headRequest("http://"+this.DOM[0][0].value, function(status){
 						if(status == 0){
 							ga('send', 'event', 'search', 'search web', appVersion);

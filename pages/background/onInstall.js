@@ -10,12 +10,13 @@ chrome.runtime.onInstalled.addListener(function(details){
 
 	//Refresh wallpaper and weather alarm (every hour)
 	chrome.alarms.create("refresh-wallpaper", {periodInMinutes:60});
+	chrome.alarms.create("refresh-quote", {periodInMinutes:1440});
 	chrome.alarms.create("refresh-weather", {periodInMinutes:10});
 	chrome.alarms.create("check-updates", {periodInMinutes:120});
 
 	refreshWallpaper();
 	refreshWeather();
-	
+	refreshQuote();
 	chrome.runtime.setUninstallURL("http://fruumo.com/uninstall", function(){});
 	//Defaults
 	chrome.storage.sync.get("settingsReset", function(s){
@@ -65,5 +66,7 @@ function resetSettings(){
 
 	chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
 	chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
+	chrome.alarms.create("refresh-quote", {when:Date.now()+1000, periodInMinutes:1440});
+
 	console.log("Resetting settings!");
 }

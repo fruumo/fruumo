@@ -5,7 +5,7 @@
   "version": "2.1.2",
   "offline_enabled":true,
   "background": {
-    "scripts": ["./pages/background/autocomplete/ternary.js","./pages/background/autocomplete/autocomplete.js","./pages/background/updates.js","./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
+    "scripts": ["./pages/background/autocomplete/ternary.js","./pages/background/autocomplete/autocomplete.js","./pages/background/updates.js","./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js",  "./pages/background/quote.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
     "persistent": false
   },
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",

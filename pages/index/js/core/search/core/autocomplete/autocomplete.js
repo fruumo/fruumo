@@ -9,15 +9,15 @@ module.exports = {
 		$this.query = query;
 		return new Promise(function(resolve, reject){
 			chrome.runtime.sendMessage({type:"history-search", data:{query:this.query}}, function(history) {
-  				resolve({
+				resolve({
 					query:this.query,
 					containerClass:this.containerClass,
-					div:this.createElement(history)
+					div:this.createElement(history,this.query)
 				});
 			}.bind(this));
 		}.bind($this));
 	},
-	createElement: function(results){
+	createElement: function(results,query){
 		if(results.length == 0)
 			return false;
 		var d = document.createElement('div');
@@ -28,21 +28,24 @@ module.exports = {
 				continue;
 			var parser = document.createElement('a');
 			parser.href =results[i].url;
-			d.appendChild(
-				render({
-					title:results[i].title,
-					url:results[i].url,
-					launch:results[i].url,
-					imgSrc:(results[i].url.indexOf("chrome://") != -1 || results[i].url.indexOf("chrome-extension://") !=-1) ?"":'https://s2.googleusercontent.com/s2/favicons?domain='+parser.hostname,
-					imgError: function(){
-						this.style.opacity = "0";
-					}, 
-					click: function(){
-						ga('send', 'event', 'search', 'launch autocomplete', appVersion);
-						window.top.location= this.getAttribute('data-launch');
-					}
-				})
-			);
+			if(i==0)
+				window.startPreloadUrl(results[i].url);
+			var r = render({
+				title:results[i].title,
+				url:results[i].url,
+				launch:results[i].url,
+				imgSrc:(results[i].url.indexOf("chrome://") != -1 || results[i].url.indexOf("chrome-extension://") !=-1) ?"":'https://s2.googleusercontent.com/s2/favicons?domain='+parser.hostname,
+				imgError: function(){
+					this.style.opacity = "0";
+				}, 
+				click: function(){
+					ga('send', 'event', 'search', 'launch autocomplete', appVersion);
+					window.top.location= this.getAttribute('data-launch');
+				}
+			});
+			r.setAttribute('data-search-query', results[i].url);
+			r.setAttribute('data-orig-query', query);
+			d.appendChild(r);
 		}
 		return d;
 	}

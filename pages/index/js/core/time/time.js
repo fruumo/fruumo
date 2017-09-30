@@ -47,6 +47,7 @@ module.exports = {
 		}
 		this.updateTime();
 		setInterval(this.updateTime.bind(this), 10000);
+		window.timeUpdate = this.updateTime.bind(this);
 		//var date = new Date();
 		//this.DOM[1][0].innerText = this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear());
 	},
@@ -54,6 +55,12 @@ module.exports = {
 		var currentTime = new Date();
 		var currentHours = currentTime.getHours();
 		var currentMinutes = currentTime.getMinutes();		
+
+		if(window.timeOverride){
+			currentHours = window.timeOverride.hours;
+			currentMinutes = window.timeOverride.minutes;
+			//setInterval(this.updateTime.bind(this), 800);
+		}
 
 		//12 hour format
 		if(!this.is24h){
@@ -75,6 +82,7 @@ module.exports = {
 		} else {
 			currentMinutes = "" + currentMinutes;
 		}
+
 		if(this.DOM[0][0].innerText != currentHours + ":" + currentMinutes)
 			this.DOM[0][0].innerText = currentHours + ":" + currentMinutes;
 	},
