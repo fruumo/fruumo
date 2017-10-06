@@ -38,11 +38,12 @@ window.onload = function(){
 		if(localStorage.r != "no-omni"){
 			localStorage.r = "no-omni";
 			chrome.tabs.getCurrent(function(tab){
-
-				chrome.tabs.create({url:'./pages/index/index.html', active:true,index:tab.index});
-				chrome.tabs.remove(tab.id);
+				if(tab.url.indexOf("newtab") != -1){
+					chrome.tabs.create({url:'./pages/index/index.html', active:true,index:tab.index});
+					chrome.tabs.remove(tab.id);
+				}
 			});
-			return;
+			//return;
 		}
 		delete localStorage.r;
 	}
