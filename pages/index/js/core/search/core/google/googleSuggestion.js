@@ -43,7 +43,7 @@ module.exports = {
 				break;
 			var result = dommy({
 				tag:'div',
-				attributes:{class:'result','data-search-query':results[i], 'data-orig-query':this.query},
+				attributes:{class:'result','data-overwrite-link':'true','data-search-query':results[i], 'data-orig-query':this.query},
 				events:{
 					click:function(){
 					  	ga('send', 'event', 'search', 'search web', appVersion);

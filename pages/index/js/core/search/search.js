@@ -75,8 +75,8 @@ module.exports = {
 		//bind for down arrow
 		Mousetrap.bind('down', this.downArrow.bind(this), 'keydown');
 		Mousetrap.bind('up', this.upArrow.bind(this), 'keydown');
-		Mousetrap.bind('right', this.downArrow.bind(this), 'keydown');
-		Mousetrap.bind('left', this.upArrow.bind(this), 'keydown');
+		// Mousetrap.bind('right', this.downArrow.bind(this), 'keydown');
+		// Mousetrap.bind('left', this.upArrow.bind(this), 'keydown');
 	},
 	cancelSearch:function(){
 		this.DOM[0][0].value = "";
@@ -263,7 +263,13 @@ module.exports = {
 		http.send();
 	},
 	launchResult: function(e){
-		if(this.DOM[0][0].value.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
+		if(this.resultElements[this.keyboardSelectedResult]){
+			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-overwrite-link') == "true"){
+				this.resultElements[this.keyboardSelectedResult].click();
+				return;
+			}
+		}
+		if(this.DOM[0][0].value[(this.DOM[0][0].value.length)-1] != " " && this.DOM[0][0].value.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
 			if(this.DOM[0][0].value.indexOf('http')!= -1){
 				window.top.location = this.DOM[0][0].value;
 			} else {
