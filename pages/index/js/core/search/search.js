@@ -120,12 +120,12 @@ module.exports = {
 		}
 	},
 	onKey: function(e){
-		if(e.key == "ArrowDown" || e.key == "ArrowRight"){
+		if(e.key == "ArrowDown"){
 			this.DOM[0][0].select();
 			this.downArrow(e);
 			return;
 		}
-		if(e.key == "ArrowUp" || e.key == "ArrowLeft"){
+		if(e.key == "ArrowUp"){
 			this.DOM[0][0].select();
 			this.upArrow(e);
 			return;
