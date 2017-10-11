@@ -1,8 +1,5 @@
 .searching {
 	.inner-container{
-		.search-bar{
-			border-bottom:1px solid #e8e8e8 !important;
-		}
 		.cancel-search{
 			display:block !important;
 		}
@@ -23,6 +20,9 @@
 		.inner-container{
 			width:50%;
 			transition:width 400ms;
+			.search-bar{
+				width:95%;
+			}
 		}
 	}
 	.inner-container{
@@ -35,7 +35,7 @@
 		box-sizing:border-box;
 		position:relative;
 		.search-bar{
-			width:100%;
+			width:70%;
 			height:40px;
 			font-size:18px;
 			padding:10px;

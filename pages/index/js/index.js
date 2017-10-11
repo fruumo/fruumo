@@ -34,19 +34,6 @@ window.onfocus = function(){
 }
 
 window.onload = function(){
-	if(localStorage.defaultSearchBar != "chrome"){
-		if(localStorage.r != "no-omni"){
-			localStorage.r = "no-omni";
-			chrome.tabs.getCurrent(function(tab){
-				if(tab.url.indexOf("newtab") != -1){
-					chrome.tabs.create({url:'./pages/index/index.html', active:true,index:tab.index});
-					chrome.tabs.remove(tab.id);
-				}
-			});
-			//return;
-		}
-		delete localStorage.r;
-	}
 	oldPlaceholder = document.getElementsByClassName('search-bar')[0].placeholder + "";
 	document.getElementsByClassName("search-container")[0].style.display = "flex";
 	//Redirect user if name is not set.

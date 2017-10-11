@@ -205,8 +205,8 @@ module.exports = {
 	hideEmptyResults:function(){
 		if(this.DOM[1][0].children.length > 0)
 			this.showResults();
-		else
-			this.cancelResults();
+		//else
+			//this.cancelResults();
 	},
 	downArrow: function(e){
 		if(this.DOM[1][0].children.length == 0)
@@ -263,12 +263,6 @@ module.exports = {
 		http.send();
 	},
 	launchResult: function(e){
-		if(this.resultElements[this.keyboardSelectedResult]){
-			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-overwrite-link') == "true"){
-				this.resultElements[this.keyboardSelectedResult].click();
-				return;
-			}
-		}
 		if(this.DOM[0][0].value[(this.DOM[0][0].value.length)-1] != " " && this.DOM[0][0].value.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
 			if(this.DOM[0][0].value.indexOf('http')!= -1){
 				window.top.location = this.DOM[0][0].value;
