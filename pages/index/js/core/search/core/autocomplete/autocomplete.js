@@ -9,6 +9,16 @@ module.exports = {
 		$this.query = query;
 		return new Promise(function(resolve, reject){
 			chrome.runtime.sendMessage({type:"history-search", data:{query:this.query}}, function(history) {
+				if(history.length == 0 && this.query.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
+					history = [{
+						id:"818",
+						lastVisitTime:1506745565181.638,
+						title:this.query,
+						typedCount:0,
+						url:"visit website",
+						visitCount:123
+					}]
+				}
 				resolve({
 					query:this.query,
 					containerClass:this.containerClass,

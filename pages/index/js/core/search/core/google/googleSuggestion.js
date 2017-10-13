@@ -33,11 +33,42 @@ module.exports = {
 		}.bind($this));
 	},
 	createElement: function(results,query){
-		if(results.length == 0)
-			return false;
 		var d = document.createElement('div');
 		d.className = "google-instant-container";
 		d.setAttribute('data-priority',this.priority);
+		if(results.length == 0){
+			var result = dommy({
+				tag:'div',
+				attributes:{class:'result','data-overwrite-link':'true','data-search-query':this.query, 'data-orig-query':this.query},
+				events:{
+					click:function(){
+					  	ga('send', 'event', 'search', 'search web', appVersion);
+					  	ga('send', 'event', 'search', 'search-engine', localStorage.searchDomain);
+						window.top.location = localStorage.searchDomain + this.getAttribute('data-search-query');
+					}
+				},
+				children:[
+				{
+					tag:'div',
+					attributes:{class:'details-holder'},
+					children:[
+					{
+						tag:'div',
+						attributes:{class:'title'},
+						children:[{type:'text',value:this.query}]
+					},
+					{
+						tag:'div',
+						attributes:{class:'url'},
+						children:[{type:'text',value:"Search the web"}]
+					}				
+					]
+				}
+				]
+			});
+			d.appendChild(result);
+			return d;
+		}
 		for(var i=0; i<= 3;i++){
 			if(!results[i])
 				break;
