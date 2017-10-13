@@ -40,7 +40,8 @@ module.exports = {
 				}, 
 				click: function(){
 					ga('send', 'event', 'search', 'launch autocomplete', appVersion);
-					window.top.location= this.getAttribute('data-launch');
+					//window.top.location= this.getAttribute('data-launch');
+					window.moveUrl(this.getAttribute('data-launch'));
 				}
 			});
 			r.setAttribute('data-search-query', results[i].url);
