@@ -41,7 +41,7 @@ module.exports = {
 						return true;
 					});
 					var fuse = new Fuse(apps, options);
-					if($this.query.length > 2)
+					if($this.query.length > 2 && $this.query.length < 32)
 						apps = fuse.search($this.query);
 					else
 						apps = [];

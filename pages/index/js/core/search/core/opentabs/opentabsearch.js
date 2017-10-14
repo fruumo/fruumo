@@ -14,7 +14,8 @@ module.exports = {
 			chrome.tabs.query({}, function(tabs){
 				var options = {
 					shouldSort: true,
-					threshold: 0.3,
+					threshold: 0,
+					tokenize: true,
 					location: 0,
 					distance: 100,
 					maxPatternLength: 32,
@@ -25,7 +26,10 @@ module.exports = {
 					]
 				};
 				var fuse = new Fuse(tabs, options);
-				tabs = fuse.search($this.query);
+				if($this.query.length < 32)
+					tabs = fuse.search($this.query);
+				else
+					tabs = [];
 				resolve({
 					query:$this.query,
 					containerClass:$this.containerClass,
