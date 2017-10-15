@@ -40,12 +40,6 @@ chrome.runtime.onInstalled.addListener(function(details){
 		if(!v.updateStrings[appVersion]){console.log("No update features!"); return;}
 		localStorage.updateScreen = JSON.stringify(v.updateStrings[appVersion]);
 
-		//Update from 2.0.4 to 2.0.5
-		if(localStorage.searchDomain.indexOf("google.ca") != -1){
-			localStorage.searchDomain = "https://www.google.com/search?q=";
-			console.log("fixing broken google search");
-		}
-
 		/*chrome.windows.create({
 			url:'../pages/updated/index.html',
 			focused:true,
