@@ -50,7 +50,8 @@ function resetSettings(){
 	chrome.storage.sync.set({timeVisible:true});
 	chrome.storage.sync.set({searchVisible:true});
 
-	localStorage.searchDomain = "http://www.blpsearch.com/search?sid=695&aid=090&src=hmp&p=";
+	//localStorage.searchDomain = "http://www.blpsearch.com/search?sid=695&aid=090&src=hmp&p=";
+	localStorage.searchDomain = "https://www.bing.com/search?q=";
 	localStorage.defaultSearchBar = "fruumo";
 	localStorage.smartDomain = "true";
 	chrome.storage.sync.set({bannedTopsites:[]});
