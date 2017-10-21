@@ -28,6 +28,7 @@ chrome.bookmarks.onCreated.addListener(function(id, details){
 });
 
 chrome.downloads.onChanged.addListener(function(downloadDelta){
+	if(!downloadDelta.state) return;
 	if(downloadDelta.state.current != "complete"){
 		return;
 	}
