@@ -13,14 +13,32 @@ module.exports = {
 			p.setAttribute('href',url);
 			document.getElementsByClassName('preloads')[0].appendChild(p);
 		}
- 		chrome.topSites.getAsync()
-		.then(function(topsites){
-			for(var i in topsites){
-				if(i>10){
-					return;
+ 		if(localStorage.dev != "fruumo"){
+	 		chrome.topSites.getAsync()
+			.then(function(topsites){
+				for(var i in topsites){
+					if(i>10){
+						return;
+					}
+					startPreloadUrl(topsites[i].url);
 				}
-				startPreloadUrl(topsites[i].url);
+			}.bind(this));
+		}
+		if(localStorage.dev == "fruumo"){
+			window.startPreloadUrl = function(url){
+				chrome.runtime.sendMessage({type:'preload-url', data:{url:url}});
 			}
-		}.bind(this));
+		}
+		window.moveUrl = function(url){
+			if(localStorage.dev != 'fruumo'){
+				window.top.location = url;
+				return;
+			}
+			chrome.runtime.sendMessage({type:'visit-url', data:{url:url}}, function(response){
+				if(response.type == 'not-preloaded'){
+					window.top.location = this;
+				}
+			}.bind(url));
+		}
 	}
 };
