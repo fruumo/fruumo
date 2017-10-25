@@ -19,6 +19,7 @@ module.exports = {
 		}
 
 		return new Promise(function(resolve, reject){
+			fruumo.eye.loader.startLoad();
 			chrome.storage.sync.get("settingMetric", function(sstorage){
 				chrome.storage.local.get("location", function(storage){
 				if(!storage.location){
@@ -40,6 +41,7 @@ module.exports = {
 						div:$this.createElement(weather, storage.location)
 					});
 					setTimeout(function(){
+						fruumo.eye.loader.endLoad();
 						var icons = document.getElementsByClassName('weather-icon');
 						var sky = new skycons({"color": "black"});
 						for(var i=0;i<icons.length;i++){

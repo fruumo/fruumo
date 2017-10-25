@@ -78,9 +78,11 @@ html,body{
 	bottom:20px;
 	right:20px;
 	opacity:0.4;
-	transition:bottom 1s, right 1s, transform 1s;
+	transition:width 1s, height 1s, bottom 1s, right 1s, transform 1s;
 	&.center{
-		top: 50%;
+		bottom: 15px;
+		width:30px;
+		height:30px;
   		left: 50%;
   		animation: breathe 1s infinite;
   		transform: translate(-50%, -50%);

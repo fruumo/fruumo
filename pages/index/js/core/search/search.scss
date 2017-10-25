@@ -15,7 +15,7 @@
 	min-height:50px;
 	transition: min-height 400ms;
 	&.searching{
-		min-height:400px;
+		min-height:500px;
 		transition: min-height 400ms;
 		.inner-container{
 			width:50%;
@@ -159,7 +159,7 @@
 @media (min-height:950px){
 	.search-container{
 		&.searching{
-			min-height:550px;
+			min-height:600px;
 		}
 		.inner-container{
 			.search-results{
@@ -173,7 +173,7 @@
 @media (max-height:719px){
 	.search-container{
 		&.searching{
-			min-height:350px;
+			min-height:450px;
 		}
 		.inner-container{
 			.search-results{
