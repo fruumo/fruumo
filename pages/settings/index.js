@@ -26,6 +26,8 @@ chrome.storage.local.get(null, function(lstorage){
 		var fruumoSearch = document.getElementById("fruumo-search");
 		var autohideMenu = document.getElementById("autohide-menu");
 		var smartDomain = document.getElementById("smartDomain");
+		var reduceAnimations = document.getElementById("reduce-animations");
+
 		//var showFruumoSearch = document.getElementById("show-fruumo-search");
 		//var showTime = document.getElementById("show-time");
 
@@ -48,7 +50,12 @@ chrome.storage.local.get(null, function(lstorage){
 		if(storage.settingDisplayTopsites){
 			displayTopsites.checked = true;
 		}
-
+		console.log(storage.disableAnimations);
+		if(storage.disableAnimations != undefined && storage.disableAnimations == true){
+			reduceAnimations.checked = true;
+		} else {
+			reduceAnimations.checked = false;
+		}
 		/*if(storage.timeVisible == true || storage.timeVisible == undefined){
 			showTime.checked = true;
 		}
@@ -77,6 +84,10 @@ chrome.storage.local.get(null, function(lstorage){
 		} else {
 			customWallpaper.checked = true;
 		}
+		reduceAnimations.addEventListener("click", function(){
+			chrome.storage.sync.set({disableAnimations:this.checked});
+		});
+
 		fruumoSearch.addEventListener("click", function(){
 			localStorage.defaultSearchBar = "fruumo";
 		});

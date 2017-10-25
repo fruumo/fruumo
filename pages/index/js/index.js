@@ -11,7 +11,8 @@ require('./core/statusbar/statusbar.js'),
 require('./core/search-placeholder/placeholder.js'),
 require('./core/weather-display/index.js'),
 require('./core/preloader/preload.js'),
-require('./core/eye/index.js')
+require('./core/eye/index.js'),
+require('./core/animation-handler/animation-handler.js'),
 ];
 var utils = require('./libs/utils.js');
 window.appVersion = chrome.app.getDetails().version;

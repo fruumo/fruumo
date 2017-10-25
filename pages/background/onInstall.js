@@ -47,6 +47,7 @@ function resetSettings(){
 	chrome.storage.sync.set({settingIs24h:true});
 	chrome.storage.sync.set({settingMetric:true});
 	chrome.storage.sync.set({largeTopsites:false});
+	chrome.storage.sync.set({disableAnimations:false});
 	chrome.storage.sync.set({timeVisible:true});
 	chrome.storage.sync.set({searchVisible:true});
 
