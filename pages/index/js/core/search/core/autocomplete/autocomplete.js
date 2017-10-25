@@ -39,7 +39,7 @@ module.exports = {
 			var parser = document.createElement('a');
 			parser.href =results[i].url;
 			if(i==0)
-				window.startPreloadUrl(results[i].url);
+				window.fruumo.preloader.startPreloadUrl(results[i].url);
 			var r = render({
 				title:results[i].title,
 				url:results[i].url,

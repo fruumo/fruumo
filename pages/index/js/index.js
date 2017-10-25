@@ -15,6 +15,7 @@ require('./core/preloader/preload.js')
 var utils = require('./libs/utils.js');
 window.appVersion = chrome.app.getDetails().version;
 var oldPlaceholder = "";
+window.fruumo = {};
 
 window.onblur = function(){
 	if(localStorage.defaultSearchBar != "chrome"){

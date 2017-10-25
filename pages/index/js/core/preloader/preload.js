@@ -2,12 +2,13 @@ module.exports = {
 	name:'domain-preloader',
 	DOM:['.preloads'],
 	onload:function(){
-		window.preloadedUrls = [];
-		window.startPreloadUrl = function(url){
-			if(window.preloadedUrls.indexOf(url)!= -1){
+		window.fruumo.preloader = {};
+		window.fruumo.preloader.preloadedUrls = [];
+		window.fruumo.preloader.startPreloadUrl = function(url){
+			if(window.fruumo.preloader.preloadedUrls.indexOf(url)!= -1){
 				return;
 			}
-			window.preloadedUrls.push(url);
+			window.fruumo.preloader.preloadedUrls.push(url);
 			var p = document.createElement('link');
 			p.setAttribute('rel','prefetch');
 			p.setAttribute('href',url);
@@ -19,7 +20,7 @@ module.exports = {
 				if(i>10){
 					return;
 				}
-				startPreloadUrl(topsites[i].url);
+				fruumo.preloader.startPreloadUrl(topsites[i].url);
 			}
 		}.bind(this));
 	}
