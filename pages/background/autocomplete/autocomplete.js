@@ -67,6 +67,8 @@ function firstDbSetup(cb){
 	chrome.history.search({text:"", startTime:new Date().getTime()-1209600000, maxResults:50000}, function(history){
 		console.log("Adding to Autocomplete Database:" + history.length);
 		for(var i in history){
+			if(history[i].url.indexOf("chrome://")!= -1 || history[i].url.indexOf("chrome-extension://")!= -1)
+				continue;
 			addToDb(history[i]);
 		}
 		chrome.storage.local.set({searchDb:db.root}, function(){
@@ -89,7 +91,7 @@ function addToDb(historyItem){
 }
 
 chrome.history.onVisited.addListener(function(historyItem){
-	if(historyItem.url.indexOf("chrome://")!= -1)
+	if(historyItem.url.indexOf("chrome://")!= -1 || historyItem.url.indexOf("chrome-extension://")!= -1)
 		return;
 	addToDb(historyItem);
 	chrome.storage.local.set({searchDb:db.root}, function(){
