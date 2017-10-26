@@ -3,7 +3,6 @@ var mousetrap = require('mousetrap');
 
 module.exports = {
 	name:'search',
-	searchTimeout:undefined,
 	DOM:['.search-bar','.search-results','.topsites-container','.search-container','.cancel-search','.wallpaper','.time-container','.ticker-container'],
 	searchEngines:[
 	require("./core/google/googleSuggestion.js"),
@@ -17,7 +16,8 @@ module.exports = {
 	require("./core/command-sort-tabs/command.js"),
 	require("./core/command-refresh-all/command.js"),
 	require("./core/command-weather/weather.js"),
-	require("./core/command-wallpaper/command.js")
+	require("./core/command-wallpaper/command.js"),
+	require("./core/amazon-search/amazon.js")
 	],
 	lastQuery:"",
 	containers:[],
@@ -143,15 +143,19 @@ module.exports = {
 			return;
 		}
 		e.stopPropagation();		
-		if(this.searchTimeout){
-			clearTimeout(this.searchTimeout);
-		}
-		this.searchTimeout = setTimeout(function(){
-			var query = this.DOM[0][0].value+"";
-			for(var i in this.searchEngines){
-				if(query[0] == "@" && !this.searchEngines[i].icon){
-					continue;
-				}
+		var query = this.DOM[0][0].value+"";
+		for(var i in this.searchEngines){
+			if(query[0] == "@" && !this.searchEngines[i].icon){
+				continue;
+			}
+			var t = 0;
+			if(this.searchEngines[i].timeout){
+				t = 500;
+			}
+			if(this.searchEngines[i].internalTimeout && this.searchEngines[i].timeout){
+				clearTimeout(this.searchEngines[i].internalTimeout);
+			}
+			this.searchEngines[i].internalTimeout = setTimeout(function(i){
 				this.searchEngines[i].search(query).then(function(results){
 					if(results.query != this.DOM[0][0].value || results.query != query)
 						return;
@@ -173,101 +177,101 @@ module.exports = {
 							return;
 						}
 
-						//Find next lowest priority and insertbefore
-						var lowerPriority;
-						myPriority = parseInt(myPriority);
-						var children = this.DOM[1][0].children;
-						for(var i in children){
-							if(children[i].nodeType != 1){
-								continue;
-							}
-							var otherPriority = children[i].getAttribute('data-priority');
-							if(otherPriority){
-								if(otherPriority > myPriority){
+							//Find next lowest priority and insertbefore
+							var lowerPriority;
+							myPriority = parseInt(myPriority);
+							var children = this.DOM[1][0].children;
+							for(var i in children){
+								if(children[i].nodeType != 1){
 									continue;
-								} else {
-									lowerPriority = children[i];
-									break;
+								}
+								var otherPriority = children[i].getAttribute('data-priority');
+								if(otherPriority){
+									if(otherPriority > myPriority){
+										continue;
+									} else {
+										lowerPriority = children[i];
+										break;
+									}
 								}
 							}
+							if(lowerPriority){
+								this.DOM[1][0].insertBefore(results.div, lowerPriority);
+							} else {
+								this.DOM[1][0].appendChild(results.div,children[0]);
+							}
 						}
-						if(lowerPriority){
-							this.DOM[1][0].insertBefore(results.div, lowerPriority);
-						} else {
-							this.DOM[1][0].appendChild(results.div,children[0]);
-						}
-					}
-					this.hideEmptyResults();
-				}.bind(this));
-			}
-		}.bind(this), 0);
+						this.hideEmptyResults();
+					}.bind(this));
+			}.bind(this), t,i);
+		}
 	},
 	hideEmptyResults:function(){
 		if(this.DOM[1][0].children.length > 0)
 			this.showResults();
 		//else
 			//this.cancelResults();
-	},
-	downArrow: function(e){
-		if(this.DOM[1][0].children.length == 0)
-			return; 
-		e.preventDefault();
-		if(this.resultElements[this.keyboardSelectedResult]){
-			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
-			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
-				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
+		},
+		downArrow: function(e){
+			if(this.DOM[1][0].children.length == 0)
+				return; 
+			e.preventDefault();
+			if(this.resultElements[this.keyboardSelectedResult]){
+				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
+					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
+				}
 			}
-		}
-		this.keyboardSelectedResult++;
-		if(this.keyboardSelectedResult >= this.resultElements.length){
-			this.keyboardSelectedResult = 0;
-		}
-		if(this.resultElements[this.keyboardSelectedResult]){
-			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
-			this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
-			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
-				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+			this.keyboardSelectedResult++;
+			if(this.keyboardSelectedResult >= this.resultElements.length){
+				this.keyboardSelectedResult = 0;
 			}
-		}
-	},
-	upArrow: function(e){
-		if(this.DOM[1][0].children.length == 0)
-			return; 
-		e.preventDefault();
-		if(this.resultElements[this.keyboardSelectedResult]){
-			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
-			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
-				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
+			if(this.resultElements[this.keyboardSelectedResult]){
+				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+				this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
+					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+				}
 			}
-		}
-		this.keyboardSelectedResult--;
-		if(this.keyboardSelectedResult <= -1){
-			this.keyboardSelectedResult = this.resultElements.length-1;
-		}
-		if(this.resultElements[this.keyboardSelectedResult]){
-			this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
-			this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
-			if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
-				this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+		},
+		upArrow: function(e){
+			if(this.DOM[1][0].children.length == 0)
+				return; 
+			e.preventDefault();
+			if(this.resultElements[this.keyboardSelectedResult]){
+				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
+					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
+				}
 			}
-		}
-	},
-	headRequest: function(url, callback){
-		var http = new XMLHttpRequest();
-		http.open('HEAD', url);
-		http.onreadystatechange = function() {
-			if (this.readyState == this.DONE) {
-				callback(this.status);
+			this.keyboardSelectedResult--;
+			if(this.keyboardSelectedResult <= -1){
+				this.keyboardSelectedResult = this.resultElements.length-1;
 			}
-		};
-		http.send();
-	},
-	launchResult: function(e){
-		if(this.DOM[0][0].value[(this.DOM[0][0].value.length)-1] != " " && this.DOM[0][0].value.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
-			if(this.DOM[0][0].value.indexOf('http')!= -1){
-				window.top.location = this.DOM[0][0].value;
-			} else {
-				if(!localStorage.smartDomain || localStorage.smartDomain == "true"){
+			if(this.resultElements[this.keyboardSelectedResult]){
+				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+				this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
+				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
+					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
+				}
+			}
+		},
+		headRequest: function(url, callback){
+			var http = new XMLHttpRequest();
+			http.open('HEAD', url);
+			http.onreadystatechange = function() {
+				if (this.readyState == this.DONE) {
+					callback(this.status);
+				}
+			};
+			http.send();
+		},
+		launchResult: function(e){
+			if(this.DOM[0][0].value[(this.DOM[0][0].value.length)-1] != " " && this.DOM[0][0].value.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
+				if(this.DOM[0][0].value.indexOf('http')!= -1){
+					window.top.location = this.DOM[0][0].value;
+				} else {
+					if(!localStorage.smartDomain || localStorage.smartDomain == "true"){
 					/*var i = document.createElement('iframe');
 					i.src = "http://"+this.DOM[0][0].value;
 					i.style.opacity = "0";
