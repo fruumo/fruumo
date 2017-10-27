@@ -2,7 +2,7 @@
   "name": "__MSG_extName__",
   "short_name":"Fruumo",
   "manifest_version":2,
-  "version": "2.1.5",
+  "version": "2.1.6",
   "offline_enabled":true,
   "background": {
     "scripts": ["./pages/background/fruumoFocus.js","./pages/background/eye/tracker.js","./pages/background/autocomplete/ternary.js","./pages/background/autocomplete/autocomplete.js","./pages/background/updates.js","./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js",  "./pages/background/quote.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
