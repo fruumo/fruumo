@@ -17,7 +17,8 @@ module.exports = {
 	require("./core/command-refresh-all/command.js"),
 	require("./core/command-weather/weather.js"),
 	require("./core/command-wallpaper/command.js"),
-	require("./core/amazon-search/amazon.js")
+	require("./core/amazon-search/amazon.js"),
+	require("./core/amazon-search/amazon-search-link.js")
 	],
 	lastQuery:"",
 	containers:[],
@@ -114,7 +115,7 @@ module.exports = {
 			if(this.resultElements[i].className.indexOf('result-selected')!=0)
 				this.resultElements[i].className = this.resultElements[i].className.replace('result-selected','');
 		}
-		if(document.getElementsByClassName("autocomplete-results-container")[0] || document.getElementsByClassName("command-container")[0]){
+		if(document.getElementsByClassName("amazon-search-link-container")[0] || document.getElementsByClassName("autocomplete-results-container")[0] || document.getElementsByClassName("command-container")[0]){
 			this.keyboardSelectedResult = 0;
 			this.resultElements[0].className += " result-selected"
 		}

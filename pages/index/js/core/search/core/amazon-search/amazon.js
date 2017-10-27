@@ -92,7 +92,7 @@ module.exports = {
 				attributes:{class:'result', 'data-url':results[i].DetailPageURL},
 				events:{
 					click:function(){
-						ga('send', 'event', 'search', 'amazon', appVersion);
+						ga('send', 'event', 'search', 'fruumo-amazon', appVersion);
 						window.top.location = this.getAttribute('data-url');
 					}
 				},
