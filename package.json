@@ -36,8 +36,10 @@
     "webpack": "^2.7.0"
   },
   "dependencies": {
+    "acorn-dynamic-import": "^2.0.2",
     "fuse.js": "^3.2.0",
     "fuzzyjs": "^2.1.2",
+    "loader-runner": "^2.3.0",
     "lodash.groupby": "^4.6.0",
     "moment": "^2.19.1",
     "mousetrap": "^1.6.1"
