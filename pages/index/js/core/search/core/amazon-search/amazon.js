@@ -7,6 +7,7 @@ module.exports = {
 	priority:"105",
 	icon:true,
 	timeout:true,
+	timeoutTime:150,
 	client: amazon.createClient({
 		awsId: "AKIAJHJ4HBXC4YNMZENA",
 		awsSecret: "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",

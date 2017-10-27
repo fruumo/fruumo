@@ -151,7 +151,10 @@ module.exports = {
 			}
 			var t = 0;
 			if(this.searchEngines[i].timeout){
-				t = 500;
+				if(!this.searchEngines[i].timeoutTime)
+					t = 500;
+				else
+					t=this.searchEngines[i].timeoutTime;
 			}
 			if(this.searchEngines[i].internalTimeout && this.searchEngines[i].timeout){
 				clearTimeout(this.searchEngines[i].internalTimeout);
