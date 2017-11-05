@@ -1,36 +1,4 @@
 {
-  "_from": "amazon-affiliate-api",
-  "_id": "amazon-affiliate-api@0.0.4",
-  "_inBundle": false,
-  "_integrity": "sha1-SyDjlswNdjYIdY714UXb6Qwftqc=",
-  "_location": "/amazon-affiliate-api",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "amazon-affiliate-api",
-    "name": "amazon-affiliate-api",
-    "escapedName": "amazon-affiliate-api",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/amazon-affiliate-api/-/amazon-affiliate-api-0.0.4.tgz",
-  "_shasum": "4b20e396cc0d763608758ef5e145dbe90c1fb6a7",
-  "_spec": "amazon-affiliate-api",
-  "_where": "/Users/manakkapoor/Documents/projects/fruumo-ntp/fruumo",
-  "author": {
-    "name": "Chris Mink",
-    "email": "chrism@theanchorlight.com",
-    "url": "https://github.com/cmincarelli"
-  },
-  "bugs": {
-    "url": "https://github.com/cmincarelli/amazon-affiliate-api/issues"
-  },
   "bundleDependencies": false,
   "dependencies": {
     "crypto": "0.0.3",
@@ -39,25 +7,6 @@
     "browser-request": "0.3.3",
     "xml2js": "~0.4.16"
   },
-  "deprecated": false,
-  "description": "[![Build Status](https://travis-ci.org/cmincarelli/amazon-affiliate-api.svg?branch=master)](https://travis-ci.org/cmincarelli/amazon-affiliate-api) [![Dependency Status](https://gemnasium.com/cmincarelli/amazon-affiliate-api.svg)](https://gemnasium.com/cmincarelli/amazon-affiliate-api)",
-  "devDependencies": {
-    "coffee-script": "^1.10.0",
-    "mocha": "^2.4.0",
-    "should": "^8.3.0"
-  },
-  "directories": {
-    "lib": "./lib/"
-  },
-  "homepage": "https://github.com/cmincarelli/amazon-affiliate-api",
-  "keywords": [
-    "amazon",
-    "aws",
-    "product",
-    "cart",
-    "ads",
-    "advertising"
-  ],
   "license": "MIT",
   "main": "./lib/index.js",
   "name": "amazon-affiliate-api",

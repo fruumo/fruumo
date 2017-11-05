@@ -1,7 +1,7 @@
 var utils = require('./utils'),
-  request = require('browser-request'),
-  parseXML = require('xml2js').parseString,
-  Q = require('q');
+  request = require('../node_modules/browser-request/index.js'),
+  parseXML = require('../node_modules/xml2js/lib/xml2js.js').parseString,
+  Q = require('../node_modules/q/q.js');
 
 var runQuery = function (credentials, method) {
 

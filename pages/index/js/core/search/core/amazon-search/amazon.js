@@ -1,5 +1,5 @@
 var dommy = require('dommy.js');
-var amazon = require('./amazon-affiliate-api');
+var amazon = require('./amazon-affiliate-api/lib/index.js');
 require('./amazon.scss');
 module.exports = {
 	message:"Amazon Search",

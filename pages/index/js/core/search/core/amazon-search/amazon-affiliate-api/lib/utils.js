@@ -1,5 +1,5 @@
 var crypto = require('crypto');
-var _ = require('lodash');
+var _ = require('../node_modules/lodash/lodash.js');
 
 var generateSignature = function (stringToSign, awsSecret) {
   var hmac = crypto.createHmac('sha256', awsSecret);
