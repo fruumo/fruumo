@@ -1,4 +1,4 @@
-chrome.webNavigation.onCompleted.addListener(function(details){
+/*chrome.webNavigation.onCompleted.addListener(function(details){
 	if(details.frameId != 0)
 		return;
 	var extractor = document.createElement('a');
@@ -41,4 +41,4 @@ chrome.downloads.onChanged.addListener(function(downloadDelta){
 		});
 		chrome.storage.local.set({"eyeEvents":storage.eyeEvents});
 	});
-});
+});*/
