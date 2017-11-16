@@ -12,7 +12,7 @@ chrome.runtime.onInstalled.addListener(function(details){
 	chrome.alarms.create("refresh-wallpaper", {periodInMinutes:60});
 	chrome.alarms.create("refresh-quote", {periodInMinutes:1440});
 	chrome.alarms.create("refresh-weather", {periodInMinutes:10});
-	chrome.alarms.create("check-updates", {periodInMinutes:120});
+	chrome.alarms.create("check-updates", {periodInMinutes:1440});
 
 	refreshWallpaper();
 	refreshWeather();
@@ -69,6 +69,7 @@ function resetSettings(){
 	chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
 	chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
 	chrome.alarms.create("refresh-quote", {when:Date.now()+1000, periodInMinutes:1440});
+	chrome.alarms.create("check-updates", {periodInMinutes:1440});
 
 	console.log("Resetting settings!");
 }
