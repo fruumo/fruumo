@@ -4,7 +4,7 @@
 		display:flex;
 		align-items:baseline;
 		min-height:200px;
-		transition:opacity 300ms;
+		transition:opacity 300ms cubic-bezier(0.19, 1, 0.22, 1);
 		.time{
 			z-index:inherit;
 			font-size:12em;
