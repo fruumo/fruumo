@@ -23,10 +23,12 @@ window.onblur = function(){
 	if(localStorage.defaultSearchBar != "chrome"){
 		document.getElementsByClassName('search-bar')[0].placeholder="";
 		searchBarTyper.start();
-		/*document.getElementsByClassName('inner-container')[0].className = "inner-container animated shake";
-		setTimeout(function(){
-			document.getElementsByClassName('inner-container')[0].className = "inner-container";
-		},900);*/
+		if(Math.random() > 0.7){
+			document.getElementsByClassName('inner-container')[0].className = "inner-container animated shake";
+			setTimeout(function(){
+				document.getElementsByClassName('inner-container')[0].className = "inner-container";
+			},900);
+		}
 	}
 };
 window.onfocus = function(){
