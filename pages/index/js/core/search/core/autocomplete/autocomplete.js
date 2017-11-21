@@ -15,7 +15,7 @@ module.exports = {
 						lastVisitTime:1506745565181.638,
 						title:this.query,
 						typedCount:0,
-						url:this.query,
+						url:this.query.indexOf('http') != -1?this.query:'http://'+this.query,
 						visitCount:123
 					}]
 				}

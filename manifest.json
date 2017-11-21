@@ -5,7 +5,10 @@
   "version": "2.1.8",
   "offline_enabled":true,
   "background": {
-    "scripts": ["./pages/background/fruumoFocus.js","./pages/background/eye/tracker.js","./pages/background/autocomplete/ternary.js","./pages/background/autocomplete/autocomplete.js","./pages/background/updates.js","./pages/background/browserAction.js", "./pages/background/onInstall.js", "./pages/background/wallpaper.js",  "./pages/background/quote.js", "./pages/background/weather.js","./pages/background/screenshot.js"],
+    "scripts": ["./pages/background/fruumoFocus.js","./pages/background/eye/tracker.js","./pages/background/autocomplete/ternary.js",
+                "./pages/background/autocomplete/autocomplete.js","./pages/background/updates.js","./pages/background/browserAction.js",
+                "./pages/background/onInstall.js", "./pages/background/wallpaper.js",  "./pages/background/quote.js",
+                "./pages/background/weather.js","./pages/background/screenshot.js", "./pages/background/notifications.js"],
     "persistent": true
   },
   "content_security_policy": "script-src 'self' https://www.google-analytics.com; object-src 'self'",
