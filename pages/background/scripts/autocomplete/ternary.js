@@ -8,6 +8,7 @@
  *  new TernarySearchTree(options);
  *
  */
+module.exports = TernarySearchTree;
 function TernarySearchTree(options){
   this.root = null;
   this.entries = 0;

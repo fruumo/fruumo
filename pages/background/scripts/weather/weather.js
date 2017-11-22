@@ -1,3 +1,31 @@
+module.exports = {
+	name:'weather-manager',
+	onload:function(){
+		chrome.alarms.onAlarm.addListener(function(alarm){
+			if(alarm.name != "refresh-weather" ){
+				return;
+			}
+			this.refreshWeather();
+		}.bind(this));
+
+		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+			if (request.type != "refresh-weather"){
+				return;
+			}
+			this.refreshWeather();	
+		}.bind(this));
+	},
+	refreshWeather:function(){
+		chrome.storage.local.get({customWeather:null}, function(storage){
+			if(!storage.customWeather){
+				getIP().then(getWeather);
+				return;
+			} else {
+				getWeather(storage.customWeather);
+			}
+		});
+	}
+}
 function getIP(){
 	return fetch("http://ip-api.com/json")
 	.then(function(response){
@@ -19,27 +47,3 @@ function getWeather(ipInfo){
 		chrome.storage.local.set({weather:weather.query,location:ipInfo});
 	});
 }
-function refreshWeather(){
-	chrome.storage.local.get({customWeather:null}, function(storage){
-		if(!storage.customWeather){
-			getIP().then(getWeather);
-			return;
-		} else {
-			getWeather(storage.customWeather);
-		}
-	});
-}
-
-chrome.alarms.onAlarm.addListener(function(alarm){
-	if(alarm.name != "refresh-weather" ){
-		return;
-	}
-	refreshWeather();
-});
-
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	if (request.type != "refresh-weather"){
-		return;
-	}
-	refreshWeather();	
-});
