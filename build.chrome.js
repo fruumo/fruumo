@@ -51,7 +51,7 @@ gulp.task('clean-scripts', function () {
 	.pipe(gulp.dest("../fruumo3-build/build"));
 });
 
-gulp.task('webpack', function (cb) {
+gulp.task('webpack', ['clean-scripts'] , function (cb) {
 	exec('webpack', function (err, stdout, stderr) {
     console.log(stderr);
     cb(err);
@@ -76,7 +76,7 @@ gulp.task('minifyCss', ['clean-scripts', 'webpack'], function(cb){
 });
 
 gulp.task('minifyJs', ['clean-scripts', 'webpack'], function(cb){
-	return gulp.src(['pages/background/**','dist/*.js'], {base: './'})
+	return gulp.src(['dist/*.js'], {base: './'})
 	.pipe(jsmin())
 	.pipe(gulp.dest('../fruumo3-build/build'));
 });
