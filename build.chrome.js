@@ -59,7 +59,7 @@ gulp.task('webpack', ['clean-scripts'] , function (cb) {
 });
 
 gulp.task('movefiles', ['clean-scripts', 'webpack'], function(cb){
-	return gulp.src(['manifest.json', '_locales/**', 'pages/index/*.html','pages/index/css/**', 'pages/index/js/libs/*', 'pages/settings/index.html', 'pages/onInstall/index.html', 'pages/updated/index.html'] ,{base: './'})
+	return gulp.src(['manifest.json', '_locales/**', 'pages/index/*.html','pages/index/css/**', 'pages/index/js/libs/*', 'pages/settings/index.html', 'pages/onInstall/index.html', 'pages/updated/index.html','pages/background/index.html'] ,{base: './'})
 	.pipe(gulpCopy('../fruumo3-build/build', {}));
 });
 
