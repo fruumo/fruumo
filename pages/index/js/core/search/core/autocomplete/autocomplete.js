@@ -15,6 +15,7 @@ module.exports = {
 						lastVisitTime:1506745565181.638,
 						title:this.query,
 						typedCount:0,
+						urlDetect:true,
 						url:this.query.indexOf('http') != -1?this.query:'http://'+this.query,
 						visitCount:123
 					}]
@@ -38,7 +39,7 @@ module.exports = {
 				continue;
 			var parser = document.createElement('a');
 			parser.href =results[i].url;
-			if(i==0)
+			if(i==0 && !results[i].urlDetect)
 				window.fruumo.preloader.startPreloadUrl(results[i].url);
 			var r = render({
 				title:results[i].title,

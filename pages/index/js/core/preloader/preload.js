@@ -10,6 +10,7 @@ module.exports = {
 			}
 			window.fruumo.preloader.preloadedUrls.push(url);
 			var p = document.createElement('link');
+			//p.setAttribute('rel','prerender');
 			p.setAttribute('rel','prefetch');
 			p.setAttribute('href',url);
 			document.getElementsByClassName('preloads')[0].appendChild(p);
