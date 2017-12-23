@@ -39,6 +39,9 @@ window.onfocus = function(){
 }
 
 window.onload = function(){
+	if(!localStorage.searchDomain){
+		localStorage.searchDomain = "https://www.google.com/search?q=";
+	}
 	oldPlaceholder = document.getElementsByClassName('search-bar')[0].placeholder + "";
 	document.getElementsByClassName("search-container")[0].style.display = "flex";
 	//Redirect user if name is not set.
