@@ -33,3 +33,4 @@ for(var i in requiredFiles){
 	window.plugins[requiredFiles[i].name] = requiredFiles[i];
 	window.plugins[requiredFiles[i].name].onload();
 }
+setupAlarms();

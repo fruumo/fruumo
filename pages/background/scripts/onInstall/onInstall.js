@@ -1,3 +1,11 @@
+window.setupAlarms = function(){
+	console.log('setting up alarms...');
+	chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
+	chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
+	chrome.alarms.create("refresh-quote", {when:Date.now()+1000, periodInMinutes:1440});
+	chrome.alarms.create("check-updates", {periodInMinutes:1440});
+	chrome.alarms.create("check-notifications", {periodInMinutes:120});
+}
 module.exports = {
 	name:"on-install-manager",
 	onload: function(){
@@ -7,11 +15,7 @@ module.exports = {
 		  		ga('send', 'event', 'Fruumo', 'install', appVersion);
 
 			//Refresh wallpaper and weather alarm (every hour)
-			chrome.alarms.create("refresh-wallpaper", {periodInMinutes:60});
-			chrome.alarms.create("refresh-quote", {periodInMinutes:1440});
-			chrome.alarms.create("refresh-weather", {periodInMinutes:10});
-			chrome.alarms.create("check-updates", {periodInMinutes:1440});
-			chrome.alarms.create("check-notifications", {periodInMinutes:120});
+			window.setupAlarms();
 
 			window.plugins["wallpaper-manager"].refreshWallpaper();
 			window.plugins["weather-manager"].refreshWeather();
@@ -63,13 +67,7 @@ module.exports = {
 
 		localStorage.intro = "false";
 		delete localStorage.username;
-
-		chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
-		chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
-		chrome.alarms.create("refresh-quote", {when:Date.now()+1000, periodInMinutes:1440});
-		chrome.alarms.create("check-updates", {periodInMinutes:1440});
-		chrome.alarms.create("check-notifications", {periodInMinutes:120});
-
+		window.setupAlarms();
 		console.log("Resetting settings!");
 	}
 
