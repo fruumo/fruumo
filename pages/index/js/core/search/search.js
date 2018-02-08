@@ -18,7 +18,8 @@ module.exports = {
 	require("./core/command-weather/weather.js"),
 	require("./core/command-wallpaper/command.js"),
 	require("./core/amazon-search/amazon.js"),
-	require("./core/amazon-search/amazon-search-link.js")
+	require("./core/amazon-search/amazon-search-link.js"),
+	require("./core/network-connection/network-connection.js")
 	],
 	lastQuery:"",
 	containers:[],

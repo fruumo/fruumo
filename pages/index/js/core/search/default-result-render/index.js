@@ -14,6 +14,31 @@ module.exports = function(res){
 	if(typeof res.click == "function"){
 		click = res.click;
 	}
+	var icon = {
+		tag:'div',
+		attributes:{class:'icon-holder'},
+		children:[
+		{
+			tag:'img',
+			attributes:{class:'icon', src:imgSrc, "data-launch":res.launch},
+			events:{
+				error:imgError
+			}
+		}
+		]
+	};
+	if(res.fontawesome){
+		icon = {
+			tag:'div',
+			attributes:{class:'icon-holder'},
+			children:[
+				{
+					tag:'i',
+					attributes:{class:'fa ' + res.fontawesome},
+				}
+			]
+		}
+	}
 	return dommy({
 		tag:'div',
 		attributes:{class:'result','data-launch':res.launch},
@@ -21,19 +46,7 @@ module.exports = function(res){
 			click:click
 		},
 		children:[
-		{
-			tag:'div',
-			attributes:{class:'icon-holder'},
-			children:[
-			{
-				tag:'img',
-				attributes:{class:'icon', src:imgSrc, "data-launch":res.launch},
-				events:{
-					error:imgError
-				}
-			}
-			]
-		},
+		icon,
 		{
 			tag:'div',
 			attributes:{class:'details-holder'},
