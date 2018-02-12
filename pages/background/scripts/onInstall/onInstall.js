@@ -21,6 +21,22 @@ module.exports = {
 			window.plugins["weather-manager"].refreshWeather();
 			window.plugins["quote-manager"].refreshQuote();
 			chrome.runtime.setUninstallURL("http://fruumo.com/uninstall", function(){});
+			//Replace already opened new tabs with fruumo new tab
+			chrome.tabs.query({}, function(tabs){
+				for(var i in tabs){
+					tab = tabs[i];
+					if(tab.url.indexOf("chrome://newtab") != -1){
+						chrome.tabs.remove(tab.id);
+						chrome.tabs.create({
+							windowId: tab.windowId,
+							index:tab.index,
+							active:tab.active,
+							url:'./pages/index/index.html'
+						});
+					}
+				}
+			});
+
 			//Defaults
 			chrome.storage.sync.get("settingsReset", function(s){
 				if(s.settingsReset == undefined || s.settingsReset){
