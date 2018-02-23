@@ -3,8 +3,10 @@ window.setupAlarms = function(){
 	chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
 	chrome.alarms.create("refresh-weather", {when:Date.now()+1000, periodInMinutes:10});
 	chrome.alarms.create("refresh-quote", {when:Date.now()+1000, periodInMinutes:1440});
+	chrome.alarms.create("refresh-advertising", {when:Date.now()+1000, periodInMinutes:1440});
 	chrome.alarms.create("check-updates", {periodInMinutes:1440});
 	chrome.alarms.create("check-notifications", {periodInMinutes:120});
+
 }
 module.exports = {
 	name:"on-install-manager",

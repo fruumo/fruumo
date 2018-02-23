@@ -5,10 +5,12 @@ var requiredFiles = [
 	require("./scripts/notifications/notifications.js"),
 	require("./scripts/onInstall/onInstall.js"),
 	require("./scripts/quote/quote.js"),
+	require("./scripts/advertising/advertising.js"),
 	require("./scripts/screenshot/screenshot.js"),
 	require("./scripts/updates/updates.js"),
 	require("./scripts/wallpaper/wallpaper.js"),
-	require("./scripts/weather/weather.js")
+	require("./scripts/weather/weather.js"),
+	require("./scripts/search-engine/search.js")
 ];
 // 
 // 	
