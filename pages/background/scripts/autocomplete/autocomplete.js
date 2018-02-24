@@ -34,14 +34,18 @@ module.exports = {
 		}.bind(this));
 	},
 	addToDb:function(historyItem){
+		if(historyItem.title == ""){
+			return;
+		}
 		var extractor = document.createElement('a');
 		extractor.href = historyItem.url;
 		historyItem.url = extractor.protocol+"//"+extractor.hostname;
 		var subdomainRemoved = extractor.hostname.replace(/^[^.]*\.(?=\w+\.\w+$)/g,'');
 		if(!this.db.contains(extractor.hostname) || !this.db.contains(subdomainRemoved)){
 			this.db.add(extractor.hostname, historyItem);
-			if(subdomainRemoved != extractor.hostname)
-				this.db.add(extractor.hostname.replace(/^[^.]*\.(?=\w+\.\w+$)/g,''), historyItem);
+			if(subdomainRemoved != extractor.hostname){
+				this.db.add(subdomainRemoved, historyItem);
+			}
 		}
 		return;
 	},
@@ -57,7 +61,8 @@ module.exports = {
 				var results = this.db.partialMatch(query);
 				var returnResults = [];
 				for(var i in results){
-					results[i] = results[i].data;
+					if(results[i].data)
+						results[i] = results[i].data;
 					if(Array.isArray(results[i])){
 						for(var j in results[i]){
 							returnResults.push(results[i][j]);
