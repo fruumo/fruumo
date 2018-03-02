@@ -9,7 +9,6 @@ module.exports = {
 	search: function(query){
 		var $this = this;
 		$this.query = query;
-		console.log('test');
 		return new Promise(function(resolve, reject){
 			resolve({
 				query:$this.query,
