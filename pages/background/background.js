@@ -1,5 +1,5 @@
 var requiredFiles = [
-	require("./scripts/autocomplete/autocomplete.js"),
+	//require("./scripts/autocomplete/autocomplete.js"),
 	require("./scripts/browserAction/browserAction.js"),
 	require("./scripts/focus/fruumoFocus.js"),
 	require("./scripts/notifications/notifications.js"),

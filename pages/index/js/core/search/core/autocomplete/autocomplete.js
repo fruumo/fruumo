@@ -69,9 +69,16 @@ module.exports = {
 			if(results[i].advertisingImg){
 				img = results[i].advertisingImg;
 			}
+			var url = results[i].url;
+			if(results[i].advertising){
+				url = "Advertisment";
+			}
+			if(results[i].type == 2){
+				url = "Bookmark";
+			}
 			var r = render({
 				title:results[i].title,
-				url:results[i].advertising?"Advertisment":results[i].url,
+				url:url,
 				launch:results[i].url,
 				imgSrc:img,
 				imgError: function(){
