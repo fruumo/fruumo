@@ -7,7 +7,7 @@ module.exports = {
 	searchEngines:[
 	require("./core/google/googleSuggestion.js"),
 	require("./core/apps/apps.js"),
-	//require("./core/bookmarks/bookmarks.js"),
+	require("./core/bookmarks/bookmarks.js"),
 	require("./core/recentlyClosed/recentlyClosed.js"),
 	require("./core/downloads/downloads.js"),
 	require("./core/sessions/sessions.js"),
