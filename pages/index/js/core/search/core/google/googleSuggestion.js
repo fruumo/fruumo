@@ -14,6 +14,11 @@ module.exports = {
 				div:false
 			});
 		}
+		if(query.indexOf(' ') != -1){
+			this.priority = "1000";
+		} else {
+			this.priority = "50";
+		}
 		return new Promise(function(resolve, reject){
 			fetch("http://suggestqueries.google.com/complete/search?client=firefox&q=" + encodeURIComponent($this.query))
 			.then(function(response){
