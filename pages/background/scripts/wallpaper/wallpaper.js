@@ -43,7 +43,9 @@ module.exports = {
 			.then(function(data){
 				//Get new wallpaper data
 				//regular or full
-				fetch(""+data.imageLink+"&w="+(screen.width)+"&h="+(screen.height))
+				var sWidth = screen.width >= screen.height?screen.width:screen.height;
+				var sHeight = screen.height < screen.width?screen.height:screen.width;
+				fetch(""+data.imageLink+"&w="+(sWidth)+"&h="+(sHeight))
 				.then(function(response){
 					if(response.ok)
 						return response.blob();
