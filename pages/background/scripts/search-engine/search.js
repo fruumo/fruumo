@@ -23,7 +23,6 @@
  		module.exports = {
  			name:"sem",
  			db: undefined,
- 			indexCount:0,
  			openDb: function(callback, force) {
  				if (!this.db || force) {
  					this.db = openDatabase('fruumodb', '1.0', 'Fruumo data', 100 * 1024 * 1024);
@@ -33,7 +32,10 @@
  						tx.executeSql(`CREATE TABLE IF NOT EXISTS urls (
  							url TEXT, hostname TEXT, type NUMERIC,
  							title TEXT, frecency NUMERIC DEFAULT -1,
-					id NUMERIC DEFAULT 0)`); // type1 = history item, type2 = bookmark
+					id NUMERIC DEFAULT 0)`);
+						tx.executeSql(`CREATE TABLE IF NOT EXISTS titles (
+							hostname TEXT,
+							title TEXT)`) // type1 = history item, type2 = bookmark
  						tx.executeSql('CREATE INDEX IF NOT EXISTS urlindex ON urls (url)');
  						tx.executeSql('CREATE UNIQUE INDEX IF NOT EXISTS hostnameindex ON urls (hostname)');
  						tx.executeSql('CREATE INDEX IF NOT EXISTS titleindex ON urls (title)');
@@ -49,14 +51,14 @@
  				var self = this;
  				this.openDb(function(){
 			//Count number of items in db and check if indexing is required
-			self.db.transaction(function(tx){
-				tx.executeSql('SELECT count(*) FROM urls',[], function(tx, results){
-					if(results.rows[0]['count(*)'] == 0){
-						self.buildIndex();
-					}
+				self.db.transaction(function(tx){
+						tx.executeSql('SELECT count(*) FROM urls',[], function(tx, results){
+							if(results.rows[0]['count(*)'] == 0){
+								self.buildIndex();
+							}
+						});
+					});
 				});
-			});
-		});
 
  				chrome.history.onVisited.addListener(function(historyItem){
  					if(historyItem.url.indexOf("chrome://")!= -1 || historyItem.url.indexOf("chrome-extension://")!= -1)
@@ -65,12 +67,12 @@
  				}.bind(this));
 
  				chrome.runtime.onMessage.addListener(function(request,sender, respond){
- 					if(self.indexCount > 0){
- 						return respond([{
- 							title:"Fruumo is currently building it's index to serve your searches better",
- 							url:"https://fruumo.com/indexing"
- 						}]);
- 					}
+ 					// if(self.indexCount > 0){
+ 					// 	return respond([{
+ 					// 		title:"Fruumo is currently building it's index to serve your searches better",
+ 					// 		url:"https://fruumo.com/indexing"
+ 					// 	}]);
+ 					// }
  					if(request.type != "history-search"){
  						return;
  					}
@@ -79,22 +81,24 @@
  						return respond([]);
  					}
  					this.db.transaction(function(tx){
- 						tx.executeSql('SELECT * FROM urls WHERE ( (hostname LIKE ?) OR (hostname LIKE ?) OR (title LIKE ?) ) ORDER BY frecency DESC LIMIT 4' ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%'], function(tx, results){
+ 						//tx.executeSql('SELECT * FROM urls WHERE ( (hostname LIKE ?) OR (hostname LIKE ?) OR (title LIKE ?) ) ORDER BY frecency DESC LIMIT 4' ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%'], function(tx, results){
+ 						tx.executeSql(`SELECT * FROM urls JOIN 
+ 								(SELECT hostname, count(title) as tc, title as ntitle FROM titles 
+ 									WHERE (hostname LIKE ? OR hostname LIKE ?) AND NOT hostname = title  
+ 									GROUP BY hostname,title
+ 								) as f 
+ 							ON f.hostname = urls.hostname WHERE ((urls.hostname LIKE ?) OR (urls.hostname LIKE ?) OR (urls.title LIKE ?)) GROUP BY urls.hostname HAVING max(f.tc) ORDER BY frecency DESC LIMIT 4 
+ 							` ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%'], function(tx, results){
  							var resultSet = [];
  							for(var i=0;i<=results.rows.length-1; i++){
  								resultSet.push(results.rows.item(i));
- 								if(resultSet[i].title == ""){
+ 								resultSet[i].title = resultSet[i].ntitle;
+ 								if(resultSet[i].ntitle == ""){
  									resultSet[i].title = resultSet[i].hostname;
  								}
  							}
  							respond(resultSet);
- 						}, function(){
- 							self.buildIndex();
- 							return respond([{
- 								title:"Fruumo is currently building it's index to serve your searches better",
- 								url:"https://fruumo.com/indexing"
- 							}]);
- 						});	
+ 						}, console.log);	
  					});
 
  					return true;
@@ -115,14 +119,11 @@
 		var self = this;
 		chrome.history.search({text:"", startTime:new Date().getTime()-1209600000, maxResults:50000}, function(history){
 			console.log("Adding to Autocomplete Database:" + history.length);
-			self.indexCount = history.length-2;
 			for(var i in history){
 				historyItem = history[i];
 				if(historyItem.url.indexOf("chrome://")!= -1 || historyItem.url.indexOf("chrome-extension://")!= -1)
 					continue;
-				self.addItemToIndex(historyItem, function(){
-					self.indexCount--;
-				});
+				self.addItemToIndex(historyItem, function(){});
 			}
 		});
 		chrome.bookmarks.getTree(function(tree){
@@ -158,6 +159,7 @@
 						if(results.rowsAffected < 1){
 							tx.executeSql('INSERT INTO urls (id,type, url, hostname, title,frecency) VALUES (?,?, ?,?, ?,?)', [this.rId?this.rId:null,this.type?this.type:1, this.url,this.hostname,this.title,this.frecency],function(){}, console.log);
 						}
+							tx.executeSql('INSERT INTO titles (hostname, title) VALUES (?,?)', [this.hostname,this.title]);
 					}.bind(this),console.log);
 				}.bind(this));
 			}.bind(this));
