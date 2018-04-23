@@ -5,13 +5,26 @@ module.exports = {
 	containerClass:"autocomplete-results-container",
 	priority:"102",
 	advertising:undefined,
+	timeout: undefined,
 	search: function(query){
 		var $this = this;
 		$this.query = query;
 		return new Promise(function(resolve, reject){
+			if(localStorage.indexing == "true")
+				resolve({
+					query:$this.query,
+					containerClass:$this.containerClass,
+					div:$this.createElement([{id:"818",
+					lastVisitTime:1506745565181.638,
+					title:"Fruumo is currently indexing your bookmarks and history to serve your searches better.",
+					typedCount:0,
+					urlDetect:true,
+					url:"http://fruumo.com/indexing",
+					visitCount:123}],$this.query)
+				});
 			chrome.runtime.sendMessage({type:"history-search", data:{query:this.query}}, function(history) {
-				if(history.length == 0 && this.query.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
-					history = [{
+				if(this.query.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
+					history.unshift({
 						id:"818",
 						lastVisitTime:1506745565181.638,
 						title:this.query,
@@ -19,7 +32,7 @@ module.exports = {
 						urlDetect:true,
 						url:this.query.indexOf('http') != -1?this.query:'http://'+this.query,
 						visitCount:123
-					}]
+					});
 				}
 				if(this.advertising == undefined){
 					this.loadAdvertising();
