@@ -38,6 +38,7 @@
 							title TEXT)`) // type1 = history item, type2 = bookmark
  						tx.executeSql('CREATE INDEX IF NOT EXISTS urlindex ON urls (url)');
  						tx.executeSql('CREATE UNIQUE INDEX IF NOT EXISTS hostnameindex ON urls (hostname)');
+ 						tx.executeSql('CREATE INDEX IF NOT EXISTS tIndex on titles (hostname)');
  						tx.executeSql('CREATE INDEX IF NOT EXISTS titleindex ON urls (title)');
  						tx.executeSql('CREATE INDEX IF NOT EXISTS frecencyindex ON urls (frecency)');
  						tx.executeSql('CREATE INDEX IF NOT EXISTS typeindex ON urls (type)');
@@ -48,12 +49,14 @@
  				}
  			},
  			onload: function(){
+ 				localStorage.indexing = "false";
  				var self = this;
  				this.openDb(function(){
 			//Count number of items in db and check if indexing is required
 				self.db.transaction(function(tx){
 						tx.executeSql('SELECT count(*) FROM urls',[], function(tx, results){
 							if(results.rows[0]['count(*)'] == 0){
+				 				localStorage.indexing = "true";
 								self.buildIndex();
 							}
 						});
@@ -82,13 +85,25 @@
  					}
  					this.db.transaction(function(tx){
  						//tx.executeSql('SELECT * FROM urls WHERE ( (hostname LIKE ?) OR (hostname LIKE ?) OR (title LIKE ?) ) ORDER BY frecency DESC LIMIT 4' ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%'], function(tx, results){
- 						tx.executeSql(`SELECT * FROM urls JOIN 
- 								(SELECT hostname, count(title) as tc, title as ntitle FROM titles 
- 									WHERE (hostname LIKE ? OR hostname LIKE ?) AND NOT hostname = title  
- 									GROUP BY hostname,title
- 								) as f 
- 							ON f.hostname = urls.hostname WHERE ((urls.hostname LIKE ?) OR (urls.hostname LIKE ?) OR (urls.title LIKE ?)) GROUP BY urls.hostname HAVING max(f.tc) ORDER BY frecency DESC LIMIT 4 
- 							` ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%'], function(tx, results){
+ 						// tx.executeSql(`SELECT * FROM urls JOIN 
+ 						// 		(SELECT hostname, count(title) as tc, title as ntitle FROM titles 
+ 						// 			WHERE (hostname LIKE ? OR hostname LIKE ?) AND NOT hostname = title  
+ 						// 			GROUP BY hostname,title 
+ 						// 			ORDER BY tc DESC LIMIT 10
+ 						// 		) as f 
+ 						// 	ON f.hostname = urls.hostname WHERE ((urls.hostname LIKE ?) OR (urls.hostname LIKE ?) OR (urls.title LIKE ?)) GROUP BY urls.hostname HAVING max(f.tc) ORDER BY frecency DESC LIMIT 4 
+ 						// 	` ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%'], function(tx, results){
+						tx.executeSql(`SELECT * FROM (
+								SELECT * FROM urls WHERE ((hostname LIKE ?) OR (hostname LIKE ?) OR title LIKE ?)
+							) as u JOIN 
+							(SELECT hostname, count(title) as tc, title as ntitle FROM titles 
+ 						 			WHERE (hostname LIKE ? OR hostname LIKE ?) AND NOT hostname = title  
+ 						 			GROUP BY hostname,title 
+ 						 			ORDER BY tc DESC LIMIT 10
+ 					 		) as f 
+ 					 		ON f.hostname = u.hostname GROUP BY u.hostname HAVING max(f.tc) ORDER BY frecency DESC LIMIT 4
+ 					 		` ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%', '%'+query+'%','%'+query.replace('www.','')+'%'], function(tx, results){
+ 					 		localStorage.indexing = "false";
  							var resultSet = [];
  							for(var i=0;i<=results.rows.length-1; i++){
  								resultSet.push(results.rows.item(i));
@@ -98,7 +113,11 @@
  								}
  							}
  							respond(resultSet);
- 						}, console.log);	
+ 						}, function(){
+ 							self.buildIndex();
+ 							//setTimeout(function(){self.buildIndex();},0);
+ 						}
+ 						);	
  					});
 
  					return true;
@@ -117,6 +136,7 @@
 	//Assumes DB is open
 	buildIndex:function(){
 		var self = this;
+		localStorage.indexing = "true";
 		chrome.history.search({text:"", startTime:new Date().getTime()-1209600000, maxResults:50000}, function(history){
 			console.log("Adding to Autocomplete Database:" + history.length);
 			for(var i in history){
