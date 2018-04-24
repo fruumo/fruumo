@@ -2,7 +2,10 @@ body{
 	width:600px;
 	height:600px;
 }
-
+.container{
+	height:100%;
+	overflow:scroll;
+}
 .panel{
 	.title{
 		h2{
