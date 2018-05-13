@@ -69,6 +69,20 @@
  					self.addItemToIndex(historyItem);
  				}.bind(this));
 
+ 				chrome.runtime.onMessage.addListener(function(request, sender, respond){
+ 					if(request.type != "reindex"){
+ 						return;
+ 					}
+ 					this.db.transaction(function(tx){
+ 						tx.executeSql('DROP TABLE urls' ,[], function(tx, results){});
+ 						tx.executeSql('DROP TABLE titles' ,[], function(tx, results){});
+ 						this.buildIndex();
+ 						setTimeout(function(){
+ 							respond();
+ 						},5000);
+ 					}.bind(this));
+ 					return;
+ 				}.bind(this));
  				chrome.runtime.onMessage.addListener(function(request,sender, respond){
  					// if(self.indexCount > 0){
  					// 	return respond([{

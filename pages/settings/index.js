@@ -27,6 +27,8 @@ chrome.storage.local.get(null, function(lstorage){
 		var autohideMenu = document.getElementById("autohide-menu");
 		var smartDomain = document.getElementById("smartDomain");
 		var reduceAnimations = document.getElementById("reduce-animations");
+		var reindex = document.getElementById("reindex");
+		var reindexText = document.getElementById("reindex-text");
 
 		//var showFruumoSearch = document.getElementById("show-fruumo-search");
 		//var showTime = document.getElementById("show-time");
@@ -125,6 +127,16 @@ chrome.storage.local.get(null, function(lstorage){
 		});
 		customWallpaper.addEventListener("click", function(){
 			customWallpaperBrowse.click();
+		});
+		reindex.addEventListener("click", function(){
+			reindexText.style.display = "block";
+			this.disabled = true;
+			chrome.runtime.sendMessage({type:"reindex"}, function(){
+				setTimeout(function(){
+					reindexText.style.display = "none";
+					this.disabled = false;
+				}.bind(this), 5000);
+			}.bind(this));
 		});
 		fruumoWallpaper.addEventListener("click", function(){
 			chrome.storage.local.remove("settingCustomWallpaper");
