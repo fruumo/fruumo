@@ -77,9 +77,7 @@
  						tx.executeSql('DROP TABLE urls' ,[], function(tx, results){});
  						tx.executeSql('DROP TABLE titles' ,[], function(tx, results){});
  						this.buildIndex();
- 						setTimeout(function(){
- 							respond();
- 						},5000);
+ 						respond();
  					}.bind(this));
  					return;
  				}.bind(this));
