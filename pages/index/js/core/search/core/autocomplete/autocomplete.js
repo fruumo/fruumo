@@ -35,7 +35,7 @@ module.exports = {
 					});
 				}
 				if(this.advertising == undefined){
-					this.loadAdvertising();
+					//this.loadAdvertising();
 				}
 				if(!localStorage.adblock && this.advertising != undefined && history.length > 0){
 					history.push({
