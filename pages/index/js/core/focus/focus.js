@@ -8,10 +8,10 @@ module.exports = {
 			chrome.storage.sync.get("settingFocus", function(storage){
 
 				if(storage.settingFocus){
-					this.DOM[3][0].className += " focus";
-					this.DOM[2][0].className += " focus";
-					this.DOM[1][0].className += " focus";
-					this.DOM[0][0].className += " focus";
+					this.DOM[3][0].classList.add("focus");
+					this.DOM[2][0].classList.add("focus");
+					this.DOM[1][0].classList.add("focus");
+					this.DOM[0][0].classList.add("focus");
 				}
 
 				//dynamic settings
@@ -25,19 +25,19 @@ module.exports = {
 					if(changes.settingFocus.newValue){
 						this.DOM[4][0].style.opacity = "0";
 						setTimeout(function(){
-							this.DOM[3][0].className += " focus";
-							this.DOM[2][0].className += " focus";
-							this.DOM[1][0].className += " focus";
-							this.DOM[0][0].className += " focus";
+							this.DOM[3][0].classList.add("focus");
+							this.DOM[2][0].classList.add("focus");
+							this.DOM[1][0].classList.add("focus");
+							this.DOM[0][0].classList.add("focus");
 							this.DOM[4][0].style.opacity = "1";
 						}.bind(this),300);
 					} else {
 						this.DOM[4][0].style.opacity = "0";
 						setTimeout(function(){
-							this.DOM[3][0].className = this.DOM[3][0].className.replace(" focus", "");
-							this.DOM[2][0].className = this.DOM[2][0].className.replace(" focus", "");
-							this.DOM[1][0].className = this.DOM[1][0].className.replace(" focus", "");
-							this.DOM[0][0].className = this.DOM[0][0].className.replace(" focus", "");
+							this.DOM[3][0].classList.remove("focus");
+							this.DOM[2][0].classList.remove("focus");
+							this.DOM[1][0].classList.remove("focus");
+							this.DOM[0][0].classList.remove("focus");
 							this.DOM[4][0].style.opacity = "1";
 						}.bind(this),300);
 					}

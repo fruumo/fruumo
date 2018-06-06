@@ -9,10 +9,9 @@ module.exports = {
 				var elem = document.getElementsByClassName('fruumo-eye')[0];
 				if(this.currentCount <= 0){
 					this.currentCount = 0;
-					elem.className = elem.className.replace(" spinning", "");
+					elem.classList.remove("spinning");
 				} else {
-					if(elem.className.indexOf('spinning')== -1)
-						elem.className+= " spinning";
+					elem.classList.add("spinning");
 				}
 			},
 			startLoad: function(){

@@ -86,9 +86,9 @@ module.exports = {
 		return;
 	},
 	cancelResults: function(){
-		this.DOM[3][0].className = this.DOM[3][0].className.replace(" searching","");
-		this.DOM[1][0].className = this.DOM[1][0].className.replace(" show","");
-		this.DOM[2][0].className = this.DOM[2][0].className.replace(" hide","");;
+		this.DOM[3][0].classList.remove("searching");
+		this.DOM[1][0].classList.remove("show");
+		this.DOM[2][0].classList.remove("hide");
 
 		while(this.DOM[1][0].lastChild)
 			this.DOM[1][0].removeChild(this.DOM[1][0].lastChild);
@@ -99,12 +99,9 @@ module.exports = {
 		this.keyboardSelectedResult = -1;
 	},
 	showResults: function(){
-		if(this.DOM[3][0].className.indexOf("searching") == -1)
-			this.DOM[3][0].className += " searching";
-		if(this.DOM[1][0].className.indexOf("show") == -1)
-			this.DOM[1][0].className += " show";
-		if(this.DOM[2][0].className.indexOf("hide") == -1)
-			this.DOM[2][0].className += " hide";
+		this.DOM[3][0].classList.add("searching");
+		this.DOM[1][0].classList.add("show");
+		this.DOM[2][0].classList.add("hide");
 
 		this.DOM[5][0].style.opacity = "0.4";
 		this.DOM[6][0].style.opacity = "0";
@@ -113,12 +110,12 @@ module.exports = {
 		this.keyboardSelectedResult = -1;
 		this.resultElements = Array.prototype.slice.call(document.querySelectorAll('.search-results .result'));
 		for(var i in this.resultElements){
-			if(this.resultElements[i].className.indexOf('result-selected')!=0)
-				this.resultElements[i].className = this.resultElements[i].className.replace('result-selected','');
+			if(this.resultElements[i].classList.contains('result-selected'))
+				this.resultElements[i].classList.remove('result-selected');
 		}
 		if(document.getElementsByClassName("amazon-search-link-container")[0] || document.getElementsByClassName("autocomplete-results-container")[0] || document.getElementsByClassName("command-container")[0]){
 			this.keyboardSelectedResult = 0;
-			this.resultElements[0].className += " result-selected"
+			this.resultElements[0].classList.add("result-selected");
 		}
 	},
 	onKey: function(e){
@@ -222,7 +219,7 @@ module.exports = {
 				return; 
 			e.preventDefault();
 			if(this.resultElements[this.keyboardSelectedResult]){
-				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+				this.resultElements[this.keyboardSelectedResult].classList.remove("result-selected");
 				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
 					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
 				}
@@ -232,7 +229,7 @@ module.exports = {
 				this.keyboardSelectedResult = 0;
 			}
 			if(this.resultElements[this.keyboardSelectedResult]){
-				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+				this.resultElements[this.keyboardSelectedResult].classList.add("result-selected");
 				this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
 				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
 					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
@@ -244,7 +241,7 @@ module.exports = {
 				return; 
 			e.preventDefault();
 			if(this.resultElements[this.keyboardSelectedResult]){
-				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className.replace("result-selected","");
+				this.resultElements[this.keyboardSelectedResult].classList.remove("result-selected");
 				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query')){
 					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-orig-query');
 				}
@@ -254,7 +251,7 @@ module.exports = {
 				this.keyboardSelectedResult = this.resultElements.length-1;
 			}
 			if(this.resultElements[this.keyboardSelectedResult]){
-				this.resultElements[this.keyboardSelectedResult].className =  this.resultElements[this.keyboardSelectedResult].className + " result-selected";
+				this.resultElements[this.keyboardSelectedResult].classList.add("result-selected");
 				this.resultElements[this.keyboardSelectedResult].scrollIntoView(false);
 				if(this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query')){
 					this.DOM[0][0].value = this.resultElements[this.keyboardSelectedResult].getAttribute('data-search-query');
