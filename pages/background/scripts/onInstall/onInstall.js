@@ -63,7 +63,7 @@ module.exports = {
 	resetSettings:function (){
 		chrome.storage.sync.set({settingsReset:false});
 		chrome.storage.sync.set({settingDisplayTopsites:false});
-		chrome.storage.sync.set({settingFocus:false});
+		chrome.storage.sync.set({settingFocus:true});
 		chrome.storage.sync.set({settingIs24h:true});
 		chrome.storage.sync.set({settingMetric:true});
 		chrome.storage.sync.set({largeTopsites:false});
