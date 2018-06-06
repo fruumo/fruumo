@@ -43,9 +43,11 @@
 			outline:none;
 			border:none;
 			border-radius: 2px;
+			line-height:normal;
 		}
 		.search-bar::placeholder{
-			font-family:"FontAwesome", 'Open Sans', sans-serif;
+			font-family:"icomoon", 'Open Sans', sans-serif;
+			vertical-align: middle;
 		}
 		.search-bar:focus{
 			outline:none;
