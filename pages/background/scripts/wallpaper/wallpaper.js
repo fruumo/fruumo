@@ -45,31 +45,16 @@ module.exports = {
 				//regular or full
 				var sWidth = screen.width >= screen.height?screen.width:screen.height;
 				var sHeight = screen.height < screen.width?screen.height:screen.width;
-				fetch(""+data.imageLink+"&w="+(sWidth)+"&h="+(sHeight))
-				.then(function(response){
-					if(response.ok)
-						return response.blob();
-				})
-				.then(function(blob){
-					var reader = new FileReader();
-					reader.onload = function() {
-						function hexToRgb(hex) {
-							var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-							return result ? {
-								r: parseInt(result[1], 16),
-								g: parseInt(result[2], 16),
-								b: parseInt(result[3], 16)
-							} : null;
-						}
-						var dataUrl = reader.result;
-						var rgb = hexToRgb(data.color);
-						var luminance = 1 - (((0.299*rgb.r) + (0.587*rgb.g) + (0.114*rgb.b))/255);
-						var fontColor = "";
-						fontColor = "#FFF";
-						chrome.storage.local.set({wallpaper:{image:dataUrl,author:data.user,location:data.location, color:data.color,fontColor:fontColor,luminance:luminance}});
-					};
-					reader.readAsDataURL(blob);
+				var img = document.createElement('img');
+				img.addEventListener('load', function(){
+					var canvas = document.createElement('canvas');
+					canvas.width = this.naturalWidth;
+					canvas.height = this.naturalHeight;
+					canvas.getContext('2d').drawImage(this,0,0);
+					var dataUrl = canvas.toDataURL('image/webp',0.92);
+					chrome.storage.local.set({wallpaper:{image:dataUrl,author:data.user,location:data.location, color:data.color}});
 				});
+				img.setAttribute('src', ""+data.imageLink+"&w="+(sWidth)+"&h="+(sHeight));
 			});
 		});
 	}
