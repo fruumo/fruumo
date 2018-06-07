@@ -1,19 +1,19 @@
 module.exports = {
 	name:'weather-manager',
 	onload:function(){
-		chrome.alarms.onAlarm.addListener(function(alarm){
+		chrome.alarms.onAlarm.addListener((alarm)=>{
 			if(alarm.name != "refresh-weather" ){
 				return;
 			}
 			this.refreshWeather();
-		}.bind(this));
+		});
 
-		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+		chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
 			if (request.type != "refresh-weather"){
 				return;
 			}
 			this.refreshWeather();	
-		}.bind(this));
+		});
 	},
 	refreshWeather:function(){
 		chrome.storage.local.get({customWeather:null}, function(storage){

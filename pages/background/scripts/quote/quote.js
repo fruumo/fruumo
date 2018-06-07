@@ -1,19 +1,19 @@
 module.exports = {
 	name:'quote-manager',
 	onload: function(){
-		chrome.alarms.onAlarm.addListener(function(alarm){
+		chrome.alarms.onAlarm.addListener((alarm)=>{
 			if(alarm.name != "refresh-quote" ){
 				return;
 			}
 			this.refreshQuote();
-		}.bind(this));
+		});
 
-		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+		chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
 			if (request.type != "refresh-quote"){
 				return;
 			}
 			this.refreshQuote();	
-		}.bind(this));
+		});
 	},
 	refreshQuote: function(){
 		fetch("http://api.fruumo.com/quote/?r="+Math.random())

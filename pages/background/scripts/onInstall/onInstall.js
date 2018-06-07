@@ -11,7 +11,7 @@ window.setupAlarms = function(){
 module.exports = {
 	name:"on-install-manager",
 	onload: function(){
-		chrome.runtime.onInstalled.addListener(function(details){
+		chrome.runtime.onInstalled.addListener((details)=>{
 			//Google Analytics
 			if(details.reason == "install")
 		  		ga('send', 'event', 'Fruumo', 'install', appVersion);
@@ -40,12 +40,12 @@ module.exports = {
 			});
 
 			//Defaults
-			chrome.storage.sync.get("settingsReset", function(s){
+			chrome.storage.sync.get("settingsReset", (s) => {
 				if(s.settingsReset == undefined || s.settingsReset){
 					this.resetSettings();
 				}
-			}.bind(this));
-		}.bind(this));
+			});
+		});
 
 		chrome.storage.onChanged.addListener(function(changes, area){
 			if(area != "sync")

@@ -6,14 +6,14 @@ module.exports = {
 			chrome.runtime.reload();
 		});
 
-		chrome.alarms.onAlarm.addListener(function(alarm){
+		chrome.alarms.onAlarm.addListener((alarm)=>{
 			if(alarm.name != "check-updates" ){
 				return;
 			}
 			this.checkForUpdates(function(latestVersion, currentVersion, v){});
-		}.bind(this));
+		});
 
-		chrome.runtime.onInstalled.addListener(function(details){
+		chrome.runtime.onInstalled.addListener((details)=>{
 			if(details.reason != "update"){
 				return;
 			}
@@ -52,7 +52,7 @@ module.exports = {
 					text:'NEW'
 				});
 			});
-		}.bind(this));
+		});
 	},
 	checkForUpdates: function(callback){
 		console.log("Checking for updates...");

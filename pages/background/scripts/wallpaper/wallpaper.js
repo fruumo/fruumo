@@ -5,19 +5,19 @@ module.exports = {
 		var UNSPLASH_collection = 947821;
 		//test is 922352;
 		//UNSPLASH_collection = 922352;
-		chrome.alarms.onAlarm.addListener(function(alarm){
+		chrome.alarms.onAlarm.addListener((alarm)=>{
 			if(alarm.name != "refresh-wallpaper" ){
 				return;
 			}
 			this.refreshWallpaper();
-		}.bind(this));
+		});
 
-		chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+		chrome.runtime.onMessage.addListener((request, sender, sendResponse)=>{
 			if (request.type != "refresh-wallpaper"){
 				return;
 			}
 			this.refreshWallpaper();	
-		}.bind(this));
+		});
 	},
 	refreshWallpaper: function(){
 		chrome.storage.local.get({settingCustomWallpaper:false}, function(storage){

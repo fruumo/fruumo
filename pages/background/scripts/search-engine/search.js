@@ -26,7 +26,7 @@
  			openDb: function(callback, force) {
  				if (!this.db || force) {
  					this.db = openDatabase('fruumodb', '1.0', 'Fruumo data', 100 * 1024 * 1024);
- 					this.db.transaction(function(tx){
+ 					this.db.transaction((tx)=>{
  						if(!force)
  							console.log("Creating database tables");
  						tx.executeSql(`CREATE TABLE IF NOT EXISTS urls (
@@ -43,7 +43,7 @@
  						tx.executeSql('CREATE INDEX IF NOT EXISTS frecencyindex ON urls (frecency)');
  						tx.executeSql('CREATE INDEX IF NOT EXISTS typeindex ON urls (type)');
  						callback();
- 					}.bind(this));
+ 					});
  				} else {
  					callback();
  				}
@@ -63,25 +63,25 @@
 					});
 				});
 
- 				chrome.history.onVisited.addListener(function(historyItem){
+ 				chrome.history.onVisited.addListener((historyItem)=>{
  					if(historyItem.url.indexOf("chrome://")!= -1 || historyItem.url.indexOf("chrome-extension://")!= -1)
  						return;
  					self.addItemToIndex(historyItem);
- 				}.bind(this));
+ 				});
 
- 				chrome.runtime.onMessage.addListener(function(request, sender, respond){
+ 				chrome.runtime.onMessage.addListener((request, sender, respond) => {
  					if(request.type != "reindex"){
  						return;
  					}
- 					this.db.transaction(function(tx){
+ 					this.db.transaction((tx)=>{
  						tx.executeSql('DROP TABLE urls' ,[], function(tx, results){});
  						tx.executeSql('DROP TABLE titles' ,[], function(tx, results){});
  						this.buildIndex();
  						respond();
- 					}.bind(this));
+ 					});
  					return;
- 				}.bind(this));
- 				chrome.runtime.onMessage.addListener(function(request,sender, respond){
+ 				});
+ 				chrome.runtime.onMessage.addListener((request,sender, respond)=>{
  					// if(self.indexCount > 0){
  					// 	return respond([{
  					// 		title:"Fruumo is currently building it's index to serve your searches better",
@@ -133,17 +133,17 @@
  					});
 
  					return true;
- 				}.bind(this));
+ 				});
 
- 				chrome.bookmarks.onCreated.addListener(function(id, bookmark){
+ 				chrome.bookmarks.onCreated.addListener((id, bookmark)=>{
  					this.indexBookmarks(bookmark);
- 				}.bind(this));
- 				chrome.bookmarks.onRemoved.addListener(function(id,removeInfo){
+ 				});
+ 				chrome.bookmarks.onRemoved.addListener((id,removeInfo)=>{
  					console.log(id);
  					this.removeItemFromIndex({
  						id:id
  					});
- 				}.bind(this));
+ 				});
  			},
 	//Assumes DB is open
 	buildIndex:function(){
@@ -158,10 +158,10 @@
 				self.addItemToIndex(historyItem, function(){});
 			}
 		});
-		chrome.bookmarks.getTree(function(tree){
+		chrome.bookmarks.getTree((tree)=>{
 			for(var i in tree)
 				this.indexBookmarks(tree[i]);
-		}.bind(this));
+		});
 	},
 	addItemToIndex:function(historyItem, callback){
 		var cb = function(){}
