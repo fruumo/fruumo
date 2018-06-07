@@ -69,8 +69,22 @@ Typer.prototype.doTyping = function() {
 module.exports = {
 	name:'moving-placeholder',
 	DOM:['.search-bar'],
-	strings:["www.gmail.com", "www.fruumo.com", "How tall is Donald trump?", "Your chrome apps", "Any URL", "www.yahoo.com", "@rct", "@weather", "3+4", "www.twitter.com", "www.facebook.com" ,"@downloads", "@sort", "Something from your bookmarks", "www.instagram.com", "www.youtube.com/subscriptions"],
+	strings:["How tall is Donald trump?", "Your chrome apps", "Any URL", "@rct", "@weather", "3+4" ,"@downloads", "@sort", "Something from your bookmarks"],
 	onload: function(){
+    chrome.topSites.getAsync()
+    .then((topsites) => {
+      for(var i in topsites){
+        if(i > 4){
+          break;
+        }
+        if(topsites[i].url.length < 45){
+          this.strings.push(topsites[i].url);
+        }
+        if(topsites[i].title.length < 45){
+          this.strings.push(topsites[i].title);
+        }
+      }
+    });
 		window.searchBarTyper = new Typer(this.DOM[0][0],this.strings);
 	}
 };
