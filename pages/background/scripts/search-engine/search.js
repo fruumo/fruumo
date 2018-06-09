@@ -32,9 +32,9 @@
  						tx.executeSql(`CREATE TABLE IF NOT EXISTS urls (
  							url TEXT, hostname TEXT, type NUMERIC,
  							title TEXT, frecency NUMERIC DEFAULT -1,
-					id NUMERIC DEFAULT 0)`);
-						tx.executeSql(`CREATE TABLE IF NOT EXISTS titles (
-							hostname TEXT,
+ 							id NUMERIC DEFAULT 0)`);
+ 						tx.executeSql(`CREATE TABLE IF NOT EXISTS titles (
+ 							hostname TEXT,
 							title TEXT)`) // type1 = history item, type2 = bookmark
  						tx.executeSql('CREATE INDEX IF NOT EXISTS urlindex ON urls (url)');
  						tx.executeSql('CREATE UNIQUE INDEX IF NOT EXISTS hostnameindex ON urls (hostname)');
@@ -53,15 +53,15 @@
  				var self = this;
  				this.openDb(function(){
 			//Count number of items in db and check if indexing is required
-				self.db.transaction(function(tx){
-						tx.executeSql('SELECT count(*) FROM urls',[], function(tx, results){
-							if(results.rows[0]['count(*)'] == 0){
-				 				localStorage.indexing = "true";
-								self.buildIndex();
-							}
-						});
-					});
+			self.db.transaction(function(tx){
+				tx.executeSql('SELECT count(*) FROM urls',[], function(tx, results){
+					if(results.rows[0]['count(*)'] == 0){
+						localStorage.indexing = "true";
+						self.buildIndex();
+					}
 				});
+			});
+		});
 
  				chrome.history.onVisited.addListener((historyItem)=>{
  					if(historyItem.url.indexOf("chrome://")!= -1 || historyItem.url.indexOf("chrome-extension://")!= -1)
@@ -105,32 +105,32 @@
  						// 		) as f 
  						// 	ON f.hostname = urls.hostname WHERE ((urls.hostname LIKE ?) OR (urls.hostname LIKE ?) OR (urls.title LIKE ?)) GROUP BY urls.hostname HAVING max(f.tc) ORDER BY frecency DESC LIMIT 4 
  						// 	` ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%'], function(tx, results){
-						tx.executeSql(`SELECT * FROM (
-								SELECT * FROM urls WHERE ((hostname LIKE ?) OR (hostname LIKE ?) OR title LIKE ?)
-							) as u JOIN 
-							(SELECT hostname, count(title) as tc, title as ntitle FROM titles 
- 						 			WHERE (hostname LIKE ? OR hostname LIKE ?) AND NOT hostname = title  
- 						 			GROUP BY hostname,title 
- 						 			ORDER BY tc DESC LIMIT 10
- 					 		) as f 
- 					 		ON f.hostname = u.hostname GROUP BY u.hostname HAVING max(f.tc) ORDER BY frecency DESC LIMIT 4
- 					 		` ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%', '%'+query+'%','%'+query.replace('www.','')+'%'], function(tx, results){
- 					 		localStorage.indexing = "false";
- 							var resultSet = [];
- 							for(var i=0;i<=results.rows.length-1; i++){
- 								resultSet.push(results.rows.item(i));
- 								resultSet[i].title = resultSet[i].ntitle;
- 								if(resultSet[i].ntitle == ""){
- 									resultSet[i].title = resultSet[i].hostname;
- 								}
- 							}
- 							respond(resultSet);
- 						}, function(){
- 							self.buildIndex();
+ 							tx.executeSql(`SELECT * FROM (
+ 								SELECT * FROM urls WHERE ((hostname LIKE ?) OR (hostname LIKE ?) OR title LIKE ?)
+ 								) as u JOIN 
+ 								(SELECT hostname, count(title) as tc, title as ntitle FROM titles 
+ 								WHERE (hostname LIKE ? OR hostname LIKE ?) AND NOT hostname = title  
+ 								GROUP BY hostname,title 
+ 								ORDER BY tc DESC LIMIT 10
+ 								) as f 
+ 								ON f.hostname = u.hostname GROUP BY u.hostname HAVING max(f.tc) ORDER BY frecency DESC LIMIT 4
+ 								` ,['%'+query+'%','%'+query.replace('www.','')+'%','%'+query+'%', '%'+query+'%','%'+query.replace('www.','')+'%'], function(tx, results){
+ 									localStorage.indexing = "false";
+ 									var resultSet = [];
+ 									for(var i=0;i<=results.rows.length-1; i++){
+ 										resultSet.push(results.rows.item(i));
+ 										resultSet[i].title = resultSet[i].ntitle;
+ 										if(resultSet[i].ntitle == ""){
+ 											resultSet[i].title = resultSet[i].hostname;
+ 										}
+ 									}
+ 									respond(resultSet);
+ 								}, function(){
+ 									self.buildIndex();
  							//setTimeout(function(){self.buildIndex();},0);
  						}
  						);	
- 					});
+ 						});
 
  					return true;
  				});
@@ -169,33 +169,34 @@
 			cb = callback;
 		}
 		self = this;
-		this.openDb(function(){
-			chrome.history.getVisits({url:this.url}, function(visitItems){
-				visitItems.reverse();
-				var extractor = document.createElement('a');
-				if(!this.type){
-					extractor.href = this.url;
-					this.url = extractor.protocol+"//"+extractor.hostname.replace(/\/$/, "");
-					this.hostname = extractor.hostname.replace(/\/$/, "");
-					this.hostname = this.hostname.replace('www.','');
-				} else if(this.type == 2){
-					this.hostname = this.url.replace('http://','').replace('https://','');
-				}
-				self.db.transaction(function(tx){
-					//tx.executeSql('IF EXISTS(SELECT hostname FROM urls WHERE hostname = ?) UPDATE ',[this.hostname])
-					this.frecency = self.score(visitItems, this.type);
-					cb();
-					if(this.title == "")
-						this.title = this.hostname;
-					tx.executeSql('UPDATE urls SET frecency=frecency+?,title=? WHERE hostname=?' ,[this.frecency,this.title, this.hostname], function(tx, results){					
-						if(results.rowsAffected < 1){
-							tx.executeSql('INSERT INTO urls (id,type, url, hostname, title,frecency) VALUES (?,?, ?,?, ?,?)', [this.rId?this.rId:null,this.type?this.type:1, this.url,this.hostname,this.title,this.frecency],function(){}, console.log);
-						}
-							tx.executeSql('INSERT INTO titles (hostname, title) VALUES (?,?)', [this.hostname,this.title]);
-					}.bind(this),console.log);
-				}.bind(this));
-			}.bind(this));
-		}.bind(historyItem),true);
+		new function(historyItem) {
+			self.openDb(() => {
+				chrome.history.getVisits({url:historyItem.url}, (visitItems) => {
+					visitItems.reverse();
+					var extractor = document.createElement('a');
+					if(!historyItem.type){
+						extractor.href = historyItem.url;
+						historyItem.url = extractor.protocol+"//"+extractor.hostname.replace(/\/$/, "");
+						historyItem.hostname = extractor.hostname.replace(/\/$/, "");
+						historyItem.hostname = historyItem.hostname.replace('www.','');
+					} else if(historyItem.type == 2){
+						historyItem.hostname = historyItem.url.replace('http://','').replace('https://','');
+					}
+					self.db.transaction((tx)=>{
+						historyItem.frecency = self.score(visitItems, historyItem.type);
+						cb();
+						if(historyItem.title == "")
+							historyItem.title = historyItem.hostname;
+						tx.executeSql('UPDATE urls SET frecency=frecency+?,title=? WHERE hostname=?' ,[historyItem.frecency,historyItem.title, historyItem.hostname], (tx, results) => {					
+							if(results.rowsAffected < 1){
+								tx.executeSql('INSERT INTO urls (id,type, url, hostname, title,frecency) VALUES (?,?, ?,?, ?,?)', [historyItem.rId?historyItem.rId:null,historyItem.type?historyItem.type:1, historyItem.url,historyItem.hostname,historyItem.title,historyItem.frecency],function(){}, console.log);
+							}
+							tx.executeSql('INSERT INTO titles (hostname, title) VALUES (?,?)', [historyItem.hostname,historyItem.title]);
+						});
+					});
+				});
+			});
+		}(historyItem);
 	},
 	removeItemFromIndex: function(removeInfo){
 		if(removeInfo.id){
