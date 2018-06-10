@@ -65,7 +65,6 @@ module.exports = {
 	
 	},
 	createElement: function(weather,location){
-		console.log(weather);
 		var d = dommy({
 			tag:'div', attributes:{class:this.containerClass, 'data-priority':this.priority}
 		});
