@@ -28,7 +28,7 @@ module.exports = {
 				else
 					temp = Math.round((weather.weather.results.channel.item.condition.temp))+ "&deg;F"
 				this.DOM[0][0].innerHTML = temp;
-				this.DOM[1][0].innerText = weather.weather.results.channel.item.condition.text;
+				this.DOM[1][0].innerText = weather.weather.results.channel.item.condition.localizedText;
 				this.DOM[4][0].innerHTML = this.getWeatherIcon(weather.weather.results.channel.item.condition.code);
 			}.bind(this));
 		}.bind(this));

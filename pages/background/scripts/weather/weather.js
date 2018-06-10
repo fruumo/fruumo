@@ -44,6 +44,7 @@ function getWeather(ipInfo){
 			return response.json();	
 	})
 	.then(function(weather){
+		weather.query.results.channel.item.condition.localizedText = chrome.i18n.getMessage(`weather_${weather.query.results.channel.item.condition.code}`);
 		chrome.storage.local.set({weather:weather.query,location:ipInfo});
 	});
 }

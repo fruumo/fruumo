@@ -20,11 +20,13 @@ module.exports = {
 		if(!this.timeVisible)
 			return;
 		var date = new Date();
-		chrome.storage.local.get("quote", function(storage){
-			if(storage.quote)
-				this.tickerStrings.push(storage.quote);
-			this.tickerStrings.push(this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear()));
-		}.bind(this));
+		 
+			chrome.storage.local.get("quote", (storage)=>{
+				//only do this if the language is english
+				if(storage.quote && chrome.i18n.getUILanguage().indexOf('en') != -1)
+					this.tickerStrings.push(storage.quote);
+				this.tickerStrings.push(this.dateToString(date.getDay(), date.getDate(), date.getMonth(), date.getFullYear()));
+			});
 		this.DOM[0][0].style.opacity = 0;
 		this.DOM[0][0].innerHTML = this.greetings[Math.floor(Math.random() * this.greetings.length)] + (localStorage.username == ""?".":(" "+localStorage.username+"."));
 		this.DOM[0][0].style.opacity = 1;

@@ -29,7 +29,16 @@ module.exports = {
 						div:false
 					});
 				}
-				fetch("https://api.darksky.net/forecast/1526708f30b68c33693ec16507bae665/"+storage.location.lat+","+storage.location.lon+"?units="+((sstorage.settingMetric)?"ca":"us"))
+
+				//Detailed Weather Localization
+				var lang = chrome.i18n.getUILanguage();
+				lang = lang.indexOf('ru') != -1 ? 'ru' : '';
+
+				if(lang == ''){
+					lang = 'en';
+				}
+
+				fetch("https://api.darksky.net/forecast/1526708f30b68c33693ec16507bae665/"+storage.location.lat+","+storage.location.lon+"?lang="+lang+"&units="+((sstorage.settingMetric)?"ca":"us"))
 				.then(function(response){
 					if(response.ok)
 						return response.json();	

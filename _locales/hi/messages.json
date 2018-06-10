@@ -1,42 +1,42 @@
 {
 	"extName": {
-		"message":"Fruumo - New Tab Page",
+		"message":"Fruumo - नया टैब",
 		"description": "What should fruumo be called in chrome?"
 	},
 	"settings": {
-		"message":"Settings",
+		"message":"सेटिंग्स",
 		"description": "Title for settings page"
 	},
 	"downloads":{
-		"message":"Recently completed downloads",
+		"message":"डाउनलोड",
 		"description":"Title for downloads page"
 	},
 	"search":{
-		"message":"Search",
+		"message":"खोज",
 		"description":"Search bar place holder"
 	},
 	"recentlyClosedTabs":{
-		"message":"Recently closed tabs",
+		"message":"गलती से बंद टैब",
 		"description":"Title for recently closed tabs page"
 	},
 	"noRecentlyClosedTabs":{
-		"message":"No recently closed tabs",
+		"message":"कोई टैब नहीं मिला",
 		"description":"When no recently closed tabs are available"
 	},
 	"sessions":{
-		"message":"Tabs open on other devices",
+		"message":"अन्य उपकरणों पर टैब्स",
 		"description":"Title for other chrome devices"
 	},
 	"noSessions":{
-		"message":"Oops, looks like you have no other chrome devices.",
+		"message":"कोई यंत्र नहीं मिले",
 		"description":"When no other chrome devices are available."
 	},
 	"allApplications":{
-		"message":"All applications",
+		"message":"एप्लीकेशन",
 		"description":"All Applications"
 	},
 	"dateFormat":{
-		"message": "$day$, $date$$datesuffix$ of $month$ $year$",
+		"message": "$day$, $date$$datesuffix$ $month$ $year$",
 		"description":"Format for the date",
 		"placeholders":{
 			"day":{
@@ -62,291 +62,291 @@
 		}
 	},
 	"Monday":{
-		"message":"Monday",
+		"message":"सोमवार",
 		"description":"Monday"
 	},
 	"Tuesday":{
-		"message":"Tuesday",
+		"message":"मंगलवार",
 		"description":"Tuesday"
 	},
 	"Wednesday":{
-		"message":"Wednesday",
+		"message":"बुधवार",
 		"description":"Wednesday"
 	},
 	"Thursday":{
-		"message":"Thursday",
+		"message":"गुरुवार",
 		"description":"Thursday"
 	},
 	"Friday":{
-		"message":"Friday",
+		"message":"शुक्रवार",
 		"description":"Friday"
 	},
 	"Saturday":{
-		"message":"Saturday",
+		"message":"शनिवार",
 		"description":"Saturday"
 	},
 	"Sunday":{
-		"message":"Sunday",
+		"message":"रविवार",
 		"description":"Sunday"
 	},
 	"th":{
-		"message":"th",
+		"message":"",
 		"description":"20 *th* of january"
 	},
 	"st":{
-		"message":"st",
+		"message":"",
 		"description":"1 *st* of may"
 	},
 	"rd":{
-		"message":"rd",
+		"message":"",
 		"description":"23 *rd* of July"
 	},
 	"nd":{
-		"message":"nd",
+		"message":"",
 		"description":"2 *nd* of July"
 	},
 	"January":{
-		"message":"January",
+		"message":"जनवरी",
 		"description":"Month"
 	},
 	"February":{
-		"message":"February",
+		"message":"फरवरी",
 		"description":"Month"
 	},
 	"March":{
-		"message":"March",
+		"message":"मार्च",
 		"description":"Month"
 	},
 	"April":{
-		"message":"April",
+		"message":"अप्रैल",
 		"description":"Month"
 	},
 	"May":{
-		"message":"May",
+		"message":"मई",
 		"description":"Month"
 	},
 	"June":{
-		"message":"June",
+		"message":"जून",
 		"description":"Month"
 	},
 	"July":{
-		"message":"July",
+		"message":"जुलाई",
 		"description":"Month"
 	},
 	"August":{
-		"message":"August",
+		"message":"अगस्त",
 		"description":"Month"
 	},
 	"September":{
-		"message":"September",
+		"message":"सितंबर",
 		"description":"Month"
 	},
 	"October":{
-		"message":"October",
+		"message":"अक्टूबर",
 		"description":"Month"
 	},
 	"November":{
-		"message":"November",
+		"message":"नवंबर",
 		"description":"Month"
 	},
 	"December":{
-		"message":"December",
+		"message":"दिसंबर",
 		"description":"Month"
 	},
 	"weather_0":{
-		"message":"Tornado",
+		"message":"बवंडर",
 		"description":"Tornado"
 	},
 	"weather_1":{
-		"message":"Tropical storm",
+		"message":"उष्णकटिबंधीय तूफान",
 		"description":"Tropical Storm"
 	},
 	"weather_2":{
-		"message":"Hurricane",
+		"message":"तूफान",
 		"description":"Hurricane"
 	},
 	"weather_3":{
-		"message":"Severe thunderstorms",
+		"message":"प्रचंड तूफान",
 		"description":"Severe Thunderstorms"
 	},
 	"weather_4":{
-		"message":"Thunderstorms",
+		"message":"आंधी तूफान",
 		"description":"Thunderstorms"
 	},
 	"weather_5":{
-		"message":"Rain and snow",
+		"message":"बारिश और बर्फ",
 		"description":"Mixed rain and snow"
 	},
 	"weather_6":{
-		"message":"Rain and sleet",
+		"message":"बारिश और स्लीट",
 		"description":"Mixed rain and sleet"
 	},
 	"weather_7":{
-		"message":"Snow and sleet",
+		"message":"बर्फ और स्लीट",
 		"description":"Mixed snow and sleet"
 	},
 	"weather_8":{
-		"message":"Freezing drizzle",
+		"message":"ठंड बारिश",
 		"description":"Freezing Drizzle"
 	},
 	"weather_9":{
-		"message":"Drizzle",
+		"message":"बूंदा बांदी",
 		"description":"Drizzle"
 	},
 	"weather_10":{
-		"message":"Freezing rain",
+		"message":"ठंड बारिश",
 		"description":"Freezing Rain"
 	},
 	"weather_11":{
-		"message":"Showers",
+		"message":"बारिश",
 		"description":"Showers"
 	},
 	"weather_12":{
-		"message":"Showers",
+		"message":"बारिश",
 		"description":"Showers"
 	},
 	"weather_13":{
-		"message":"Snow flurries",
+		"message":"स्नो फ़्लरीज़",
 		"description":"Snow flurries"
 	},
 	"weather_14":{
-		"message":"Light snow",
+		"message":"हलकी बर्फ",
 		"description":"Light snow showers"
 	},
 	"weather_15":{
-		"message":"Blowing snow",
+		"message":"हलकी बर्फ",
 		"description":"Blowing snow"
 	},
 	"weather_16":{
-		"message":"Snow",
+		"message":"बर्फ",
 		"description":"Snow"
 	},
 	"weather_17":{
-		"message":"Hail",
+		"message":"बौछाड़",
 		"description":"hail"
 	},
 	"weather_18":{
-		"message":"Sleet",
+		"message":"तुषार-वर्षा",
 		"description":"Sleet"
 	},
 	"weather_19":{
-		"message":"Dust",
+		"message":"धूल",
 		"description":"Dust"
 	},
 	"weather_20":{
-		"message":"Foggy",
+		"message":"कोहरा",
 		"description":"Foggy"
 	},
 	"weather_21":{
-		"message":"Haze",
+		"message":"धुन्ध",
 		"description":"Haze"
 	},
 	"weather_22":{
-		"message":"Smoky",
+		"message":"धुन्ध",
 		"description":"Smoky"
 	},
 	"weather_23":{
-		"message":"Breezy",
+		"message":"समीरिक",
 		"description":"Blustery"
 	},
 	"weather_24":{
-		"message":"Windy",
+		"message":"हवा",
 		"description":"Windy"
 	},
 	"weather_25":{
-		"message":"Cold",
+		"message":"सर्दी",
 		"description":"Cold"
 	},
 	"weather_26":{
-		"message":"Cloudy",
+		"message":"धुंधला",
 		"description":"Cloudy"
 	},
 	"weather_27":{
-		"message":"Mostly cloudy",
+		"message":"धुंधला",
 		"description":"Mostly Cloudy (night)"
 	},
 	"weather_28":{
-		"message":"Mostly cloudy",
+		"message":"धुंधला",
 		"description":"Mostly cloudy (day)"
 	},
 	"weather_29":{
-		"message":"Partly cloudy",
+		"message":"धुंधला",
 		"description":"Partly Cloudy (night)"
 	},
 	"weather_30":{
-		"message":"Partly cloudy",
+		"message":"धुंधला",
 		"description":"Partly Cloudy (day)"
 	},
 	"weather_31":{
-		"message":"Clear",
+		"message":"कोई बादल नहीं",
 		"description":"Clear (night)"
 	},
 	"weather_32":{
-		"message":"Sunny",
+		"message":"धूप",
 		"description":"Sunny"
 	},
 	"weather_33":{
-		"message":"Fair",
+		"message":"कोई बादल नहीं",
 		"description":"Fair (night)"
 	},
 	"weather_34":{
-		"message":"Fair",
+		"message":"कोई बादल नहीं",
 		"description":"Fair (day)"
 	},
 	"weather_35":{
-		"message":"Rain and hail",
+		"message":"बारिश और गारा",
 		"description":"Mixed Rain and hail"
 	},
 	"weather_36":{
-		"message":"Hot",
+		"message":"गर्मी",
 		"description":"Hot"
 	},
 	"weather_37":{
-		"message":"Isolated thunderstorms",
+		"message":"आंधी तूफान",
 		"description":"Isolated thunderstorms"
 	},
 	"weather_38":{
-		"message":"Scattered thunderstorms",
+		"message":"आंधी तूफान",
 		"description":"Scattered Thunderstorms"
 	},
 	"weather_39":{
-		"message":"Scattered thunderstorms",
+		"message":"आंधी तूफान",
 		"description":"Scattered Thunderstorms"
 	},
 	"weather_40":{
-		"message":"Scattered showers",
+		"message":"आंधी तूफान",
 		"description":"Scattered Showers"
 	},
 	"weather_41":{
-		"message":"Heavy snow",
+		"message":"भारी बर्फ",
 		"description":"Heavy Snow"
 	},
 	"weather_42":{
-		"message":"Scattered snow showers",
+		"message":"भारी बर्फ",
 		"description":"Scattered snow showers"
 	},
 	"weather_43":{
-		"message":"Heavy snow",
+		"message":"भारी बर्फ",
 		"description":"Heavy Snow"
 	},
 	"weather_44":{
-		"message":"Partly cloudy",
+		"message":"धुंधला",
 		"description":"Partly Cloudy"
 	},
 	"weather_45":{
-		"message":"Thundershowers",
+		"message":"आंधी तूफान",
 		"description":"Thundershowers"
 	},
 	"weather_46":{
-		"message":"Snow showers",
+		"message":"बर्फ",
 		"description":"snow showers"
 	},
 	"weather_47":{
-		"message":"Isolated thundershowers",
+		"message":"आंधी तूफान",
 		"description":"Isolated Thundershowers"
 	},
 	"weather_3200":{
-		"message":"Unavailable",
+		"message":"अनुपलब्ध",
 		"description":"Unknown weather"
 	}
 }
