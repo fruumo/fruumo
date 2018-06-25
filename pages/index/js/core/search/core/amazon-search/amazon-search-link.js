@@ -4,11 +4,11 @@ require('./amazon.scss');
 module.exports = {
 	message:"Amazon-search-link",
 	containerClass:"amazon-search-link-container",
-	priority:"106",
+	priority:"1200",
 	icon:true,
 	search: function(query){
 		this.query = query;
-		return new Promise(function(resolve, reject){
+		return new Promise((resolve, reject) => {
 			aIndex = query.indexOf('amazon ');
 			if(aIndex == -1 || aIndex != 0){
 				resolve({
@@ -18,7 +18,7 @@ module.exports = {
 				});
 				return;
 			}
-			chrome.storage.local.get({location:false}, function(storage){
+			chrome.storage.local.get({location:false}, (storage) => {
 				if(storage.location != false && storage.location.countryCode.indexOf("US")== -1 && storage.location.countryCode.indexOf("CA") == -1){
 					resolve({
 						query:this.query,
@@ -50,9 +50,9 @@ module.exports = {
 					div:this.createElement(apiDomain, q)
 				});
 
-			}.bind(this));
+			});
 
-		}.bind(this));
+		});
 	},
 	createElement: function(api, q){
 		var d = document.createElement('div');

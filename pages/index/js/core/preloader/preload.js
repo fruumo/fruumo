@@ -16,13 +16,13 @@ module.exports = {
 			document.getElementsByClassName('preloads')[0].appendChild(p);
 		}
  		chrome.topSites.getAsync()
-		.then(function(topsites){
+		.then((topsites) => {
 			for(var i in topsites){
 				if(i>10){
 					return;
 				}
 				fruumo.preloader.startPreloadUrl(topsites[i].url);
 			}
-		}.bind(this));
+		});
 	}
 };

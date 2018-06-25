@@ -187,7 +187,8 @@ module.exports = {
 								if(children[i].nodeType != 1){
 									continue;
 								}
-								var otherPriority = children[i].getAttribute('data-priority');
+								var otherPriority = parseInt(children[i].getAttribute('data-priority'));
+								console.log(otherPriority, myPriority, lowerPriority);
 								if(otherPriority){
 									if(otherPriority > myPriority){
 										continue;

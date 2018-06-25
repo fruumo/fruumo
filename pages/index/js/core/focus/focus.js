@@ -4,8 +4,8 @@ module.exports = {
 	name:'focus-mode',
 	DOM:['.topsites-container','.search-container', '.time-container','.ticker-container','.container'],
 	preload: function(){
-		return new Promise(function(resolve, reject){
-			chrome.storage.sync.get("settingFocus", function(storage){
+		return new Promise((resolve, reject) => {
+			chrome.storage.sync.get("settingFocus",	(storage) => {
 
 				if(storage.settingFocus){
 					this.DOM[3][0].classList.add("focus");
@@ -15,7 +15,7 @@ module.exports = {
 				}
 
 				//dynamic settings
-				chrome.storage.onChanged.addListener(function(changes, area){
+				chrome.storage.onChanged.addListener((changes, area) => {
 					if(area != "sync")
 						return;
 					if(!changes.settingFocus)
@@ -24,24 +24,24 @@ module.exports = {
 						return;
 					if(changes.settingFocus.newValue){
 						this.DOM[4][0].style.opacity = "0";
-						setTimeout(function(){
+						setTimeout(() => {
 							this.DOM[3][0].classList.add("focus");
 							this.DOM[2][0].classList.add("focus");
 							this.DOM[1][0].classList.add("focus");
 							this.DOM[0][0].classList.add("focus");
 							this.DOM[4][0].style.opacity = "1";
-						}.bind(this),300);
+						},300);
 					} else {
 						this.DOM[4][0].style.opacity = "0";
-						setTimeout(function(){
+						setTimeout(() => {
 							this.DOM[3][0].classList.remove("focus");
 							this.DOM[2][0].classList.remove("focus");
 							this.DOM[1][0].classList.remove("focus");
 							this.DOM[0][0].classList.remove("focus");
 							this.DOM[4][0].style.opacity = "1";
-						}.bind(this),300);
+						},300);
 					}
-				}.bind(this));
+				});
 
 				mousetrap.bind('alt+f', function(e){
 					chrome.storage.sync.get("settingFocus", function(storage){
@@ -55,7 +55,7 @@ module.exports = {
 
 
 				resolve(true);
-			}.bind(this));
-		}.bind(this));
+			});
+		});
 	},
 };

@@ -4,7 +4,7 @@ require('./amazon.scss');
 module.exports = {
 	message:"Amazon Search",
 	containerClass:"amazon-display-container",
-	priority:"105",
+	priority:"1201",
 	icon:true,
 	timeout:true,
 	timeoutTime:150,

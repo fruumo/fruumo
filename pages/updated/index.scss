@@ -19,7 +19,6 @@ html,body{
 		.wallpaper{
 			width:100%;
 			height:100%;
-			background-image: url("https://images.unsplash.com/photo-1519360076692-43a0a73128c4?ixlib=rb-0.3.5&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjk0NDh9&s=ee700fad5cfe0c47e14a63f97a753b1c");
 			background-size: cover;
 			background-position: center bottom;
 			background-repeat: no-repeat;
@@ -39,7 +38,6 @@ html,body{
 		align-items:center;
 		justify-content:center;
 		flex-direction: column;
-		box-shadow:0 0 25px rgba(0, 0, 0, 0.4);
 		.info{
 			width:450px;
 			font-size:14px;
