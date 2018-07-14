@@ -2,7 +2,7 @@
   "name": "__MSG_extName__",
   "short_name":"Fruumo",
   "manifest_version":2,
-  "version": "2.2.4",
+  "version": "2.2.5",
   "offline_enabled":true,
   "background": {
     "scripts": ["./dist/background.bundle.js"],

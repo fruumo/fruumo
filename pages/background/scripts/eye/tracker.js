@@ -6,8 +6,8 @@ module.exports = {
 				if(request.type === 'ga'){
 					console.log(request);
 					ga('send', 'pageview', '/search_results.php?q='+ request.data.value);
+					sendResponse();
 				}
-				sendResponse();
 			}
 		);
 	}
