@@ -70,6 +70,7 @@ module.exports = {
 		chrome.storage.sync.set({disableAnimations:false});
 		chrome.storage.sync.set({timeVisible:true});
 		chrome.storage.sync.set({searchVisible:true});
+		chrome.storage.sync.set({preload:true});
 
 		//localStorage.searchDomain = "http://www.blpsearch.com/search?sid=695&aid=090&src=hmp&p=";
 		localStorage.searchDomain = "https://www.google.com/search?q=";

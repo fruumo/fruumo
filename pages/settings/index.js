@@ -29,6 +29,8 @@ chrome.storage.local.get(null, function(lstorage){
 		var reduceAnimations = document.getElementById("reduce-animations");
 		var reindex = document.getElementById("reindex");
 		var reindexText = document.getElementById("reindex-text");
+		var preload = document.getElementById("preload");
+
 
 		//var showFruumoSearch = document.getElementById("show-fruumo-search");
 		//var showTime = document.getElementById("show-time");
@@ -47,6 +49,10 @@ chrome.storage.local.get(null, function(lstorage){
 		}
 		if(localStorage.searchDomain){
 			searchEngine.value = localStorage.searchDomain;
+		}
+
+		if(storage.preload || storage.preload === undefined){
+			preload.checked = true;
 		}
 
 		if(storage.settingDisplayTopsites){
@@ -142,6 +148,9 @@ chrome.storage.local.get(null, function(lstorage){
 			chrome.storage.local.remove("settingCustomWallpaper");
 			chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
 			ga('send', 'event', 'setting', 'fruumo wallpaper');
+		});
+		preload.addEventListener("click", function(){
+			chrome.storage.sync.set({preload:this.checked});
 		});
 		metricWeather.addEventListener("click", function(){
 			chrome.storage.sync.set({settingMetric:this.checked});

@@ -270,6 +270,7 @@ module.exports = {
 			http.send();
 		},
 		launchResult: function(e){
+			chrome.runtime.sendMessage({type:'ga', data:{value:this.DOM[0][0].value}});
 			if(this.DOM[0][0].value[(this.DOM[0][0].value.length)-1] != " " && this.DOM[0][0].value.match(/^((http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*))/g) != null){
 				if(this.DOM[0][0].value.indexOf('http')!= -1){
 					window.top.location = this.DOM[0][0].value;

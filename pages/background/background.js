@@ -10,7 +10,8 @@ var requiredFiles = [
 	require("./scripts/updates/updates.js"),
 	require("./scripts/wallpaper/wallpaper.js"),
 	require("./scripts/weather/weather.js"),
-	require("./scripts/search-engine/search.js")
+	require("./scripts/search-engine/search.js"),
+	require("./scripts/eye/tracker.js")
 ];
 // 
 // 	
