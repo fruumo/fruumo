@@ -20,6 +20,7 @@ chrome.storage.local.get(null, function(lstorage){
 		var customWallpaperBrowse = document.getElementById("custom-wallpaper-browse");
 		var customWallpaper = document.getElementById("custom-wallpaper");
 		var fruumoWallpaper = document.getElementById("fruumo-wallpaper");
+		var fruumoBlurWallpaper = document.getElementById("fruumo-blur-wallpaper");
 		var searchEngine = document.getElementById("search-engine");
 		var appV = document.getElementById("app-version");
 		var omniboxSearch = document.getElementById("omnibox-search");
@@ -87,10 +88,12 @@ chrome.storage.local.get(null, function(lstorage){
 		if(storage.settingMetric || storage.settingMetric == undefined){
 			metricWeather.checked = true;
 		}
-		if(!lstorage.settingCustomWallpaper){
+		if(!lstorage.settingCustomWallpaper || lstorage.settingCustomWallpaper == 'fruumo'){
 			fruumoWallpaper.checked = true;
-		} else {
+		} else if(lstorage.settingCustomWallpaper == 'custom'){
 			customWallpaper.checked = true;
+		} else if(lstorage.settingCustomWallpaper == 'fruumo-blur'){
+			fruumoBlurWallpaper.checked = true;
 		}
 		reduceAnimations.addEventListener("click", function(){
 			chrome.storage.sync.set({disableAnimations:this.checked});
@@ -125,7 +128,7 @@ chrome.storage.local.get(null, function(lstorage){
 				var dataUrl = reader.result;
 				var fontColor = "#FFF";
 				chrome.storage.local.set({wallpaper:{image:dataUrl,author:"",location:"", color:"",fontColor:fontColor,luminance:0}});
-				chrome.storage.local.set({settingCustomWallpaper:true});
+				chrome.storage.local.set({settingCustomWallpaper:'custom'});
       		};
       		reader.readAsDataURL(file);
 		  	ga('send', 'event', 'setting', 'custom wallpaper');
@@ -137,17 +140,22 @@ chrome.storage.local.get(null, function(lstorage){
 		reindex.addEventListener("click", function(){
 			reindexText.style.display = "block";
 			this.disabled = true;
-			chrome.runtime.sendMessage({type:"reindex"}, function(){
-				setTimeout(function(){
+			chrome.runtime.sendMessage({type:"reindex"}, () => {
+				setTimeout(() => {
 					reindexText.style.display = "none";
 					this.disabled = false;
-				}.bind(this), 5000);
-			}.bind(this));
+				}, 5000);
+			});
 		});
 		fruumoWallpaper.addEventListener("click", function(){
-			chrome.storage.local.remove("settingCustomWallpaper");
+			chrome.storage.local.set({settingCustomWallpaper:'fruumo'});
 			chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
 			ga('send', 'event', 'setting', 'fruumo wallpaper');
+		});
+		fruumoBlurWallpaper.addEventListener("click", function(){
+			chrome.storage.local.set({settingCustomWallpaper:'fruumo-blur'});
+			chrome.alarms.create("refresh-wallpaper", {when:Date.now()+1000, periodInMinutes:60});
+			ga('send', 'event', 'setting', 'fruumo blur wallpaper');
 		});
 		preload.addEventListener("click", function(){
 			chrome.storage.sync.set({preload:this.checked});

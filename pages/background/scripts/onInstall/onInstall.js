@@ -79,9 +79,9 @@ module.exports = {
 		chrome.storage.sync.set({bannedTopsites:[]});
 		chrome.storage.sync.set({settingAutohideStatusbar:false});
 
+		chrome.storage.local.set({"settingCustomWallpaper":"fruumo"});
 		chrome.storage.local.remove("screenshots");
 		chrome.storage.local.remove("customWeather");
-		chrome.storage.local.remove("settingCustomWallpaper");
 		chrome.storage.local.remove("searchDb");
 
 		localStorage.intro = "false";

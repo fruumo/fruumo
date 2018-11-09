@@ -21,7 +21,7 @@ module.exports = {
 	},
 	refreshWallpaper: function(){
 		chrome.storage.local.get({settingCustomWallpaper:false}, function(storage){
-			if(storage.settingCustomWallpaper)
+			if(storage.settingCustomWallpaper == 'custom' || storage.settingCustomWallpaper === true)
 				return;
 			console.log('refreshing wallpaper...');
 			var max = 0;

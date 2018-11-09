@@ -15,7 +15,7 @@ module.exports = {
 		//document.addEventListener('mousemove', this.activeWallpaper.bind(this));
 	},
 	setWallpaper: function(){
-		chrome.storage.local.get({"wallpaper":{}, "wallpaperTimestamp":0},function(storage){
+		chrome.storage.local.get({"wallpaper":{}, "wallpaperTimestamp":0, "settingCustomWallpaper":'fruumo'},function(storage){
 			//document.body.style.color = storage.wallpaper.fontColor;
 			this.DOM[0][0].style.opacity = "0";
 			var timeout = 0;
@@ -25,7 +25,7 @@ module.exports = {
 			setTimeout(function(){
 				this.DOM[0][0].style.backgroundImage = "url('"+storage.wallpaper.image+"')";
 				this.DOM[0][0].style.opacity = "1";
-				this.DOM[0][0].style.filter = "blur(0px)";
+				this.DOM[0][0].style.filter = storage.settingCustomWallpaper == 'fruumo-blur'? "blur(80px)" : "blur(0px)";
 			}.bind(this), timeout);
 			
 			if(storage.wallpaper.location){
