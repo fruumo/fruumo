@@ -10,6 +10,7 @@ var zip = require('gulp-zip');
 var exec = require('child_process').exec;
 var fs = require('fs');
 var rename = require("gulp-rename");
+var version = require("./manifest.json");
 
 function existsSync(filename) {
   try {
@@ -37,60 +38,57 @@ gulp.task('bump:patch', function(){
   .pipe(gulp.dest('./'));
 });
 
-var version = require("./manifest.json");
-version = version.version;
-if(existsSync('../fruumo3-build/'+version+'.zip')){
-	console.error("\033[1;31mIt seems this version ("+version+") already has a build.\n Please Bump the version, or remove the build zip file from the builds folder.\033[0m");
-	gulp.task('default', [], function(cb) {cb();});
-	return;
-}
-
 gulp.task('clean-scripts', function () {
 	return gulp.src("../fruumo3-build/build", {read: false})
 	.pipe(clean("../fruumo3-build/build",null,{force:true}))
 	.pipe(gulp.dest("../fruumo3-build/build"));
 });
 
-gulp.task('webpack', ['clean-scripts'] , function (cb) {
-	exec('webpack', function (err, stdout, stderr) {
-    console.log(stderr);
-    cb(err);
-  });
-});
-
-gulp.task('movefiles', ['clean-scripts', 'webpack'], function(cb){
+gulp.task('movefiles', gulp.series('clean-scripts', function(cb){
 	return gulp.src(['manifest.json', '_locales/**', 'pages/index/*.html','pages/index/css/**', 'pages/index/js/libs/*', 'pages/settings/index.html', 'pages/onInstall/index.html', 'pages/updated/index.html','pages/background/index.html'] ,{base: './'})
 	.pipe(gulpCopy('../fruumo3-build/build', {}));
-});
+}));
 
-gulp.task('minifyImages', ['clean-scripts', 'webpack'], function(cb){
+gulp.task('minifyImages', gulp.series('movefiles', function(cb){
 	return 	gulp.src(['images/*'], {base:'./'})
 	.pipe(imagemin())
 	.pipe(gulp.dest('../fruumo3-build/build'));
-});
+}));
 
-gulp.task('minifyCss', ['clean-scripts', 'webpack'], function(cb){
+gulp.task('minifyCss', gulp.series('minifyImages', function(cb){
 	return gulp.src([ 'dist/*.css'],{base: './'})
 	.pipe(cleanCSS())
 	.pipe(gulp.dest('../fruumo3-build/build'));
-});
+}));
 
-gulp.task('minifyJs', ['clean-scripts', 'webpack'], function(cb){
+gulp.task('minifyJs', gulp.series('minifyCss', function(cb){
 	return gulp.src(['dist/*.js'], {base: './'})
 	.pipe(jsmin())
 	.pipe(gulp.dest('../fruumo3-build/build'));
-});
+}));
 
-gulp.task('build',['movefiles','minifyImages','minifyCss','minifyJs'], function(cb){
+gulp.task('build',gulp.series('minifyJs', function(cb){
 	console.log("Build Completed!");
 	cb();
-});
+}));
 
-gulp.task('compress',['build'], function(cb){
+gulp.task('compress',gulp.series('build', function(cb){
 	return gulp.src('../fruumo3-build/build/**/*')
         .pipe(zip(version+'.chrome.zip'))
         .pipe(gulp.dest('../fruumo3-build/'));
-});
+}));
 
-gulp.task('default', ['build','compress'], function(cb) {cb();});
+gulp.task('default', gulp.series(
+	(cb)=>{ 
+		version = version.version;
+		console.log('checking');
+		if(existsSync('../fruumo3-build/'+version+'.chrome.zip')){
+			console.error("\033[1;31mIt seems this version ("+version+") already has a build.\n Please Bump the version, or remove the build zip file from the builds folder.\033[0m");
+			process.exit();
+			return;
+		}
+		cb();
+},
+'compress', 
+function(cb) {cb();}));
 
