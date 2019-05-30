@@ -1,3 +1,4 @@
+var settingMetric = false;
 module.exports = {
 	name:'weather-manager',
 	onload:function(){
@@ -16,14 +17,18 @@ module.exports = {
 		});
 	},
 	refreshWeather:function(){
-		chrome.storage.local.get({customWeather:null}, function(storage){
-			if(!storage.customWeather){
-				getIP().then(getWeather);
-				return;
-			} else {
-				getWeather(storage.customWeather);
-			}
-		});
+		chrome.storage.sync.get("settingMetric", function(sstorage){
+			chrome.storage.local.get({customWeather:null}, function(storage){
+				console.log(sstorage.settingMetric);
+				settingMetric = sstorage.settingMetric;
+				if(!storage.customWeather){
+					getIP().then(getWeather);
+					return;
+				} else {
+					getWeather(storage.customWeather, sstorage.settingMetric);
+				}
+			});
+		})
 	}
 }
 function getIP(){
@@ -38,13 +43,19 @@ function getWeather(ipInfo){
 	console.log("Getting weather");
 	var lat = ipInfo.lat + "";
 	var long = ipInfo.lon + "";
-	fetch("https://query.yahooapis.com/v1/public/yql?q=select%20item.condition%20from%20weather.forecast%20where%20woeid%20in%20(SELECT%20woeid%20FROM%20geo.places%20WHERE%20text%3D%22("+lat+"%2C"+long+")%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys")
+	var lang = chrome.i18n.getUILanguage();
+	lang = lang.indexOf('ru') != -1 ? 'ru' : '';
+	console.log(settingMetric);
+	if(lang == ''){
+		lang = 'en';
+	}
+	fetch(`https://api.darksky.net/forecast/1526708f30b68c33693ec16507bae665/${lat},${long}?lang=${lang}&units=${settingMetric?"ca":"us"}`)
 	.then(function(response){
 		if(response.ok)
 			return response.json();	
 	})
 	.then(function(weather){
-		weather.query.results.channel.item.condition.localizedText = chrome.i18n.getMessage(`weather_${weather.query.results.channel.item.condition.code}`);
-		chrome.storage.local.set({weather:weather.query,location:ipInfo});
+		console.log(weather);
+		chrome.storage.local.set({weather:weather.currently,location:ipInfo});
 	});
 }

@@ -23,6 +23,7 @@ module.exports = {
 			chrome.storage.sync.get("settingMetric", function(sstorage){
 				chrome.storage.local.get("location", function(storage){
 				if(!storage.location){
+					console.log('storage location is blank!');
 					return Promise.resolve({
 						query:$this.query,
 						containerClass:$this.containerClass,
@@ -37,7 +38,6 @@ module.exports = {
 				if(lang == ''){
 					lang = 'en';
 				}
-
 				fetch("https://api.darksky.net/forecast/1526708f30b68c33693ec16507bae665/"+storage.location.lat+","+storage.location.lon+"?lang="+lang+"&units="+((sstorage.settingMetric)?"ca":"us"))
 				.then(function(response){
 					if(response.ok)

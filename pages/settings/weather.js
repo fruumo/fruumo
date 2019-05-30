@@ -7,6 +7,8 @@ function updateWeatherLocation(){
 	});
 }
 
+const API_KEY = '80e1db5e1b974262aa3db2e08529a0bf';
+
 updateWeatherLocation();
 chrome.storage.onChanged.addListener(function(changes, area){
 	if(area != "local"){
@@ -40,27 +42,26 @@ document.getElementById('save-location').addEventListener('click', function(e){
 	document.getElementById('weather-error').style.display = "none";
 	this.disabled = true;
 	this.value = "Saving...";
-	fetch("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20geo.places%20where%20text%3D%22"+encodeURIComponent(locationSearch.value)+"%22&format=json")
+	fetch(`https://api.opencagedata.com/geocode/v1/json?q=${encodeURIComponent(locationSearch.value)}&key=${API_KEY}`)
 	.then(function(response){
 		if(response.ok)
 			return response.json();	
 	})
 	.then(function(response){
-		if(response.query.count == 0){
+		if(response.results.length == 0){
 			document.getElementById('weather-error').innerText = "No location found.";
 			document.getElementById('weather-error').style.display = "block";
 			this.disabled = false;
 			this.value = "Save";
 			return;
 		}
-		var result = Array.isArray(response.query.results.place)?response.query.results.place[0]:response.query.results.place;
+		var result = response.results[0];
 		chrome.storage.local.set({
 			customWeather:{
-				woeid:result.woeid,
-				city:result.name,
-				countryCode:result.country.code,
-				lat:result.centroid.latitude,
-				lon:result.centroid.longitude
+				city:result.formatted,
+				countryCode:result.components.country_code,
+				lat:result.geometry.lat,
+				lon:result.geometry.lng
 			}
 		}, function(){
 			chrome.runtime.sendMessage({type:'refresh-weather'});
