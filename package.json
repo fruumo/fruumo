@@ -40,7 +40,7 @@
     "fuse.js": "^3.2.0",
     "fuzzyjs": "^2.1.2",
     "loader-runner": "^2.3.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "lodash.groupby": "^4.6.0",
     "moment": "^2.22.1",
     "mousetrap": "^1.6.1"
